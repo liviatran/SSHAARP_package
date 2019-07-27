@@ -208,7 +208,7 @@ Two default parameters are set for PALM:
 ```
 
 ```{r, out.width='100%', fig.align='center', fig.cap='...'}
-knitr::include_graphics("../images/basemap.jpg")
+knitr::include_graphics("basemap_color.jpg")
 ```
   
 ```
@@ -217,7 +217,7 @@ knitr::include_graphics("../images/basemap.jpg")
 ```
 
 ```{r, out.width='100%', fig.align='center', fig.cap='...'}
-knitr::include_graphics("../images/basemap_BW.jpg")
+knitr::include_graphics("basemap_bw.jpg")
 ```
   
 
