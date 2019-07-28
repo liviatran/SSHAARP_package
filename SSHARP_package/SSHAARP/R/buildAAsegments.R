@@ -11,13 +11,13 @@
 #'@export
 #'
 #'@examples
-#'#AA_segments_maker with one locus as input
-#'AA_segments_maker("C")
+#'#buildAAsegments with one locus as input
+#'buildAAsegments("C")
 #'
-#'#AA_segments_maker with multiple loci as input
-#'AA_segments_maker(c("A", "B", "C"))
+#'#buildAAsegments with multiple loci as input
+#'buildAAsegments(c("A", "B", "C"))
 
-AA_segments_maker<-function(loci){
+buildAAsegments<-function(loci){
   #creates empty variables for future for loops
   start<-end<-alignment<-list()
 

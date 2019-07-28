@@ -1,5 +1,5 @@
 Package: SSHAARP
-Title: Searching Shared HLA Amino Acide Residue Prevalence  
+Title: Searching Shared HLA Amino Acid Residue Prevalence  
 Version: 0.0.0.9000
 Authors@R: 
     person("Livia", "Tran",

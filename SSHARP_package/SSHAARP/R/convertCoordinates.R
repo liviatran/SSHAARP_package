@@ -7,7 +7,7 @@
 #'@param heatmapdata Manipulated Solberg dataset produced from dataSubset.
 #'
 #'@return Solberg dataset with appropriate latitude and longitude enumerations
-coordinate_converter<-function(heatmapdata){
+convertCoordinates<-function(heatmapdata){
   #latitude conversions
   if(any((grepl("S", heatmapdata$latit))==TRUE)){
     heatmapdata$latit[which((grepl("S", heatmapdata$latit))==TRUE)]<-as.numeric(paste("-", str_extract(heatmapdata$latit[which((grepl("S", heatmapdata$latit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}
