@@ -6,6 +6,8 @@
 #'
 #'@param heatmapdata Manipulated Solberg dataset produced from dataSubset.
 #'
+#'@export
+#'
 #'@return Solberg dataset with appropriate latitude and longitude enumerations
 convertCoordinates<-function(heatmapdata){
   #latitude conversions

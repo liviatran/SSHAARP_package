@@ -7,8 +7,11 @@
 #'@param color Should the heatmap produced be in color? The default for color is set to true for a color heatmap -- for a map in grayscale, set color==FALSE.
 #'@param filter_migrant Should OTH and migrant populations be filtered out of the dataset? The default for filter_migrant is set to true -- set this parameter equal to FALSE to keep migrant and OTH populations in the dataset.
 #'
-#'@importFrom gmt gmt.system
+#'@importFrom gmt gmt.system r2gmt
 #'@importFrom DescTools RoundTo
+#'@importFrom reshape2 melt
+#'
+#'@export
 #'
 #'@return A .jpg file of the produced heatmap is output to the user's working directory.
 #'
@@ -19,7 +22,7 @@ PALM<-function(gdataset, motif, color=TRUE, filter_migrant=TRUE){
 
   #makes an empty list named unique_AWM, where the name of each element is after a unique AWM,
   #which is acquired by using the motif_finder function
-  unique_AWM<-sapply(unique(motif_finder(motif)$trimmed_allele), function(x) NULL)
+  unique_AWM<-sapply(unique(findMotif(motif)$trimmed_allele), function(x) NULL)
 
   #finds unique_AWMs in Solberg dataset and extracts the allele frequency and locus_allele column
   for(y in 1:length(unique_AWM)){
@@ -59,7 +62,7 @@ PALM<-function(gdataset, motif, color=TRUE, filter_migrant=TRUE){
   tbm_ds<-merge(PAF, solberg_DS[!duplicated(solberg_DS$popname),], by="popname")[,c("popname","contin", "complex", "latit", "longit", "allele_freq")]
 
   #converts coordinates to proper enumerations
-  tbm_ds<-coordinate_converter(tbm_ds)
+  tbm_ds<-convertCoordinates(tbm_ds)
 
   #filters out migrant populations if filter_migrant==TRUE
   if(filter_migrant==TRUE){
@@ -162,4 +165,9 @@ PALM<-function(gdataset, motif, color=TRUE, filter_migrant=TRUE){
   #converts ps map to jpg -- saves into local environment
   #requires Ghostscript in order to execute command
   gmt.system("psconvert basemap.ps -A -Tj -P -Qg4 -E2000")
+
+  #removes gmt.history output file
+  gmt.system("rm 'gmt.history'")
+
+
 }

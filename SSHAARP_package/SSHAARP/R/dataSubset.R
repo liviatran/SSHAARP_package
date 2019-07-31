@@ -5,6 +5,10 @@
 #'@param dataset Solberg dataset. Can be found at http://pypop.org/popdata/ under results.zip.
 #'@param motif An amino acid motif in the following format: Locus*AA_1*AA_2*AA_3
 #'
+#'@importFrom utils read.delim
+#'
+#'@export
+#'
 #'@return The Solberg dataset ordered by population name, and limited to populations that have information on the locus of interest.
 #'
 dataSubset<-function(dataset, motif){

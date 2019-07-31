@@ -7,7 +7,8 @@
 #'@return A dataframe for a locus with individual amino acid position information for all alleles for that locus. If multiple loci are input for the parameter, a list will be returned with corresponding dataframes for each locus. Note -- ANHIG/IMGT-HLA alignment sequence data begins at a negative enumeration for exon 1, coding for the leader peptide, which is eventually cleaved off; positive enumeration is reserved for exons that encode alpha and beta domains. In addition, the alignment enumeration skips counting inDels. An actual sequence enumeration was devised to combat potential confusion from starting at a negative enumeration, and enumerating positions with inDels. Column headers for amino acid position enumeration are based off the actual sequence -- the first row of the dataframe represents corresponding amino acid positions for the alignment sequence positions.
 #'
 #'@importFrom stringr str_squish
-#'
+#'@importFrom utils head tail capture.output
+#'@importFrom BIGDAWG GetField
 #'@export
 #'
 #'@examples
@@ -18,6 +19,7 @@
 #'buildAAsegments(c("A", "B", "C"))
 
 buildAAsegments<-function(loci){
+
   #creates empty variables for future for loops
   start<-end<-alignment<-list()
 
@@ -194,3 +196,5 @@ buildAAsegments<-function(loci){
   }
   return(AA_segments)
 }
+
+

@@ -24,4 +24,5 @@ countSpaces <- function(x){
       counter <- 1
     }
   }
+  coll
 }

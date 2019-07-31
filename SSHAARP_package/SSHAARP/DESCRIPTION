@@ -9,7 +9,7 @@ Description: SSHAARP processes amino acid alignments produced by the IPD-IMGT/HL
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools
+Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools, reshape2
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 SystemRequirements: gmt

@@ -7,17 +7,19 @@
 #'@return a dataframe with alleles that have the user input amino acid motif
 #'
 #'@importFrom gtools mixedsort
+#'@importFrom BIGDAWG GetField
+#'@export
 #'
 #'@examples
 #'
 #'#example with actual motif
-#' motif_finder("DRB1*26F~28E~30Y")
-#' motif_finder("DRB1*26F~28E")
+#' findMotif("DRB1*26F~28E~30Y")
+#' findMotif("DRB1*26F~28E")
 #'
 #'#example with non-existent motif
-#'motif_finder("DRB1*26F~28E~30Z")
+#'findMotif("DRB1*26F~28E~30Z")
 
-motif_finder<-function(motif){
+findMotif<-function(motif){
 
   alignment_corr<-NULL
 
@@ -28,7 +30,7 @@ motif_finder<-function(motif){
   #environment) then generate AA_segments)
   if(!exists("AA_segments")){
     #obtains AA_segments df
-    AA_segments<-AA_segments_maker(loci)}
+    AA_segments<-buildAAsegments(loci)}
 
   #since "DRB" is used as the search criteria for the alignment (IMGTHLA/ANHIG groups all DRB loci
   #into one alignment, AA_segments consists of all DRB loci, not just DRB1)
@@ -69,3 +71,5 @@ motif_finder<-function(motif){
     return(AA_segments[[loci]])}
 
 }
+
+
