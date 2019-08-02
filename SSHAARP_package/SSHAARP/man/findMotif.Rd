@@ -7,10 +7,10 @@
 findMotif(motif)
 }
 \arguments{
-\item{motif}{an amino acid motif in the following format: Locus*AA_1*AA_2*AA_3}
+\item{motif}{An amino acid motif in the following format: Locus*##$##$##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
 }
 \value{
-a dataframe with alleles that have the user input amino acid motif
+If the motif is found in the AA_segments dataframe, a dataframe with alleles that have the user input amino acid motif is returned. If the motif is not found, a dataframe is returned, where one column has the motif, and the other column contains an error message.
 }
 \description{
 Isolates the individual amino acid position dataframe produced by AA_segments_maker to only alleles with the user-defined motif. If the user-defined motif does not correspond to any alleles, an error message is output.

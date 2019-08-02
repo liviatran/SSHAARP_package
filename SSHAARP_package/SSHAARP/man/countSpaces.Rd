@@ -10,13 +10,13 @@ countSpaces(x)
 \item{x}{A string.}
 }
 \value{
-Number of white spaces between elements of a split string.
+A numeric vector that identifies the number of spaces between each set of non-space characters in the input string.
 }
 \description{
-Provided string is split, and white spaces are counted in between split elements. Written by Josh Bredeweg (reddit user jbraids1421).
+Provided string is split, and white spaces are counted in between split elements.
 }
 \note{
-This function was written found on Reddit and written by Josh Bredeweg, user jbraids1421.
+This function was obtained from Reddit and written by Josh Bredeweg, user jbraids1421.
 }
 \examples{
 countSpaces("The quick  brown   fox jumped    over  the lazy   dog.")
