@@ -1,14 +1,17 @@
 #'Converts longitude and latitude with cardinal directions to proper coordinates
 #'
-#'The Solberg dataset contains some coordinates associated with a cardinal direction, such as 50S. This function converts those coordinates to their enumerations -- in this case, 50S is -50. North (above equator) and East (east of prime meridian) positions are positive, and South (below equator) and West (west of prime meridian) are negative.
+#'The Solberg dataset contains some coordinates associated with a cardinal direction, such as 50S. This function converts those character-format coordinates to the apropriate, purely numeric format -- in this case, 50S is -50. North (above equator) and East (east of prime meridian) positions are positive, and South (below equator) and West (west of prime meridian) are negative.
 #'
 #'@importFrom stringr str_extract
 #'
 #'@param heatmapdata Manipulated Solberg dataset produced from dataSubset.
 #'
+#'@note For internal SSHAARP use only.
+#'
 #'@export
 #'
-#'@return Solberg dataset with appropriate latitude and longitude enumerations
+#'@return Solberg dataset with appropriate latitude and longitude format.
+
 convertCoordinates<-function(heatmapdata){
   #latitude conversions
   if(any((grepl("S", heatmapdata$latit))==TRUE)){

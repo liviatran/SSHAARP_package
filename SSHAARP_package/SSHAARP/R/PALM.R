@@ -2,10 +2,10 @@
 #'
 #'Produces a heatmap from the manipulated Solberg dataset by using the Generic Mapping Tools (GMT) R Package, which is an interface between R and the GMT Map-Making software. GMT commands are called via a Bash script through using the gmt.system() function in the GMT R package.
 #'
-#'@param gdataset Solberg dataset. Can be found at http://pypop.org/popdata/ under results.zip.
-#'@param motif An amino acid motif in the following format: Locus*AA_1*AA_2*AA_3.
-#'@param color Should the heatmap produced be in color? The default for color is set to true for a color heatmap -- for a map in grayscale, set color==FALSE.
-#'@param filter_migrant Should OTH and migrant populations be filtered out of the dataset? The default for filter_migrant is set to true -- set this parameter equal to FALSE to keep migrant and OTH populations in the dataset.
+#'@param dataset The Solberg dataset, a comma-separated value (CSV) file, which is the '1-locus-alleles.dat' file in the results.zip archive at http://pypop.org/popdata/. Columns of the Solberg dataset that are pertinent to this package, along with an explanation of their contents, are as follows: popname - contains the population name, followed by a year, indicating the year of publication of the literature the population information was derived from; contin - contains three letter abbreviations of 10 major world regions. See the vignette for abbreviations. Significantly admixed populations were placed in an OTH group; complex - assigns level of complexity, ranging from 1 (least complex) to 3 (most complex), which estimates the degree of potential admixture in a population sample. Complexities with 'mig' indicate migrant populations; latit - latitude of the continent the population is found in; longit - longitude of the continent the population is found in; locus - HLA locus information of collected data; allele_v3 - HLA allele information of collected data; allele.freq - frequency of the corresponding HLA allele in a continent for a population.
+#'@param motif An amino acid motif in the following format: Locus*##$##$##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
+#'@param color A logical parameter that identifies if the heat maps should be made in color (TRUE) or gray scale (FALSE). The default option is TRUE.
+#'@param filterMigrant A logical parameter on whether OTH (admixed populations) and migrant populations should be filtered out of the dataset. The default option is TRUE.
 #'
 #'@importFrom gmt gmt.system r2gmt
 #'@importFrom DescTools RoundTo
@@ -65,7 +65,7 @@ PALM<-function(gdataset, motif, color=TRUE, filter_migrant=TRUE){
   tbm_ds<-convertCoordinates(tbm_ds)
 
   #filters out migrant populations if filter_migrant==TRUE
-  if(filter_migrant==TRUE){
+  if(filterMigrant==TRUE){
     #filters out admixed, migrant OTH populations
     motif_map_df<-tbm_ds[tbm_ds$contin!="OTH",]
 

@@ -2,12 +2,13 @@
 #'
 #'Isolates the individual amino acid position dataframe produced by AA_segments_maker to only alleles with the user-defined motif. If the user-defined motif does not correspond to any alleles, an error message is output.
 #'
-#'@param motif an amino acid motif in the following format: Locus*AA_1*AA_2*AA_3
+#'@param motif An amino acid motif in the following format: Locus*##$##$##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
-#'@return a dataframe with alleles that have the user input amino acid motif
+#'@return If the motif is found in the AA_segments dataframe, a dataframe with alleles that have the user input amino acid motif is returned. If the motif is not found, a dataframe is returned, where one column has the motif, and the other column contains an error message.
 #'
 #'@importFrom gtools mixedsort
 #'@importFrom BIGDAWG GetField
+#'
 #'@export
 #'
 #'@examples
@@ -63,13 +64,12 @@ findMotif<-function(motif){
 
   #if no motifs are found, a warning message is thrown
   if((nrow(AA_segments[[loci]])==0)){
-    warning("Error - zero alleles match this motif. Please try again.")
+    return(data.frame("Motif"=motif, "Error message"="No alleles match this motif"))
   }
 
   #if motifs are found, AA_segments[[loci[[i]]]] is returned
   if((nrow(AA_segments[[loci]])!=0)){
     return(AA_segments[[loci]])}
-
 }
 
 

@@ -19,7 +19,43 @@ Future plans for SSHAARP include producing heat maps based on allelic frequencie
 
 SSHAARP obtains HLA amino acid alignments from the IPD-IMGT/HLA GitHub repository at: https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments.
 
-The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is the 1-locus-alleles.dat file in the results.zip archive at http://pypop.org/popdata/.
+The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is the 1-locus-alleles.dat file in the results.zip archive at http://pypop.org/popdata/. Columns of the Solberg dataset that are pertinent to this package, along with an explanation of their contents, are as follows: 
+  
+  **popname** - contains the population name, followed by a year, indicating the year of publication of the literature the population information was derived from
+
+  **contin** - contains three letter abbreviations of 10 major world regions:
+  
+        AUS - Australia
+        EUR - Europe
+        NAF - north Africa
+        NAM - North America
+        NEA - northeast Asia
+        OCE - Oceania
+        PNG - Papua New Guinea
+        PNGH - Papua New Guinea Highland
+        PNGL - Papupa New Guinea Lowland
+        SAM - South America
+        SEA - southeast Asia
+        SSA - sub-Saharan Africa
+        SWA - southwest Asia
+        TWN - Taiwan 
+        
+  Significantly admixed populations were placed in an **'OTH'**, or other, group
+    
+    
+  **complex** - assigns level of complexity, ranging from 1 (least complex) to 3 (most complex), which estimates the degree of potential admixture in a population sample. Complexities with 'mig' indicate migrant populations.
+    
+  **latit** - latitude of the continent the population is found in.
+    
+  **longit** - longitude of the continent the population is found in.
+    
+  **locus** - HLA locus information of collected data.
+    
+  **allele_v3** - HLA allele information of collected data.
+    
+  **allele.freq** - frequency of the corresponding HLA allele in a continent for a population.       
+
+***
 
 SSHAARP's functions interact with two external datasets and one R package:
 
@@ -93,14 +129,13 @@ findMotif() splits up the input motif (should be in format Locus*AA_1*AA_2*AA_3,
 256  E  Y  S  T  S  E  C  H  F  F  N  G  T  E  R  V  R  F       .  L  E  R  Y  F
 ```
 
-If a motif is not found, an error message is output:
+If a motif is not found, a dataframe with the motif in one column and an error message in another column is output.
 
 ```
 >findMotif()("DRB1*26F~28E~30Z")
 
-Warning message:
-In findMotif()("DRB1*26F~28E~30Z") :
-  Error - zero alleles match this motif. Please try again.
+             Motif               Error.message
+1 DRB1*26F~28E~30Z No alleles match this motif
 ```
 
 ### dataSubset()
