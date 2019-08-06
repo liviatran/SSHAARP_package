@@ -1,3 +1,8 @@
+SSHAARP 0.1.0.9000 (07/31/2019)
+   * Change to findMotif, where if a motif is not found, a dataframe with the motif and and error message is returned. Changes to documentation in all functions. Changes to vignette to include more information about the Solberg datasets.
+
 SSHAARP 0.0.0.9000 (07/26/2019)
 -----------------------------
    * Created package with functions buildAAsegments, convertCoordinates, countSpaces, dataSubset, findMotif, and PALM
+
+
