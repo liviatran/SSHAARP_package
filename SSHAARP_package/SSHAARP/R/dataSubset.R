@@ -3,7 +3,7 @@
 #'Manipulates the Solberg dataset by adding in a new column containing locus*allele information, reordering the dataset based on population name, and subsetting the data to only the locus of interest.
 #'
 #'@param dataset The Solberg dataset, a comma-separated value (CSV) file, which is the '1-locus-alleles.dat' file in the results.zip archive at http://pypop.org/popdata/. See the vignette for more details on pertinent parts of the Solberg dataset used for this package.
-#'@param motif An amino acid motif in the following format: Locus*##$##$##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
+#'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
 #'@importFrom utils read.delim
 #'

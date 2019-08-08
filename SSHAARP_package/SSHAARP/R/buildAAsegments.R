@@ -180,21 +180,14 @@ buildAAsegments<-function(loci){
     corr_table[[loci[[i]]]][2,][!grepl("InDel", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))==0]
 
     #renames columns in AA_segments
-    colnames(AA_segments[[loci[i]]]) <- c("locus","allele","trimmed_allele","allele_name", 1:ncol(corr_table[[loci[[i]]]]))
+    colnames(AA_segments[[loci[i]]]) <- c("locus","allele","trimmed_allele","allele_name", corr_table[[loci]][2,])
 
     #distributes  reference sequence from row 1
     #into all other rows, if they contain a "-"
     #amino acids with changes will not be impacted
     for(k in 5:ncol(AA_segments[[loci[i]]])) {
       AA_segments[[loci[i]]][,k][which(AA_segments[[loci[i]]][,k]=="-")] <- AA_segments[[loci[i]]][,k][1]}
-
-    ##binds a new row to AA_segments at the top of the dataframe -- fills with NAs
-    AA_segments[[loci[[i]]]]<-rbind(rep(NA, ncol(AA_segments[[loci[[i]]]])), AA_segments[[loci[[i]]]])
-
-    #fills in corresponding alignment sequence in new row
-    AA_segments[[loci[[i]]]][1,5:ncol(AA_segments[[loci[[i]]]])]<-corr_table[[loci[[i]]]][2,]
   }
   return(AA_segments)
 }
-
 

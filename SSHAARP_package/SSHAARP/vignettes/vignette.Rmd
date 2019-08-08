@@ -107,10 +107,10 @@ The first row of buildAAsegments() is a correspondence table of amino acid posit
 ```
 
 ### findMotif()
-findMotif() splits up the input motif (should be in format Locus*AA_1*AA_2*AA_3, where the amino acid positions are in numerical order). If the motif is not in numerical order, such as DRB1*30Y~28E~26F, the function will rearrange the motif such that the 26F is searched for first. The following output is an example of the 1st, 5th, and 9th DRB1 alleles that have the DRB1*26F~28E~30Y motif. Recall the dataframe is formatted with actual sequence enumeration (starting with 1), but the search is done by matching the input motif, which is based off of alignment enumeration, with the correspondence table. Thus, in the output dataframe, alignment position 26 is equivalent to actual position 55, 28 to 58, and 30 to 60.
+findMotif() splits up the input motif (should be in the following format: `Locus*##$~##$~##$`, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids and should be in numerical order). If the motif is not in numerical order, such as `DRB1*30Y~28E~26F`, the function will rearrange the motif such that the 26F is searched for first. The following output is an example of the 1st, 5th, and 9th DRB1 alleles that have the `DRB1*26F~28E~30Y` motif. Recall the dataframe is formatted with actual sequence enumeration (starting with 1), but the search is done by matching the input motif, which is based off of alignment enumeration, with the correspondence table. Thus, in the output dataframe, alignment position 26 is equivalent to actual position 55, 28 to 58, and 30 to 60.
 
 ```
->findMotif()("DRB1*26F~28E~30Y")[c(1,5,9,10), 1:65]
+>findMotif("DRB1*26F~28E~30Y")[c(1,5,9,10), 1:65]
 
     locus   allele trimmed_allele   allele_name   1   2   3   4   5   6   7   8   9  10  11
 1    <NA>     <NA>           <NA>          <NA> -29 -28 -27 -26 -25 -24 -23 -22 -21 -20 -19

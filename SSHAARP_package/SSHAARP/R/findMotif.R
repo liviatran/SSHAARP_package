@@ -2,7 +2,7 @@
 #'
 #'Isolates the individual amino acid position dataframe produced by AA_segments_maker to only alleles with the user-defined motif. If the user-defined motif does not correspond to any alleles, an error message is output.
 #'
-#'@param motif An amino acid motif in the following format: Locus*##$##$##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
+#'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
 #'@return If the motif is found in the AA_segments dataframe, a dataframe with alleles that have the user input amino acid motif is returned. If the motif is not found, a dataframe is returned, where one column has the motif, and the other column contains an error message.
 #'
@@ -22,7 +22,10 @@
 
 findMotif<-function(motif){
 
-  alignment_corr<-NULL
+  #if conditions to catch if a motif is formatted incorrectly
+  if((length(strsplit(motif, "*", fixed=T)[[1]]) > 2) | (length(strsplit(motif, "*", fixed=T)[[1]])==1)){
+    return("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue.")
+  }
 
   #extract loci information
   loci<-strsplit(motif, "\\*")[[1]][1]
@@ -45,22 +48,14 @@ findMotif<-function(motif){
   #if they are not
   motif<-paste(loci, sep="*",paste(mixedsort(strsplit(strsplit(motif, "*", fixed=T)[[1]][[2]], "~")[[1]]), collapse="~"))
 
-  #sets the alignmnet coordinates in the first row of AA_segments to another variable
-  alignment_corr[[loci]]<-AA_segments[[loci]][1,]
 
   #for loop for searching amino acid motifs
   #three total loops are run, where subsequent position*motifs are evaluated against which alleles are present
   #after the previous motif subset
   #each AA_segments is bound with the alignment coordinates except for the last AA_segments
   for(t in 1:length(strsplit(strsplit(motif, "*", fixed=T)[[1]][[2]], "~")[[1]])){
-    AA_segments[[loci]]<-AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "[0-9]+")[[t]]==AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])])==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),]
-
-
-    if(t!=3){
-      AA_segments[[loci]]<-rbind(alignment_corr[[loci]], AA_segments[[loci]])}
+    AA_segments[[loci]]<-AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "[0-9]+")[[t]]==names(AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])]))==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),]
   }
-
-
 
   #if no motifs are found, a warning message is thrown
   if((nrow(AA_segments[[loci]])==0)){
@@ -71,5 +66,4 @@ findMotif<-function(motif){
   if((nrow(AA_segments[[loci]])!=0)){
     return(AA_segments[[loci]])}
 }
-
 

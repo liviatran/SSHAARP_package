@@ -1,4 +1,9 @@
+SSHAARP 0.2.0.9000 (08/07/2019)
+-----------------------------
+   * Removed correspondence row for actual coordinates from buildAAsegments; column names are now alignment sequence coordinates. Adjusted motifFinder to match column names in new AA_segments table; added checks for possible user error in inputting motif.
+
 SSHAARP 0.1.0.9000 (07/31/2019)
+-----------------------------
    * Change to findMotif, where if a motif is not found, a dataframe with the motif and and error message is returned. Changes to documentation in all functions. Changes to vignette to include more information about the Solberg datasets.
 
 SSHAARP 0.0.0.9000 (07/26/2019)
