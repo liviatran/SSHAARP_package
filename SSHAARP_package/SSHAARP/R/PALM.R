@@ -166,8 +166,8 @@ PALM<-function(gdataset, motif, color=TRUE, filterMigrant=TRUE){
   #requires Ghostscript in order to execute command
   gmt.system("psconvert basemap.ps -A -Tj -P -Qg4 -E2000")
 
-  #removes gmt.history output file
-  gmt.system("rm 'gmt.history'")
+  #removes gmt.history output file and other irrelevant files
+  gmt.system("rm 'gmt.history' 'upperbound' 'decile.cpt' 'deciles' 'motif' 'motif.block' 'motif.grd' 'motif.xyz' 'basemap.ps' 'max_cpt'")
 
 
 }

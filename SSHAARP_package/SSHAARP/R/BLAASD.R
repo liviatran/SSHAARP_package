@@ -1,4 +1,4 @@
-#'Individual Amino Acid Position Dataframe for HLA loci
+#'BLAASD - Build Loci Amino Acid Specific Dataframe
 #'
 #'Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github Repository to produce a dataframe, which contains individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name.
 #'
@@ -12,13 +12,13 @@
 #'@export
 #'
 #'@examples
-#'#buildAAsegments with one locus as input
-#'buildAAsegments("C")
+#'#BLAASD with one locus as input
+#'BLAASD("C")
 #'
-#'#buildAAsegments with multiple loci as input
-#'buildAAsegments(c("A", "B", "C"))
+#'#BLAASD with multiple loci as input
+#'BLAASD(c("A", "B", "C"))
 
-buildAAsegments<-function(loci){
+BLAASD<-function(loci){
 
   #creates empty variables for future for loops
   start<-end<-alignment<-list()
