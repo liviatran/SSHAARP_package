@@ -34,7 +34,7 @@ findMotif<-function(motif){
   #environment) then generate AA_segments)
   if(!exists("AA_segments")){
     #obtains AA_segments df
-    AA_segments<-buildAAsegments(loci)}
+    AA_segments<-BLAASD(loci)}
 
   #since "DRB" is used as the search criteria for the alignment (IMGTHLA/ANHIG groups all DRB loci
   #into one alignment, AA_segments consists of all DRB loci, not just DRB1)
