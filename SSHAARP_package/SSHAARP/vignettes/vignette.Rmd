@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livtran@chori.org"
-date: "August 13, 2019"
+date: "September 3, 2019"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -32,8 +32,6 @@ The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is th
         NEA - northeast Asia
         OCE - Oceania
         PNG - Papua New Guinea
-        PNGH - Papua New Guinea Highland
-        PNGL - Papupa New Guinea Lowland
         SAM - South America
         SEA - southeast Asia
         SSA - sub-Saharan Africa
@@ -43,17 +41,17 @@ The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is th
   Significantly admixed populations were placed in an **'OTH'**, or other, group
     
     
-  **complex** - assigns level of complexity, ranging from 1 (least complex) to 3 (most complex), which estimates the degree of potential admixture in a population sample. Complexities with 'mig' indicate migrant populations.
+  **complex** - assigns level of complexity, ranging from 1 (least complex) to 3 (most complex), which estimates the degree of potential admixture in a population sample. Complexity values suffixed with 'mig' indicate migrant populations.
     
-  **latit** - latitude of the continent the population is found in.
+  **latit** - latitude coordinates of the population.
     
-  **longit** - longitude of the continent the population is found in.
+  **longit** - longitude coordinates of the population.
     
   **locus** - HLA locus information of collected data.
     
-  **allele_v3** - HLA allele information of collected data.
+  **allele_v3** - IPD-IMGT/HLA Database version 3.*.* allele names.
     
-  **allele.freq** - frequency of the corresponding HLA allele in a continent for a population.       
+  **allele.freq** - frequency of the corresponding HLA allele for a population.       
 
 ***
 
@@ -63,31 +61,31 @@ SSHAARP's functions interact with two external datasets and one R package:
     
     **countSpaces()** counts the number of whitespaces in the ANHIG alignment files to discern where the alignment start is.
     
-    **buildAAsegments()** extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github repository to produce a dataframe of amino acid sequence data for each individual peptide position for all alleles.
+    **BLAASD()** extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github repository to produce a dataframe of amino acid sequence data for each individual peptide position for all alleles.
     
-      **findMotif** isolates the individual amino acid position dataframe produced by buildAAsegments() to only alleles with the user-defined motif. 
+      **findMotif** isolates the individual amino acid position dataframe produced by BLAASD() to only alleles with the user-defined motif. 
       
 2. Solberg Dataset:
 
       **convertCoordinates()** converts coordinates in the Solberg dataset with cardinal directions to their appropriate enumerations (i.e. 50S is converted to -50)
   
-      **dataSubset()()** manipulates the Solberg dataset by adding in a new column containing locus*allele information, reordering the dataset based on population name, and subsetting the data to only the locus of interest.
+      **dataSubset()** manipulates the Solberg dataset by adding in a new column containing locus*allele information, reordering the dataset based on population name, and subsetting the data to only the locus of interest.
   
 3. Generic Mapping Tools (GMT)
 
-      **PALM()()** applies the Generic Mapping Tools (gmt) R package to the modified Solberg data to produce heatmaps. The gmt R package is an interface between R and the GMT Map-Making software, and is required for the PALM()() function. GMT commands are called via a Bash script through using the gmt.system() function in the GMT R package. Both the gmt R package **AND** GMT software must be installed to run SSHAARP, which is available here: https://www.soest.hawaii.edu/gmt/.
+      **PALM()** applies the Generic Mapping Tools (gmt) R package to the modified Solberg data to produce heatmaps. The gmt R package is an interface between R and the GMT Map-Making software, and is required for the PALM()() function. GMT commands are called via a Bash script through using the gmt.system() function in the GMT R package. Both the gmt R package **AND** GMT software must be installed to run SSHAARP, which is available here: https://www.soest.hawaii.edu/gmt/.
   
 ---
 
 ## Functions
 
-### buildAAsegments()
-buildAAsegments() extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github Repository to produce a dataframe, which contains individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name.
+### BLAASD()
+BLAASD() extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github Repository to produce a dataframe, which contains individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name.
 
-Example output of buildAAsegments() for HLA-A, where the selected row outputs are 2, 549, and 800 to illustrate different HLA-A alleles, and selected columns are the first 20 columns of the dataframe, where the first 4 columns consist of the locus, allele, trimmed_allele of 2 fields, and the full allele name. The rest of the columns consist of corresponding amino acids for each amino acid position for a given allele. 
+Example output of BLAASD() for HLA-A, where the selected row outputs are 2, 549, and 800 to illustrate different HLA-A alleles, and selected columns are the first 20 columns of the dataframe, where the first 4 columns consist of the locus, allele, trimmed_allele of 2 fields, and the full allele name. The rest of the columns consist of corresponding amino acids for each amino acid position for a given allele. 
 
 ```
->buildAAsegments()("A")[[1]][c(2,8),1:20]
+>BLAASD()("A")[[1]][c(2,8),1:20]
     locus      allele trimmed_allele   allele_name 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
 2       A 01:01:01:01        A*01:01 A*01:01:01:01 M A V M A P R T L  L  L  L  L  S  G  A
 549     A    02:01:30        A*02:01    A*02:01:30 M A V M A P R T L  V  L  L  L  S  G  A
@@ -95,10 +93,10 @@ Example output of buildAAsegments() for HLA-A, where the selected row outputs ar
 ```
 
 
-The first row of buildAAsegments() is a correspondence table of amino acid position enumerations. Alignments begin with a negative enumeration for the the amino acid positions within the first exon, which encodes the leader peptide, since the leader peptide is eventually cleaved off. The rest of the amino acid positions associated with exons other than exon 1 have positive enumerations. In addition, the alignment counts do not give amino acid positions with inDels a count. The correspondence table was created to begin enumeration at position 1, since it is more standard, and to account for the skipped over positions with inDels. Below is an example of what the correspondence table looks like -- the alignment sequence for the first amino acid postion, -24, corresponds to a more standard beginning enumeration of 1.
+The first row of BLAASD() is a correspondence table of amino acid position enumerations. Alignments begin with a negative enumeration for the the amino acid positions within the first exon, which encodes the leader peptide, since the leader peptide is eventually cleaved off. The rest of the amino acid positions associated with exons other than exon 1 have positive enumerations. In addition, the alignment counts do not give amino acid positions with inDels a count. The correspondence table was created to begin enumeration at position 1, since it is more standard, and to account for the skipped over positions with inDels. Below is an example of what the correspondence table looks like -- the alignment sequence for the first amino acid postion, -24, corresponds to a more standard beginning enumeration of 1.
 
 ```
->buildAAsegments()("A")[[1]][1,1:20]
+>BLAASD()("A")[[1]][1,1:20]
   locus allele trimmed_allele allele_name   1   2   3   4   5   6   7   8   9  10  11  12
 1  <NA>   <NA>           <NA>        <NA> -24 -23 -22 -21 -20 -19 -18 -17 -16 -15 -14 -13
    13  14  15 16
@@ -161,7 +159,7 @@ Partial depiction of Solberg Dataset before dataSubset() - note population names
 ```
 
 ```
-Partial depiction of Solberg Dataset after dataSubset() - note population names are now in lexicographic order, the only locus of note in the dataset is the locus provided in the motif (i.e. DRB1), and there is a new column, locus_allele, for comparison to the dataframe produced by buildAAsegments().
+Partial depiction of Solberg Dataset after dataSubset() - note population names are now in lexicographic order, the only locus of note in the dataset is the locus provided in the motif (i.e. DRB1), and there is a new column, locus_allele, for comparison to the dataframe produced by BLAASD().
 
 >dataSubset()(dataset, "DRB1*26F~28E~30Y")[c(1,2,300,600, 1000),]
 

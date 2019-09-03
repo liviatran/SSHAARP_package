@@ -1,3 +1,9 @@
+SSHAARP 0.2.3.9000 (09/03/2019)
+-----------------------------
+  * Expanded BLAASD() capabilities to support HLA-DQA1 and HLA-DPB1.
+  * Edits to findMotif() and PALM() documentation.
+  * Additional checks added for user error in inputting motif for findMotif().
+
 SSHAARP 0.2.1.9000 (08/13/2019)
 -----------------------------
   * Changed buildAAsegments() to BLAASD() [i.e. Building Loci Amino Acid Specific Dataframes]

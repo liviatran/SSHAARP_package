@@ -4,7 +4,7 @@
 #'
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
-#'@return If the motif is found in the AA_segments dataframe, a dataframe with alleles that have the user input amino acid motif is returned. If the motif is not found, a dataframe is returned, where one column has the motif, and the other column contains an error message.
+#'@return A dataframe containing a subset of the amino-acid alignment produced from BLAASD(), with only alleles that contain the user-defined motif. If the motif is not find, a dataframe is returned, where one column has the motif, and the other column contains an error message.
 #'
 #'@importFrom gtools mixedsort
 #'@importFrom BIGDAWG GetField
@@ -19,13 +19,17 @@
 #'
 #'#example with non-existent motif
 #'findMotif("DRB1*26F~28E~30Z")
+#'
+#'#extracting names of alleles with user-defined motif
+#'findMotif(“DRB1*26F~28E~30Y”)[,4]
 
 findMotif<-function(motif){
-
   #if conditions to catch if a motif is formatted incorrectly
-  if((length(strsplit(motif, "*", fixed=T)[[1]]) > 2) | (length(strsplit(motif, "*", fixed=T)[[1]])==1)){
+  if((length(strsplit(motif, "*", fixed=T)[[1]]) > 2) | (length(strsplit(motif, "*", fixed=T)[[1]])==1) | (grepl("-?[0-9]+",strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "*")[[1]][1])==TRUE) | (grepl("-" ,strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "*")[[1]][1])==TRUE)){
     return("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue.")
   }
+
+
 
   #extract loci information
   loci<-strsplit(motif, "\\*")[[1]][1]
@@ -54,10 +58,10 @@ findMotif<-function(motif){
   #after the previous motif subset
   #each AA_segments is bound with the alignment coordinates except for the last AA_segments
   for(t in 1:length(strsplit(strsplit(motif, "*", fixed=T)[[1]][[2]], "~")[[1]])){
-    AA_segments[[loci]]<-AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "[0-9]+")[[t]]==names(AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])]))==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),]
+    AA_segments[[loci]]<-AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "-?[0-9]+")[[t]]==names(AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])]))==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),]
+
   }
 
-  #if no motifs are found, a warning message is thrown
   if((nrow(AA_segments[[loci]])==0)){
     return(data.frame("Motif"=motif, "Error message"="No alleles match this motif"))
   }
@@ -66,4 +70,3 @@ findMotif<-function(motif){
   if((nrow(AA_segments[[loci]])!=0)){
     return(AA_segments[[loci]])}
 }
-
