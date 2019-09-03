@@ -3,9 +3,9 @@
 #'Produces a heatmap from the manipulated Solberg dataset by using the Generic Mapping Tools (GMT) R Package, which is an interface between R and the GMT Map-Making software. GMT commands are called via a Bash script through using the gmt.system() function in the GMT R package.
 #'
 #'@param gdataset The Solberg dataset, a comma-separated value (CSV) file, which is the '1-locus-alleles.dat' file in the results.zip archive at http://pypop.org/popdata/. See the vignette for more details on pertinent parts of the Solberg dataset used for this package.
-#'@param motif An amino acid motif in the following format: Locus*##$##$##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
+#'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'@param color A logical parameter that identifies if the heat maps should be made in color (TRUE) or gray scale (FALSE). The default option is TRUE.
-#'@param filterMigrant A logical parameter on whether OTH (admixed populations) and migrant populations should be filtered out of the dataset. The default option is TRUE.
+#'@param filterMigrant A logical parameter that determines if admixed populations (OTH) and migrant populations (i.e. any complexities with the 'mig') should be excluded from the dataset. The default option is TRUE.
 #'
 #'@importFrom gmt gmt.system r2gmt
 #'@importFrom DescTools RoundTo
@@ -13,7 +13,8 @@
 #'
 #'@export
 #'
-#'@return A .jpg file of the produced heatmap is output to the user's working directory.
+#'@return None, but the produced heatmap is written to the user's working directory as a .jpg file, where the default filename is 'basemap.jpg'.
+#'
 #'
 PALM<-function(gdataset, motif, color=TRUE, filterMigrant=TRUE){
 
