@@ -1,4 +1,4 @@
-SSHAARP 0.2.3.9000 (09/03/2019)
+SSHAARP 0.2.2.9000 (09/03/2019)
 -----------------------------
   * Expanded BLAASD() capabilities to support HLA-DQA1 and HLA-DPB1.
   * Edits to findMotif() and PALM() documentation.
