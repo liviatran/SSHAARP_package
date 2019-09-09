@@ -12,5 +12,5 @@ LazyData: true
 Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools, reshape2
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
-SystemRequirements: gmt
+SystemRequirements: GMT
 RoxygenNote: 6.1.1
