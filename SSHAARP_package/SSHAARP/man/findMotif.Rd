@@ -25,5 +25,5 @@ findMotif("DRB1*26F~28E")
 findMotif("DRB1*26F~28E~30Z")
 
 #extracting names of alleles with user-defined motif
-findMotif(“DRB1*26F~28E~30Y”)[,4]
+findMotif("DRB1*26F~28E~30Y")[,4]
 }
