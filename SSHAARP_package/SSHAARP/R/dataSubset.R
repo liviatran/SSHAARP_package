@@ -1,21 +1,23 @@
 #'Solberg dataset manipulation
 #'
-#'Manipulates the Solberg dataset by adding in a new column containing locus*allele information, reordering the dataset based on population name, and subsetting the data to only the locus of interest.
+#'Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 #'
-#'@param dataset The Solberg dataset, a comma-separated value (CSV) file, which is the '1-locus-alleles.dat' file in the results.zip archive at http://pypop.org/popdata/. See the vignette for more details on pertinent parts of the Solberg dataset used for this package.
+#'@param filename The filename of the local copy of the Solberg dataset.
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
 #'@importFrom utils read.delim
 #'
 #'@note For internal SSHAARP use only.
+#'@note The Solberg dataset is the tab-delimited ‘1-locus-alleles.dat’ text file in the results.zip archive at http://pypop.org/popdata/.
+#'
 #'@export
 #'
-#'@return A dataframe format of the Solberg dataset, where the rows are ordered by population name, and limited to populations that have information on the locus of interest.
+#'@return A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus.
 #'
 #'
-dataSubset<-function(dataset, motif){
+dataSubset<-function(filename, motif){
   #reads in Solberg DS
-  solberg_DS<-as.data.frame(read.delim(dataset), stringsAsFactors=F)
+  solberg_DS<-as.data.frame(read.delim(filename), stringsAsFactors=F)
 
   #makes a new column with locus and trimmed allele pasted together named locus_allele
   solberg_DS$locus_allele<-paste(solberg_DS$locus, solberg_DS$allele_v3, sep="*")
@@ -27,5 +29,20 @@ dataSubset<-function(dataset, motif){
 
   #subsets the Solberg_DS to only the locus of interest
   solberg_DS<-subset(solberg_DS, solberg_DS$locus==strsplit(motif, "\\*")[[1]][1])
+
+  if(any((grepl("S", solberg_DS$latit))==TRUE)){
+    solberg_DS$latit[which((grepl("S", solberg_DS$latit))==TRUE)]<-as.numeric(paste("-", str_extract(solberg_DS$latit[which((grepl("S", solberg_DS$latit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}
+
+  if(any((grepl("N", solberg_DS$latit))==TRUE)){
+    solberg_DS$latit[which((grepl("N", solberg_DS$latit))==TRUE)]<-as.numeric(str_extract(solberg_DS$latit[which((grepl("N", solberg_DS$latit))==TRUE)],"\\-*\\d+\\.*\\d*"))
+  }
+
+  #longitude conversions
+  if(any((grepl("W", solberg_DS$longit))==TRUE)){
+    solberg_DS$longit[which((grepl("W", solberg_DS$longit))==TRUE)]<-as.numeric(paste("-", str_extract(solberg_DS$longit[which((grepl("W", solberg_DS$longit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}
+
+  if(any((grepl("E", solberg_DS$longit))==TRUE)){
+    solberg_DS$longit[which((grepl("E", solberg_DS$longit))==TRUE)]<-as.numeric(str_extract(solberg_DS$longit[which((grepl("E", solberg_DS$longit))==TRUE)],"\\-*\\d+\\.*\\d*"))
+  }
 
   return(solberg_DS)}

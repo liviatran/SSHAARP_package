@@ -2,7 +2,7 @@
 % Please edit documentation in R/findMotif.R
 \name{findMotif}
 \alias{findMotif}
-\title{Narrows AA_segments table to only alleles that have the amino acid motif of interest}
+\title{Reduce an alignment to alleles sharing a specific amino acid motif}
 \usage{
 findMotif(motif)
 }
@@ -10,10 +10,10 @@ findMotif(motif)
 \item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
 }
 \value{
-A dataframe containing a subset of the amino-acid alignment produced from BLAASD(), with only alleles that contain the user-defined motif. If the motif is not find, a dataframe is returned, where one column has the motif, and the other column contains an error message.
+An amino acid alignment dataframe of alleles that share the specified motif. If the motif is not found in any alleles, a data frame containing an error message is returned.
 }
 \description{
-Isolates the individual amino acid position dataframe produced by AA_segments_maker to only alleles with the user-defined motif. If the user-defined motif does not correspond to any alleles, an error message is output.
+Consumes the alignment data frame produced by BLAASD() and returns an alignment data frame of alleles that share a specific amino acid motif.
 }
 \examples{
 

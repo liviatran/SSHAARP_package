@@ -1,3 +1,10 @@
+SSHAARP 0.2.3.9000 (09/10/2019)
+-----------------------------
+   *Removed convertCoordinates() as a function and integrated its capabilities into dataSubset().
+   *Fixed findMotif() -- an error message was output when a non-existent variant for a given amino acid position was anywhere but the last position.
+   *Changes to vignette documentation.
+   *Changes to documentation in all functions.
+
 SSHAARP 0.2.2.9000 (09/03/2019)
 -----------------------------
   * Expanded BLAASD() capabilities to support HLA-DQA1 and HLA-DPB1.
@@ -6,13 +13,13 @@ SSHAARP 0.2.2.9000 (09/03/2019)
 
 SSHAARP 0.2.1.9000 (08/13/2019)
 -----------------------------
-  * Changed buildAAsegments() to BLAASD() [i.e. Building Loci Amino Acid Specific Dataframes]
+  * Changed buildAAsegments() to BLAASD() [i.e. Building Loci Amino Acid Specific Dataframes.
   * Added more files for removal via gmt.system BASH code in PALM() -- only basemap.jpg will be output to working directory.
 
 SSHAARP 0.2.0.9000 (08/07/2019)
 -----------------------------
    * Removed correspondence row for actual coordinates from buildAAsegments; column names are now alignment sequence coordinates.
-   * Adjusted motifFinder to match column names in new AA_segments table.
+   * Adjusted findMotif to match column names in new AA_segments table.
    * Added checks for possible user error in inputting motif.
 
 SSHAARP 0.1.0.9000 (07/31/2019)

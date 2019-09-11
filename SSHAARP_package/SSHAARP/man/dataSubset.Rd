@@ -4,19 +4,21 @@
 \alias{dataSubset}
 \title{Solberg dataset manipulation}
 \usage{
-dataSubset(dataset, motif)
+dataSubset(filename, motif)
 }
 \arguments{
-\item{dataset}{The Solberg dataset, a comma-separated value (CSV) file, which is the '1-locus-alleles.dat' file in the results.zip archive at http://pypop.org/popdata/. See the vignette for more details on pertinent parts of the Solberg dataset used for this package.}
+\item{filename}{The filename of the local copy of the Solberg dataset.}
 
 \item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
 }
 \value{
-A dataframe format of the Solberg dataset, where the rows are ordered by population name, and limited to populations that have information on the locus of interest.
+A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus.
 }
 \description{
-Manipulates the Solberg dataset by adding in a new column containing locus*allele information, reordering the dataset based on population name, and subsetting the data to only the locus of interest.
+Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 }
 \note{
 For internal SSHAARP use only.
+
+The Solberg dataset is the tab-delimited ‘1-locus-alleles.dat’ text file in the results.zip archive at http://pypop.org/popdata/.
 }

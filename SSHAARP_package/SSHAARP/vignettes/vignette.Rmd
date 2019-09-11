@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livtran@chori.org"
-date: "September 3, 2019"
+date: "September 10, 2019"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -38,7 +38,6 @@ The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is th
 
   Significantly admixed populations were placed in an **'OTH'**, or other, group
     
-    
   **complex** - assigns level of complexity, ranging from 1 (least complex) to 3 (most complex), which estimates the degree of potential admixture in a population sample. Complexity values suffixed with 'mig' indicate migrant populations.
     
   **latit** - latitude coordinates of the population.
@@ -53,7 +52,7 @@ The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is th
 
 ***
 
-SSHAARP's functions interact with two external datasets and one R package:
+SSHAARP’s functions interact an external datasource, a user-downloaded dataset, and one R package:
 
 1. IPD-IMGT/HLA:
     
@@ -61,26 +60,24 @@ SSHAARP's functions interact with two external datasets and one R package:
     
     **BLAASD()** extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github repository to produce a dataframe of amino acid sequence data for each individual peptide position for all alleles.
     
-      **findMotif** isolates the individual amino acid position dataframe produced by BLAASD() to only alleles with the user-defined motif. 
+      **findMotif()** reduces the data frame of individual amino acid positions produced by BLAASD() to alleles with the user-defined motif.
       
-2. Solberg Dataset:
-
-      **convertCoordinates()** converts coordinates in the Solberg dataset with cardinal directions to their appropriate enumerations (i.e. 50S is converted to -50)
+2. Solberg dataset:
   
-      **dataSubset()** manipulates the Solberg dataset by adding in a new column containing locus*allele information, reordering the dataset based on population name, and subsetting the data to only the locus of interest.
+      **dataSubset()** returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, is reduced to the specified locus, and contains Cartesian instead of cardinal coordinates in the latitude and longitude columns .
   
 3. Generic Mapping Tools (GMT)
 
-      **PALM()** applies the Generic Mapping Tools (gmt) R package to the modified Solberg data to produce heatmaps. The gmt R package is an interface between R and the GMT Map-Making software, and is required for the PALM()() function. GMT commands are called via a Bash script through using the gmt.system() function in the GMT R package. Both the gmt R package **AND** GMT software must be installed to run SSHAARP, which is available here: https://www.soest.hawaii.edu/gmt/.
-  
+      **PALM()** applies the Generic Mapping Tools (gmt) R package to the modified Solberg data to produce heatmaps. The gmt R package is an interface between R and the GMT Map-Making software, and is required for the PALM() function. Both the gmt R package **AND** GMT software (available at: https://www.soest.hawaii.edu/gmt/) must be installed to run SSHAARP.
+      
 ---
 
 ## Functions
 
 ### BLAASD()
-BLAASD() extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github Repository to produce a dataframe, which contains individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name and are shown as an example below.
+BLAASD() extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA GitHub repository to produce a data frame of individual amino acid data for each amino acid position for all alleles. The first 4 columns are locus, allele, trimmed allele, and allele_name, as shown below.
 
-Example output of BLAASD() for HLA-A, where the selected row outputs are 2 and 8 to illustrate different HLA-A alleles, and selected columns are the first 19 columns of the dataframe, where the first 4 columns consist of the locus, allele, trimmed_allele of 2 fields, and the full allele name. The rest of the columns consist of corresponding amino acids for each amino acid position for a given allele. 
+Example output of BLAASD() for HLA-A, where the selected row outputs are 2 and 8 to illustrate different HLA-A alleles, and selected columns are the first 19 columns of the dataframe, where the first 4 columns consist of the locus, allele, trimmed_allele of 2 fields, and the full allele name. The rest of the columns consist of corresponding amino acids for each amino acid position for a given allele:
 
 ```
 >BLAASD("A")[[1]][c(2,8),1:19]
@@ -90,27 +87,28 @@ Example output of BLAASD() for HLA-A, where the selected row outputs are 2 and 8
 ```
 
 ### findMotif()
-findMotif() parses up the provided amino-acid motif, and should be written as `locus*##$~##$~##$`, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids positions. The following output is an example of the 1st, 5th, and 9th DRB1 alleles that have the `DRB1*26F~28E~30Y` motif. 
-
+findMotif() parses the provided amino-acid motif, which should be written as `locus*##$~##$~##$`, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids positions. The following output is an example of the 1st, 5th, 9th, and 10th DRB1 alleles that have the `DRB1*26F~28E~30Y` motif. 
 ```
 >findMotif("DRB1*26F~28E~30Y")[c(1,5,9,10), 1:65]
 
-    locus   allele trimmed_allele   allele_name   -29 -28 -27 -26 -25 -24 -23 -22 -21 -20 -19
-197  DRB1 03:02:04     DRB1*03:02 DRB1*03:02:04   *   *   *   *   *   *   *   *   *   *   *
-240  DRB1    03:38     DRB1*03:38    DRB1*03:38   *   *   *   *   *   *   *   *   *   *   *
-256  DRB1    03:53     DRB1*03:53    DRB1*03:53   *   *   *   *   *   *   *   *   *   *   *
-     -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1  1  2  3  4  5  6  7  8
-197   *   *   *   *   *   *   *   *   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  R  F  L
-240   *   *   *   *   *   *   *   *   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  R  F  L
-256   *   *   *   *   *   *   *   *   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  R  F  L
-     9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 InDel_1 27 28 29 30 31
-197  E  Y  S  T  S  E  C  H  F  F  N  G  T  E  R  V  R  F       .  L  E  R  Y  F
-240  E  Y  S  T  S  E  C  H  F  F  N  G  T  E  R  V  R  F       .  L  E  R  Y  F
-256  E  Y  S  T  S  E  C  H  F  F  N  G  T  E  R  V  R  F       .  L  E  R  Y  F
+   locus   allele trimmed_allele   allele_name -29 -28 -27 -26 -25 -24 -23 -22 -21 -20 -19 -18 -17
+1   DRB1 01:01:01     DRB1*01:01 DRB1*01:01:01   M   V   C   L   K   L   P   G   G   S   C   M   T
+5   DRB1 01:01:05     DRB1*01:01 DRB1*01:01:05   *   *   *   *   *   *   *   *   *   *   *   *   *
+9   DRB1 01:01:09     DRB1*01:01 DRB1*01:01:09   *   *   *   *   *   *   *   *   *   *   *   *   *
+10  DRB1 01:01:10     DRB1*01:01 DRB1*01:01:10   *   *   *   *   *   *   *   *   *   *   *   *   *
+   -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+1    A   L   T   V   T   L   M  V  L  S  S  P  L  A  L  A G D T R P R F L W  Q  L  K  F  E  C  H  F
+5    *   *   *   *   *   *   *  *  *  *  *  *  *  *  *  * * * * * * R F L W  Q  L  K  F  E  C  H  F
+9    *   *   *   *   *   *   *  *  *  *  *  *  *  *  *  * * * * * * R F L W  Q  L  K  F  E  C  H  F
+10   *   *   *   *   *   *   *  *  *  *  *  *  *  *  *  * * * * * * R F L W  Q  L  K  F  E  C  H  F
+   18 19 20 21 22 23 24 25 26 InDel_1 27 28 29 30 31
+1   F  N  G  T  E  R  V  R  L       .  L  E  R  C  I
+5   F  N  G  T  E  R  V  R  L       .  L  E  R  C  I
+9   F  N  G  T  E  R  V  R  L       .  L  E  R  C  I
+10  F  N  G  T  E  R  V  R  L       .  L  E  R  C  I
 ```
 
-If a motif is not found, a dataframe with the motif in one column and an error message in another column is output.
-
+If a motif is not found, a dataframe with the motif in one column and an error message in another column is output:
 ```
 >findMotif("DRB1*26F~28E~30Z")
 
@@ -119,11 +117,10 @@ If a motif is not found, a dataframe with the motif in one column and an error m
 ```
 
 ### dataSubset()
-dataSubset() manipulates the Solberg dataset to prepare for heatmap generation by adding in a new column containing locus*allele information, reordering the dataset based on population name, and subsetting the dataset to only the locus of interest.
+dataSubset() returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates in the latit and longit are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 
+Four lines of the Solberg dataset prior to the application of dataSubset(); note that population names are unsorted, data for multiple HLA loci are included, and coordinates in the latit and longit columns are in cardinal format:
 ```
-Partial depiction of Solberg Dataset before dataSubset() - note population names are out of order, and the data consists of data from multiple HLA loci
-
 >dataset[c(1,2,300,600, 1000),]
 
      dataset     popname contin complex   latit  longit           coord locus allele_v2
@@ -140,98 +137,54 @@ Partial depiction of Solberg Dataset before dataSubset() - note population names
 1000     29:02     0.06716            9     134
 ```
 
+Five lines of the modified Solberg dataset returned by dataSubset(), where the input dataset is the Solberg dataset; note that population names are in lexicographic order, the only locus returned is the locus provided in the motif (i.e. DRB1), the addition of a new locus_allele column, and coordinates in the latit and longit columns are in Cartesian format:
 ```
-Partial depiction of Solberg Dataset after dataSubset() - note population names are now in lexicographic order, the only locus of note in the dataset is the locus provided in the motif (i.e. DRB1), and there is a new column, locus_allele, for comparison to the dataframe produced by BLAASD().
+>dataSubset(dataset, “DRB1*26F~28E~30Y”)[c(1,2,300,600, 1000),]
 
->dataSubset(dataset, "DRB1*26F~28E~30Y")[c(1,2,300,600, 1000),]
-
-      dataset        popname contin complex  latit longit         coord locus allele_v2
-8615      lit      Ache_2003    SAM       1    24S    56W       24S 56W  DRB1      0403
-8616      lit      Ache_2003    SAM       1    24S    56W       24S 56W  DRB1      0411
-9365      lit      Bari_1994    SAM       2    10N    70W       10N 70W  DRB1      0403
-10068     lit Cameroon_2001b    SSA       3  6.00N 12.00E  6.00N 12.00E  DRB1      1102
-10679     lit     Czech_1992    EUR       3 49.45N 15.30E 49.45N 15.30E  DRB1      0301
-      allele_v3 allele.freq allele.count gametes locus_allele
-8615      04:03     0.00578            1     173   DRB1*04:03
-8616      04:11     0.74566          129     173   DRB1*04:11
-9365      04:03     0.03636            4     110   DRB1*04:03
-10068     11:02     0.03175            8     252   DRB1*11:02
-10679     03:01     0.11111           21     189   DRB1*03:01
-```
-
-### convertCoordinates()
-convertCoordinates() converts coordinates in the Solberg dataset with a cardinal direction to its appropriate numerical enumeration for plotting on a map. North (N), which is above the equator, and East (E), which is east of the prime meridian are positive, while South (S), below the equator, and West (W), west of the prime meridian, are negative. 
-
-```
-Partial depiction of Solberg Dataset before convertCoordinates
-
-                   popname contin latit longit
-8615             Ache_2003    SAM   24S    56W
-101            Algerian_99    NAF   35N   0.5W
-17938 BrazilGuaraniNandeva    SAM   23S    54W
-```
-
-```
-Partial depiction of Solberg Dataset after convertCoordinates
-
->convertCoordinates(heatmapdata)
-
-                   popname contin latit longit
-8615             Ache_2003    SAM   -24    -56
-101            Algerian_99    NAF   35     -0.5
-17938 BrazilGuaraniNandeva    SAM   -23    -54
+      dataset        popname contin complex latit longit         coord locus allele_v2 allele_v3
+8615      lit      Ache_2003    SAM       1   -24    -56       24S 56W  DRB1      0403     04:03
+8616      lit      Ache_2003    SAM       1   -24    -56       24S 56W  DRB1      0411     04:11
+9365      lit      Bari_1994    SAM       2    10    -70       10N 70W  DRB1      0403     04:03
+10068     lit Cameroon_2001b    SSA       3     6     12  6.00N 12.00E  DRB1      1102     11:02
+10679     lit     Czech_1992    EUR       3 49.45   15.3 49.45N 15.30E  DRB1      0301     03:01
+      allele.freq allele.count gametes locus_allele
+8615      0.00578            1     173   DRB1*04:03
+8616      0.74566          129     173   DRB1*04:11
+9365      0.03636            4     110   DRB1*04:03
+10068     0.03175            8     252   DRB1*11:02
+10679     0.11111           21     189   DRB1*03:01
 ```
 
 ### countSpaces()
-countSpaces() splits a given string, and white spaces are counted in between split elements. This function was used to count whitespaces in the alignment data downloaded from the ANHIG Github repository to determine the starting amino acid position. See below:
+countSpaces() return a vector of the number of spaces between each set of non-space characters in a string.
 
-```
-Prot              -30                              1
-                   |                                |
- A*01:01:01:01           MAVM APRTLLLLLS GALALTQTWA GSHSMRYFFT SVSRPGRGEP RFIAVGYVDD 
- A*01:01:01:02N          ---- ---------- ---------- ---------- ---------- ---------- 
- A*01:01:01:03           ---- ---------- ---------- ---------- ---------- ---------- 
- A*01:01:01:04           ---- ---------- ---------- ---------- ---------- ---------- 
- A*01:01:01:05           ---- ---------- ---------- ---------- ---------- ---------- 
- A*01:01:01:06           ---- ---------- ---------- ---------- ---------- ---------- 
-```
-Alignment files from the ANHIG repository are formatted such that a certain number of characters must be present in a given line to maintain the alignment structure, so the start position is not immediately provided in the file. To avoid hard coding a start position, countSpaces() was used to calculate the number of spaces between the pipe, which is right underneath the starting count (-30). In order to accomplish this, the following items were needed: 
-  1)the number of spaces between the word "Prot" and starting count, "-30",
-  2)the number of spaces from the end of the first allele name to the beginning of the amino acid start position
-  3)the number of characters in the first allele
-  where the number of spaces between -30 and the beginning of the first amino acid were calculated by adding item 3 with item 2, and subtracting the sum of that from item 1.
-  
- ``` 
+``` 
 #number of whitespaces counted for row 3 in the alignment file 
->countSpaces(alignment[[1]][3])
- [1]  1 11  1  1  1  1  1  1  1  1  1
- ``` 
+>countSpaces("ONE  TWO     THREE       FOUR")
+[1] 2 5 7
+``` 
 
 ### PALM() 
 
-PALM() produces a heatmap from the manipulated Solberg dataset by using the Generic Mapping Tools (GMT) R Package, which is an interface between R and the GMT Map-Making software. GMT software is required for this function and can be downloaded at https://www.soest.hawaii.edu/gmt/. GMT commands are called via a Bash script through using the gmt.system() function in the GMT R package. The final output of PALM() is a heatmap saved as a JPEG in the user's working directory. 
+PALM() produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset using the Generic Mapping Tools (GMT) R Package, which is an interface between R and the GMT Map-Making software. GMT software is required for this function and can be downloaded at https://www.soest.hawaii.edu/gmt/. The final output of PALM() is a heatmap saved under the filename "basemap.jpg" as a JPEG in the user's working directory. 
 
-Two default parameters are set for PALM():
-  1) color = TRUE
-  Should the heatmap produced be in color? The default for color is set to true for a color heatmap – for a map in grayscale, set color==FALSE.
-  2) filter_migrant = TRUE
-  Should OTH and migrant populations be filtered out of the dataset? The default for filter_migrant is set to true – set this parameter equal to FALSE to keep migrant and OTH populations in the dataset.
+Two default parameters are set for PALM(), color = TRUE, and filter_migrant = TRUE. When color is set to TRUE, PALM generates a color heatmap; when color is set to FALSE, a greyscale heatmap is generated. When filter_migrant is set to TRUE, populations from the OTH region and populations with complexity values that have the ‘mig’ suffix are excluded from the heatmap plot. When filter_migrant is set to FALSE, these populations are included in the heatmap plot.
 
 ```
-#JPEG with color
+#color heatmap plot
 >PALM(Solberg_datset, "DRB1*26F~28E~30Y" )
 ```
 
-```{r, out.width='100%', fig.align='center', fig.cap='...'}
+```{r, out.width='100%', fig.align='center', fig.cap='...', , echo=FALSE}
 knitr::include_graphics("basemap_color.jpg")
 ```
   
 ```
-#JPEG without color
+#greyscale heatmap plot
 >PALM(Solberg_datset, "DRB1*26F~28E~30Y", color=FALSE)
 ```
 
-```{r, out.width='100%', fig.align='center', fig.cap='...'}
+```{r, out.width='100%', fig.align='center', fig.cap='...', echo=FALSE}
 knitr::include_graphics("basemap_bw.jpg")
 ```
   

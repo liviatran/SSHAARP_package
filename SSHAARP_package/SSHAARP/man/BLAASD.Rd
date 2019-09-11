@@ -7,13 +7,13 @@
 BLAASD(loci)
 }
 \arguments{
-\item{loci}{HLA locus, or loci.}
+\item{loci}{A vector of un-prefixed HLA locus names}
 }
 \value{
-A dataframe for a locus with individual amino acid position information for all alleles for that locus. If multiple loci are input for the parameter, a list will be returned with corresponding dataframes for each locus.
+A list object of data frames for each specified locus. Each list element is a data frame of allele names and the corresponding peptide sequence for each amino acid position.
 }
 \description{
-Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA Github Repository to produce a dataframe, which contains individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name.
+Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA GitHub repository to produce a dataframe of individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name.
 }
 \examples{
 #BLAASD with one locus as input
