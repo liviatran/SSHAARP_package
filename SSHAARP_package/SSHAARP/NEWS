@@ -1,4 +1,4 @@
-SSHAARP 0.2.3.9000 (09/10/2019)
+SSHAARP 0.3.0.9000 (09/10/2019)
 -----------------------------
    *Removed convertCoordinates() as a function and integrated its capabilities into dataSubset().
    *Fixed findMotif() -- an error message was output when a non-existent variant for a given amino acid position was anywhere but the last position.
