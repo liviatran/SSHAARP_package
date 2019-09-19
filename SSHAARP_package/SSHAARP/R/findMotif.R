@@ -8,7 +8,7 @@
 #'
 #'@importFrom gtools mixedsort
 #'@importFrom BIGDAWG GetField
-#'@importFrom stringr str_count
+#'@importFrom stringr str_count str_extract
 #'
 #'@export
 #'
@@ -64,7 +64,11 @@ findMotif<-function(motif){
   for(t in 1:length(strsplit(strsplit(motif, "*", fixed=T)[[1]][[2]], "~")[[1]])){
     if((nrow(AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "-?[0-9]+")[[t]]==names(AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])]))==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),])==0)){
       return(data.frame("Motif"=motif, "Error message"="No alleles match this motif"))
-    }}
+    }
+    else{
+      AA_segments[[loci]]<-AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "-?[0-9]+")[[t]]==names(AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])]))==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),]
+    }
+  }
 
   #if motifs are found, AA_segments[[loci[[i]]]] is returned
   if((nrow(AA_segments[[loci]])!=0)){
