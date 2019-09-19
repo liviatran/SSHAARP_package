@@ -77,9 +77,9 @@ SSHAARP’s functions interact an external datasource, a user-downloaded dataset
 ### BLAASD()
 BLAASD() extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA GitHub repository to produce a data frame of individual amino acid data for each amino acid position for all alleles. The first 4 columns are locus, allele, trimmed allele, and allele_name, as shown below.
 
+```
 Example output of BLAASD() for HLA-A, where the selected row outputs are 2 and 8 to illustrate different HLA-A alleles, and selected columns are the first 19 columns of the dataframe, where the first 4 columns consist of the locus, allele, trimmed_allele of 2 fields, and the full allele name. The rest of the columns consist of corresponding amino acids for each amino acid position for a given allele:
 
-```
 >BLAASD("A")[[1]][c(2,8),1:19]
   locus       allele trimmed_allele    allele_name -24 -23 -22 -21 -20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10
 2     A 01:01:01:02N        A*01:01 A*01:01:01:02N   M   A   V   M   A   P   R   T   L   L   L   L   L   S   G
@@ -119,8 +119,9 @@ If a motif is not found, a dataframe with the motif in one column and an error m
 ### dataSubset()
 dataSubset() returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates in the latit and longit are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 
-Four lines of the Solberg dataset prior to the application of dataSubset(); note that population names are unsorted, data for multiple HLA loci are included, and coordinates in the latit and longit columns are in cardinal format:
 ```
+Four lines of the Solberg dataset prior to the application of dataSubset(); note that population names are unsorted, data for multiple HLA loci are included, and coordinates in the latit and longit columns are in cardinal format:
+
 >dataset[c(1,2,300,600, 1000),]
 
      dataset     popname contin complex   latit  longit           coord locus allele_v2
@@ -156,12 +157,12 @@ Five lines of the modified Solberg dataset returned by dataSubset(), where the i
 ```
 
 ### countSpaces()
-countSpaces() return a vector of the number of spaces between each set of non-space characters in a string.
+countSpaces() returns a vector of the number of spaces between each set of non-space characters in a string.
 
 ``` 
 #number of whitespaces counted for row 3 in the alignment file 
->countSpaces("ONE  TWO     THREE       FOUR")
-[1] 2 5 7
+>countSpaces("ONE TWO  THREE   FOUR")
+[1] 1 2 3
 ``` 
 
 ### PALM() 

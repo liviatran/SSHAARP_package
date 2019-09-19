@@ -1,6 +1,6 @@
 Package: SSHAARP
 Title: Searching Shared HLA Amino Acid Residue Prevalence  
-Version: 0.3.0.9000
+Version: 0.4.0.9000
 Authors@R: 
     person("Livia", "Tran",
     role = c("aut", "cre"),

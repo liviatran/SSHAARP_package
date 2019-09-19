@@ -1,6 +1,6 @@
 #'Counts whitespaces in a string
 #'
-#'Provided string is split, and white spaces are counted in between split elements.
+#'Returns the number of spaces between each set of non-space characters in a string.
 #'@param x A string.
 #'
 #'@note This function was obtained from Reddit and written by Josh Bredeweg, user jbraids1421.

@@ -6,6 +6,7 @@
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
 #'@importFrom utils read.delim
+#'@importFrom stringr str_extract
 #'
 #'@note For internal SSHAARP use only.
 #'@note The Solberg dataset is the tab-delimited ‘1-locus-alleles.dat’ text file in the results.zip archive at http://pypop.org/popdata/.
