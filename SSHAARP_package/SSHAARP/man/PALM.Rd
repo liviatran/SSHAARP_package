@@ -16,7 +16,7 @@ PALM(filename, motif, color = TRUE, filterMigrant = TRUE)
 \item{filterMigrant}{A logical parameter that determines if admixed populations (OTH) and migrant populations (i.e. any complexities with the 'mig') should be excluded from the dataset. The default option is TRUE.}
 }
 \value{
-None, but the produced heatmap is written to the user's working directory as a .jpg file, where the default filename is 'basemap.jpg'.
+None, but the produced heatmap is written to the user's working directory as a .jpg file, where the filename is "'the input motif'.jpg".
 }
 \description{
 Produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset.
