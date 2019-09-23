@@ -13,7 +13,7 @@ countSpaces(x)
 A numeric vector that identifies the number of spaces between each set of non-space characters in the input string.
 }
 \description{
-Provided string is split, and white spaces are counted in between split elements.
+Returns the number of spaces between each set of non-space characters in a string.
 }
 \note{
 This function was obtained from Reddit and written by Josh Bredeweg, user jbraids1421.
