@@ -17,8 +17,16 @@
 #'
 #'
 dataSubset<-function(filename, motif){
+
+  datafile <- TRUE
+
+  if(is.data.frame(filename)) {
+    dataFile <- FALSE
+    solberg_DS <- filename
+  } else {solberg_DS <- as.data.frame(read.delim(filename), stringsAsFactors=F)}
+
   #reads in Solberg DS
-  solberg_DS<-as.data.frame(read.delim(filename), stringsAsFactors=F)
+  #solberg_DS<-as.data.frame(read.delim(filename), stringsAsFactors=F)
 
   #makes a new column with locus and trimmed allele pasted together named locus_allele
   solberg_DS$locus_allele<-paste(solberg_DS$locus, solberg_DS$allele_v3, sep="*")

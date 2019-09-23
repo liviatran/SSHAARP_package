@@ -24,6 +24,10 @@
 #'#extracting names of alleles with user-defined motif
 #'findMotif("DRB1*26F~28E~30Y")[,4]
 
+#library(gtools)
+#library(BIGDAWG)
+#library(stringr)
+
 findMotif<-function(motif){
   #if conditions to catch if a motif is formatted incorrectly
   if(((str_count(strsplit(motif, "*", fixed=T)[[1]][2], "[A-Z]")>=2) & (grepl("~", strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "*"))==FALSE)) |(length(strsplit(motif, "*", fixed=T)[[1]]) > 2) | (length(strsplit(motif, "*", fixed=T)[[1]])==1)){
@@ -31,23 +35,25 @@ findMotif<-function(motif){
   }
 
   #extract loci information
-  loci<-strsplit(motif, "\\*")[[1]][1]
+  split_1 <- unlist(strsplit(motif,"*",fixed="true"))
+  loci <- split_1[1]
+  motifs <- unlist(strsplit(split_1[2],"~",fixed=TRUE))
 
   #if AA_segments does not exist (i.e not previously already downloaded and in the local
   #environment) then generate AA_segments)
   if(!exists("AA_segments")){
     #obtains AA_segments df
-    AA_segments<-BLAASD(loci)}
-
+    AA_segments<-BLAASD(loci)
+  }
 
   #examines motifs to make sure amino acid positions are in the correct order -- sorts numerically
   #if they are not
-  motif<-paste(loci, sep="*",paste(mixedsort(strsplit(strsplit(motif, "*", fixed=T)[[1]][[2]], "~")[[1]]), collapse="~"))
+  motifs <- mixedsort(motifs)
 
   #examines if amino acid positions in the motif are present in the alignment - returns error message if one or more positions is not in the alignment
-  for(j in 1:length(str_extract(strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "~")[[1]], "-?[0-9]+"))){
-    if((str_extract(strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "~")[[1]], "-?[0-9]+")[[j]] %in% names(AA_segments[[loci]]))==FALSE)
-    {return("One or more of your amino acid positions is not present in the HLA alignment. Please make sure amino acid positions of interest are present in the current release of IPD-IMGT HLA alignments.")}}
+  if(!all(substr(motifs,1,nchar(motifs)-1) %in% colnames(AA_segments[[loci]])[5:ncol(AA_segments[[loci]])])) {
+    return("One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of IPD-IMGT/HLA alignments.")
+  }
 
   #since "DRB" is used as the search criteria for the alignment (IMGTHLA/ANHIG groups all DRB loci
   #into one alignment, AA_segments consists of all DRB loci, not just DRB1)
@@ -61,17 +67,14 @@ findMotif<-function(motif){
   #three total loops are run, where subsequent position*motifs are evaluated against which alleles are present
   #after the previous motif subset
   #each AA_segments is bound with the alignment coordinates except for the last AA_segments
-  for(t in 1:length(strsplit(strsplit(motif, "*", fixed=T)[[1]][[2]], "~")[[1]])){
-    if((nrow(AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "-?[0-9]+")[[t]]==names(AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])]))==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),])==0)){
-      return(data.frame("Motif"=motif, "Error message"="No alleles match this motif"))
-    }
-    else{
-      AA_segments[[loci]]<-AA_segments[[loci]][which((AA_segments[[loci]][5:ncol(AA_segments[[loci]])][which((str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]], "-?[0-9]+")[[t]]==names(AA_segments[[loci]][1,5:ncol(AA_segments[[loci]])]))==TRUE)]==str_extract(strsplit(strsplit(motif,"*",fixed=TRUE)[[1]][2],"~",fixed=TRUE)[[1]],"[A-Z]")[[t]])==TRUE),]
+  for(x in 1:length(motifs)) {
+    AA_segments[[loci]] <- AA_segments[[loci]][AA_segments[[loci]][substr(motifs[x],1,nchar(motifs[x])-1)]==substr(motifs[x],nchar(motifs[x]),nchar(motifs[x])),]
+    if(nrow(AA_segments[[loci]])==0)
+    {
+      return(data.frame("Motif"=motif, "Error message"="No alleles possess this motif"))
     }
   }
 
   #if motifs are found, AA_segments[[loci[[i]]]] is returned
-  if((nrow(AA_segments[[loci]])!=0)){
-    return(AA_segments[[loci]])}
+  return(AA_segments[[loci]])
 }
-

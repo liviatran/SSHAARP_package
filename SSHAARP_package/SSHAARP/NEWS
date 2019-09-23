@@ -1,9 +1,15 @@
+SSHAARP 0.5.0.9000 (09/18/2019)
+-----------------------------
+   * Changes to PALM()- added code for if filterMigrant==FALSE, heatmap file output is now saved as "'the input motif'.jpg" instead of "basemap.jpg", data frame with error message and motif is output if the entered motif is not found, and error in calculating cumulative population allele frequency fixed.
+   * The Solberg dataset is now packaged into SSHAARP() as solberg_dataset
+   * findMotif() edited for a more efficient runtime
+   * Changes to vignette documentation.
+
 SSHAARP 0.4.0.9000 (09/18/2019)
 -----------------------------
    * Fixed findMotif() -- parsing code was not included in previous version release.
    * Changes to vignette documentation.
    * Changes to documentation in all functions.
-
 
 SSHAARP 0.3.0.9000 (09/10/2019)
 -----------------------------
