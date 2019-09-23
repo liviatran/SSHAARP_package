@@ -15,7 +15,7 @@
 #'@note The Solberg dataset is the tab-delimited ‘1-locus-alleles.dat’ text file in the results.zip archive at http://pypop.org/popdata/.
 #'@export
 #'
-#'@return None, but the produced heatmap is written to the user's working directory as a .jpg file, where the filename is "theinputmotif.jpg".
+#'@return None, but the produced heatmap is written to the user's working directory as a .jpg file, where the filename is "'the input motif'.jpg".
 #'
 #'@examples
 #'#example to produce a color frequency heat map without migrant populations filtered out
