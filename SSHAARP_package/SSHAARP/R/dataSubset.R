@@ -10,7 +10,7 @@
 #'
 #'@note For internal SSHAARP use only.
 #'@note The Solberg dataset is the tab-delimited ‘1-locus-alleles.dat’ text file in the results.zip archive at http://pypop.org/popdata/.
-#'
+#'@note The Solberg dataset is also prepackaged into SSHAARP as 'solberg_dataset'.
 #'@export
 #'
 #'@return A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus.
