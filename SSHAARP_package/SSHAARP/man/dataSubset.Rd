@@ -21,4 +21,6 @@ Returns a modified version of the Solberg dataset that includes a column of locu
 For internal SSHAARP use only.
 
 The Solberg dataset is the tab-delimited ‘1-locus-alleles.dat’ text file in the results.zip archive at http://pypop.org/popdata/.
+
+The Solberg dataset is also prepackaged into SSHAARP as 'solberg_dataset'.
 }
