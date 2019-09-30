@@ -9,7 +9,8 @@
 #'
 #'@export
 #'
-#'@examples countSpaces("The quick  brown   fox jumped    over  the lazy   dog.")
+#'@examples
+#'countSpaces("The quick  brown   fox jumped    over  the lazy   dog.")
 #
 countSpaces <- function(x){
   counter <- 0

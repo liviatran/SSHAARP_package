@@ -1,3 +1,11 @@
+SSHAARP 0.6.0.9000 (09/29/2019)
+-----------------------------
+   * Changes in PALM() for the function to stop and return an error mesage if an allele for the defined motif is not found in the Solberg dataset, fixed rounding error in RoundTo() that resulted in an inaccurate upper bound for the legend.
+   * BLAASD() can now search for "DRB" loci.
+   * Used previous code that checked motif formatting from findMotif() to create a new function, motifCheck().
+   * Integrated motifCheck() into findMotif() and dataSubset().
+   * Changes to vignette documentation.
+
 SSHAARP 0.5.0.9000 (09/23/2019)
 -----------------------------
    * Changes to PALM()- added code for if filterMigrant==FALSE, heatmap file output is now saved as "'the input motif'.jpg" instead of "basemap.jpg", data frame with error message and motif is output if the entered motif is not found, and error in calculating cumulative population allele frequency fixed.

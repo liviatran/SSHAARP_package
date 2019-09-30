@@ -18,15 +18,17 @@
 #'
 dataSubset<-function(filename, motif){
 
-  datafile <- TRUE
-
   if(is.data.frame(filename)) {
-    dataFile <- FALSE
     solberg_DS <- filename
   } else {solberg_DS <- as.data.frame(read.delim(filename), stringsAsFactors=F)}
 
-  #reads in Solberg DS
-  #solberg_DS<-as.data.frame(read.delim(filename), stringsAsFactors=F)
+  #checks input motif for formatting errors
+  check_results<-motifCheck(motif)
+
+  #if length of check_results is an error, return the error
+  if(length(check_results)<2){
+    return(check_results)
+  }
 
   #makes a new column with locus and trimmed allele pasted together named locus_allele
   solberg_DS$locus_allele<-paste(solberg_DS$locus, solberg_DS$allele_v3, sep="*")
@@ -37,7 +39,7 @@ dataSubset<-function(filename, motif){
   solberg_DS[,]<-sapply(solberg_DS[, ], as.character)
 
   #subsets the Solberg_DS to only the locus of interest
-  solberg_DS<-subset(solberg_DS, solberg_DS$locus==strsplit(motif, "\\*")[[1]][1])
+  solberg_DS<-subset(solberg_DS, solberg_DS$locus==check_results[[1]])
 
   if(any((grepl("S", solberg_DS$latit))==TRUE)){
     solberg_DS$latit[which((grepl("S", solberg_DS$latit))==TRUE)]<-as.numeric(paste("-", str_extract(solberg_DS$latit[which((grepl("S", solberg_DS$latit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}

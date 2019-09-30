@@ -150,6 +150,10 @@ BLAASD<-function(loci){
     #sets refexon to a reference peptide for each HLA locus based on the reference sequences in AA_segments
     refexon[[loci[i]]] <- rbind(AA_segments[[loci[i]]][1,])[which(rbind(AA_segments[[loci[i]]][1,])[,"locus"]==loci[[i]]),'AAsequence']
 
+    #if input loci is DRB, use grep statement to match input loci to loci in AA_segments
+    if(loci[[i]]=="DRB"){
+      refexon[[loci[i]]]<-rbind(AA_segments[[loci[i]]][1,])[grepl(loci[[i]], rbind(AA_segments[[loci[i]]][1,])[,"locus"]), "AAsequence"]}
+
     #splits AA_sequence column at every amino acid, resulting in a list of split amino acids for each row
     pepsplit[[loci[i]]] <- sapply(AA_segments[[loci[i]]][,"AAsequence"],strsplit,split="*")
 

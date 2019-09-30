@@ -48,6 +48,10 @@ PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
   #subsets out locus_allele pairs with the motif from the alignment but aren't present in the Solberg ds
   unique_AWM<-unique_AWM[sapply(unique_AWM, nrow)>0]
 
+  if(length(unique_AWM)==0){
+    return(data.frame("Motif"=motif, "Error message"="No alleles in the Solberg dataset possess this motif"))
+  }
+
   #melts dataframes in list into one big dataframe
   unique_AWM<-melt(unique_AWM, id.vars=c("popname", "contin", "complex", "latit", "longit", "allele.freq", "locus_allele"))
 
@@ -132,7 +136,7 @@ PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
   #to form deciles
   #uses readLines to obtain upperbound information from bash, and rounds it to the nearest 0.5
   #uses readLines to obtain decile needed
-  cpt_interval<-c(RoundTo(as.numeric(readLines("upperbound")), 0.5), RoundTo(as.numeric(readLines("upperbound")), 0.5)/10)
+  cpt_interval<-c(RoundTo(as.numeric(readLines("upperbound")), 0.05), RoundTo(as.numeric(readLines("upperbound")), 0.05)/10)
 
   #creates a vector called decile_interval, which gives decile increments based on cpt_interval information
   decile_interval<-seq(0, cpt_interval[1], cpt_interval[2])
