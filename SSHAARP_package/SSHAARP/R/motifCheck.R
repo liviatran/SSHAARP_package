@@ -54,5 +54,5 @@ motifCheck<-function(motif){
   #return a list object with loci and motifs information
   #if no error message is returned
   else{
-    return(list(loci, motifs, AA_segments))}
+    return(list(loci, motifs, AA_segments[[loci]]))}
 }

@@ -1,3 +1,8 @@
+SSHAARP 0.6.1.9000 (09/30/2019)
+-----------------------------
+   * Minor change to motifCheck() to specify motif locus return, in the event AA_segments is already present in the working environment.
+
+
 SSHAARP 0.6.0.9000 (09/29/2019)
 -----------------------------
    * Changes in PALM() for the function to stop and return an error mesage if an allele for the defined motif is not found in the Solberg dataset, fixed rounding error in RoundTo() that resulted in an inaccurate upper bound for the legend.
