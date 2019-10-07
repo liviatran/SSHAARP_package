@@ -33,7 +33,13 @@ BLAASD<-function(loci){
   for(i in 1:length(loci)){
     #downloads relevant locus alignment file -- readLines allows for space preservation, which is important in
     #finding where the alignment sequence starts
-    alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/alignments/",paste(ifelse(loci[[i]]=="DRB1","DRB",loci[[i]]),"_prot.txt",sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
+    #tryCatch() to ensure loci are input correctly
+    alignment[[loci[i]]]<-tryCatch({readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/alignments/",paste(ifelse(loci[[i]]=="DRB1","DRB",loci[[i]]),"_prot.txt",sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)}, warning=function(cond) {return(paste("Warning:", loci, "is not a valid locus. Unable to retrieve alignment." , sep=" "))}, error=function(cond) {return(paste("Error:", loci, "is not a valid locus. Unable to retrieve alignment.", sep=" "))})
+
+    #if an error or warning is returned into alignment, return error message
+    if(length(alignment[[loci[i]]])==1){
+      return(alignment[[loci[[i]]]])
+    }
 
     #alters alignment file by cutting out non-pertinent information in beginning
     #and endind of alignment file
@@ -195,4 +201,6 @@ BLAASD<-function(loci){
   }
   return(AA_segments)
 }
+
+
 

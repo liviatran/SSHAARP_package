@@ -86,13 +86,13 @@ Example output of BLAASD() for HLA-A, where the selected row outputs are 2 and 8
 8     A  01:01:01:08        A*01:01  A*01:01:01:08   M   A   V   M   A   P   R   T   L   L   L   L   L   S   G
 ```
 
-### motifCheck()
-motifCheck() checks the user-input motif for formatting errors, and examines the amino acid positions to see if they are in the alignment. If a formatting error or non-existent amino acid position is found in the user-input motif, an error message is returned. Otherwise, a list object containing the locus, motif, and AA_segments is returned.
+### checkMotif()
+checkMotif() checks the user-input motif for formatting errors, and examines the amino acid positions to see if they are in the alignment. If a formatting error or non-existent amino acid position is found in the user-input motif, an error message is returned. Otherwise, a list object containing the locus, motif, and AA_segments is returned.
 
 ```
-Example output of motifCheck() for a motif with existent amino acid positions and no formatting errors:
+Example output of checkMotif() for a motif with existent amino acid positions and no formatting errors:
 
-> motifCheck("DRB1*26F~28E~30Y")
+> checkMotif("DRB1*26F~28E~30Y")
 [[1]]
 [1] "DRB1"
 
@@ -167,7 +167,7 @@ Example output of motifCheck() for a motif with existent amino acid positions an
 ```
 Example of an incorrectly formatted motif, where two asterisks are used to separate the locus and first amino acid position-pair:
 
-> motifCheck("DRB1**26F~28E~30Y")
+> checkMotif("DRB1**26F~28E~30Y")
 
 [1] "Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue."
 ```
@@ -175,7 +175,7 @@ Example of an incorrectly formatted motif, where two asterisks are used to separ
 ```
 Example of a motif with an amino acid position that does not exist:
 
-> motifCheck("DRB1*26F~28E~300000Y")
+> checkMotif("DRB1*26F~28E~300000Y")
 
 [1] "One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of IPD-IMGT/HLA alignments."
 ```

@@ -1,4 +1,4 @@
-#'Motif Checker
+#'Syntactic and semantic validation of HLA amino acid motifs
 #'
 #'Checks input motif for errors in format and amino acid positions not present in the locus alignment.
 #'
@@ -15,18 +15,19 @@
 #'
 #'@examples
 #'#Example where a motif is formatted correctly
-#'motifCheck("DRB1*26F~28E~30Y")
+#'checkMotif("DRB1*26F~28E~30Y")
 #'
 #'#Example where format is incorrect
-#'motifCheck("DRB1**26F~28E~30Y")
+#'checkMotif("DRB1**26F~28E~30Y")
 #'
 #'#Example where an amino acid position does not exist
-#'motifCheck("DRB1**26F~28E~300000Y")
+#'checkMotif("DRB1**26F~28E~300000Y")
 
-motifCheck<-function(motif){
+checkMotif<-function(motif){
 
   #if conditions to catch if a motif is formatted incorrectly
-  if(((str_count(strsplit(motif, "*", fixed=T)[[1]][2], "[A-Z]")>=2) & (grepl("~", strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "*"))==FALSE)) |(length(strsplit(motif, "*", fixed=T)[[1]]) > 2) | (length(strsplit(motif, "*", fixed=T)[[1]])==1)){
+  ifelse(is.na(str_extract(strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "~")[[1]], "[A-Z]"))==TRUE, return("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue."), "")
+  if((is.na(str_extract(strsplit(motif, "*", fixed=T)[[1]][2], "[A-Z]"))==TRUE) | ((str_count(strsplit(motif, "*", fixed=T)[[1]][2], "[A-Z]")>=2) & (grepl("~", strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "*"))==FALSE)) |(length(strsplit(motif, "*", fixed=T)[[1]]) > 2) | (length(strsplit(motif, "*", fixed=T)[[1]])==1)){
     return("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue.")
   }
 
@@ -40,6 +41,12 @@ motifCheck<-function(motif){
   if(!exists("AA_segments")){
     #obtains AA_segments df
     AA_segments<-BLAASD(loci)
+  }
+
+  #if AA_segments it not a list because BLAASD() output is an error, return
+  #AA_segments, which contains the error
+  if(is.list(AA_segments)==FALSE){
+    return(AA_segments)
   }
 
   #examines motifs to make sure amino acid positions are in the correct order -- sorts numerically

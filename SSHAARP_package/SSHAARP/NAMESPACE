@@ -2,10 +2,10 @@
 
 export(BLAASD)
 export(PALM)
+export(checkMotif)
 export(countSpaces)
 export(dataSubset)
 export(findMotif)
-export(motifCheck)
 importFrom(BIGDAWG,GetField)
 importFrom(DescTools,RoundTo)
 importFrom(gmt,gmt.system)

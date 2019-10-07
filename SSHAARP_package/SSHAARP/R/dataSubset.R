@@ -23,7 +23,7 @@ dataSubset<-function(filename, motif){
   } else {solberg_DS <- as.data.frame(read.delim(filename), stringsAsFactors=F)}
 
   #checks input motif for formatting errors
-  check_results<-motifCheck(motif)
+  check_results<-checkMotif(motif)
 
   #if length of check_results is an error, return the error
   if(length(check_results)<2){

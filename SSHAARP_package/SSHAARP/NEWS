@@ -1,3 +1,12 @@
+SSHAARP 0.7.0.9000 (10/6/2019)
+-----------------------------
+   * Changed motifCheck() function name to checkMotif()
+   * Added additional syntax check to motifCheck()
+   * Changes to motifCheck() documentation
+   * Changes to findMotif() documentation
+   * tryCatch() statement added to BLAASD() to ensure loci are input correctly
+   * Subsequent adjustments to checkMotif(), findMotif(), and PALM() to return the error message if any loci are input incorrectly
+
 SSHAARP 0.6.1.9000 (09/30/2019)
 -----------------------------
    * Minor change to motifCheck() to specify motif locus return, in the event AA_segments is already present in the working environment.

@@ -1,4 +1,4 @@
-#'Reduce an alignment to alleles sharing a specific amino acid motif
+#'Returns an alignment data frame of alleles that share a specific amino acid motif
 #'
 #'Consumes the alignment data frame produced by BLAASD() and returns an alignment data frame of alleles that share a specific amino acid motif.
 #'
@@ -30,7 +30,7 @@ findMotif<-function(input_motif){
 
   #check if input motif is formatted correctly or if amino acid position
   #is present in the alignment
-  check_results<-motifCheck(input_motif)
+  check_results<-checkMotif(input_motif)
 
   #if length of check_results is an error, return the error
   if(length(check_results)<2){
@@ -51,16 +51,16 @@ findMotif<-function(input_motif){
   #if the loci is DRB1, this conditional statement subsets AA_segments to only DRB1 loci,
   #and if "NA" is present in the locus column for the alignment sequence coordinate row
   if(loci=="DRB1"){
-    AA_segments[[loci]]<-subset(AA_segments[[loci]], (loci==AA_segments[[loci]]$locus) | (is.na(AA_segments[[loci]]$locus)))
+    AA_segments<-subset(AA_segments, (loci==AA_segments$locus) | (is.na(AA_segments$locus)))
   }
 
   for(x in 1:length(motifs)) {
-    AA_segments[[loci]] <- AA_segments[[loci]][AA_segments[[loci]][substr(motifs[x],1,nchar(motifs[x])-1)]==substr(motifs[x],nchar(motifs[x]),nchar(motifs[x])),]
-    if(nrow(AA_segments[[loci]])==0)
+    AA_segments <- AA_segments[AA_segments[substr(motifs[x],1,nchar(motifs[x])-1)]==substr(motifs[x],nchar(motifs[x]),nchar(motifs[x])),]
+    if(nrow(AA_segments)==0)
     {
       return(data.frame("Motif"=input_motif, "Error message"="No alleles possess this motif"))
     }
   }
 
   #if motifs are found, AA_segments[[loci[[i]]]] is returned
-  return(AA_segments[[loci]])}
+  return(AA_segments)}

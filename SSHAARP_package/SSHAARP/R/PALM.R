@@ -33,6 +33,12 @@ PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
   #uses dataSubset to read and manipulate the Solberg dataset
   solberg_DS<-dataSubset(filename, motif)
 
+  #if output of solberg_DS after dataSubset is not a dataframe, it is an error-
+  #return solberg_DS, which contains the error message
+  if(is.data.frame(solberg_DS)==FALSE){
+    return(solberg_DS)
+  }
+
   #makes an empty list named unique_AWM, where the name of each element is after a unique AWM,
   #which is acquired by using the motif_finder function
   unique_AWM<-sapply(unique(findMotif(motif)$trimmed_allele), function(x) NULL)
