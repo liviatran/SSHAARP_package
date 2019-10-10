@@ -29,7 +29,6 @@ BLAASD<-function(loci){
   pepsplit<-refexon<-AA_aligned<-AA_segments<-inDels<-corr_table<-cols<-downloaded_segments<-w<-alignment_positions<-alignment_length<-alignment_start<-prot_extractions<-refblock_number<-end_char<-space_diff<-sapply(loci, function(x) NULL)
 
 
-  #begin for loop
   for(i in 1:length(loci)){
     #downloads relevant locus alignment file -- readLines allows for space preservation, which is important in
     #finding where the alignment sequence starts
@@ -99,17 +98,18 @@ BLAASD<-function(loci){
     #contain the same number of rows as previous reference peptide blocks
     #this for loop is invoked to add "."for all other alleles for each character in the newly reference peptide
     #to preserve structural integrity
+    #changes 10/9/19 to accommodate if there is more than one extraneous allele with an extended amino acid sequence
     for(k in 1:length(start[[loci[i]]])){
       if(nrow(alignment[[i]][start[[loci[i]]][k]:end[[loci[i]]][k],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],])){
         x<-as.data.frame(alignment[[loci[i]]][,1][start[[loci[i]]][1]:end[[loci[i]]][1]][-c(1,2)], stringsAsFactors = F)
         colnames(x)<-paste(loci[[i]], "alleles", sep="_")
         x<-cbind.data.frame(x, pepseq=as.character(paste(rep(".", nchar(tail(alignment[[loci[i]]][,2], 1))), collapse = "")), stringsAsFactors=FALSE)
-        y<-data.frame(tail(alignment[[loci[i]]],1), stringsAsFactors = F)
+        y<-data.frame(tail(alignment[[loci[i]]], (nrow(alignment[[i]][start[[loci[i]]][k]:end[[loci[i]]][k],][nrow(alignment[[i]][start[[loci[i]]][k]:end[[loci[i]]][k],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), stringsAsFactors = F)
         x$pepseq[match(y[,1], x[,1])]<-y$pepseq
-        alignment[[loci[i]]]<-as.matrix(rbind(head(alignment[[loci[i]]], -1), x))
+        alignment[[loci[i]]]<-as.matrix(rbind(head(alignment[[loci[i]]], -(nrow(alignment[[i]][start[[loci[i]]][k]:end[[loci[i]]][k],][nrow(alignment[[i]][start[[loci[i]]][k]:end[[loci[i]]][k],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), x))
         start[[loci[i]]]<-as.numeric(grep("Prot", alignment[[loci[i]]]))
-        end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,nrow(alignment[[loci[i]]])))}}
-
+        end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,nrow(alignment[[loci[i]]])))}
+    }
     #if a locus has extra formatting, resulting in unqeual rows, start and end will be updated to reflect subsetting
     #if a locus has no extra formatting, start and end will remain the same, as procured by earlier code
     for(e in 1:length(start[[loci[i]]])){
@@ -126,8 +126,14 @@ BLAASD<-function(loci){
     #creates a new matrix with the number of columns equal to the number of characters in the reference sequence
     corr_table[[loci[i]]]<-matrix(, nrow = 2, ncol = as.numeric(nchar(AA_segments[[loci[i]]][,2][1])))
 
-    #determines alignment length based on the total number of characters plus the alignment start (which is negative )
-    alignment_length[[loci[i]]]<-as.numeric(nchar(AA_segments[[loci[i]]][,2][1]))+alignment_start[[loci[[i]]]]
+    #if the first position enumeration is negative (i.e. has a leader peptide sequence), determines alignment length based on the total number of characters plus the alignment start (which is negative)
+    if(grepl("-", alignment_start[[loci[i]]][[1]])==TRUE){
+      alignment_length[[loci[i]]]<-as.numeric(nchar(AA_segments[[loci[i]]][,2][1]))+alignment_start[[loci[[i]]]]}
+
+    #if there is no leader peptide (i.e sequence starts at 1), determines alignment length based on total number of characters
+    else{
+      alignment_length[[loci[i]]]<-as.numeric(nchar(AA_segments[[loci[i]]][,2][1]))
+    }
 
     #pastes alignment_start to alignment_length together in sequential order, with inDels accounted for
     #captures output as "w"
@@ -136,8 +142,10 @@ BLAASD<-function(loci){
     #splits string formed by cat for separate character variables
     alignment_positions[[loci[i]]]<-as.character(unlist(strsplit(w[[loci[i]]], " ")))
 
-    #eliminates "0", as the alignment sequence from ANHIG does not contain 0
-    alignment_positions[[loci[i]]]<-alignment_positions[[loci[i]]][-which(alignment_positions[[loci[i]]] == 0)]
+    #eliminates "0" if present in the alignment positions, as the alignment sequence from ANHIG does not contain 0
+    if("0" %in% alignment_positions[[loci[i]]]==TRUE){
+      alignment_positions[[loci[i]]]<-alignment_positions[[loci[i]]][-which(alignment_positions[[loci[i]]] == 0)]
+    }
 
     #contains alignment sequence information
     corr_table[[loci[i]]][2,]<-alignment_positions[[loci[i]]]
@@ -179,15 +187,25 @@ BLAASD<-function(loci){
     #finds positions in AA_segments that have ".", indicating an inDel
     inDels[[loci[[i]]]]<-colnames(AA_segments[[loci[[i]]]][1, 5:ncol(AA_segments[[loci[[i]]]])][AA_segments[[loci[[i]]]][1, 5:ncol(AA_segments[[loci[[i]]]])] %in% "."])
 
+
     #inputs AA_segments alignment sequence into the corr_table with "InDel" still present
     corr_table[[loci[[i]]]][1,]<-names(AA_segments[[loci[[i]]]][5:ncol(AA_segments[[loci[[i]]]])])
 
     if(length(inDels[[loci[[i]]]])!=0){
-    for(b in 1:length(inDels[[loci[[i]]]])){
-      corr_table[[loci[[i]]]][2,][inDels[[loci[[i]]]][[b]]==corr_table[[loci[[i]]]][1,]]<-paste("InDel", b, sep="_")
+      for(b in 1:length(inDels[[loci[[i]]]])){
+        corr_table[[loci[[i]]]][2,][inDels[[loci[[i]]]][[b]]==corr_table[[loci[[i]]]][1,]]<-paste("InDel", b, sep="_")
+      }
     }
-    #fixes enumerations following "InDel"
-    corr_table[[loci[[i]]]][2,][!grepl("InDel", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))==0]
+
+    #if alignment start is position 1, alignment start does not need to be accounted for
+    #when determining length of corr_table in re-enumerating corr_table with InDels
+    if(alignment_start[[loci[[i]]]]==1){
+      #fixes enumerations following "InDel"
+      corr_table[[loci[[i]]]][2,][!grepl("InDel", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))))==0]
+    }
+
+    else{
+      corr_table[[loci[[i]]]][2,][!grepl("InDel", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))==0]
     }
 
     #renames columns in AA_segments
