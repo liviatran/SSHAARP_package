@@ -43,7 +43,7 @@ checkMotif<-function(motif){
     AA_segments<-BLAASD(loci)
   }
 
-  #if AA_segments it not a list because BLAASD() output is an error, return
+  #if AA_segments is not a list because BLAASD() output is an error, return
   #AA_segments, which contains the error
   if(is.list(AA_segments)==FALSE){
     return(AA_segments)

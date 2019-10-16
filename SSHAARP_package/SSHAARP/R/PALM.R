@@ -33,7 +33,7 @@ PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
   #uses dataSubset to read and manipulate the Solberg dataset
   solberg_DS<-dataSubset(filename, motif)
 
-  #if output of solberg_DS after dataSubset is not a dataframe, it is an error-
+  #if output of solberg_DS after dataSubset is not a dataframe, it is an error
   #return solberg_DS, which contains the error message
   if(is.data.frame(solberg_DS)==FALSE){
     return(solberg_DS)
