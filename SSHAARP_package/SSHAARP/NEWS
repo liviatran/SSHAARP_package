@@ -1,3 +1,10 @@
+SSHAARP 0.8.0.9000 (10/21/2019)
+-----------------------------
+   * AA_segments variable changed to HLAalignments
+   * Version 3.38.0 HLA protein alignments for all HLA loci now packaged as a dataset as "HLAalignments"
+   * BLAASD() and findMotif() accomodations for HLA-DRB3/4/5
+   * Locus checking capability incorporated into BLAASD()
+
 SSHAARP 0.7.1.9000 (10/9/2019)
 -----------------------------
    * BLAASD() accommodations for HLA-TAP1 and HLA-TAP2

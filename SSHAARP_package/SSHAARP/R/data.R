@@ -10,4 +10,13 @@
 #' @references Solberg et.al "Balancing selection and heterogeneity across the classical human leukocyte antigen loci: A meta-analytic review of 497 population studies". Human Immunology (2008) 69, 443–464
 "solberg_dataset"
 
+#' Version 3.38.0 Protein Alignments for all HLA loci
+#'
+#' A list object containing protein alignments for all HLA loci. Alignments were downloaded from the ANHIG/IPD-IMGT Github respository.
+#' @docType data
+#' @name all_HLAalignments
+#' @usage data(all_HLAalignments)
+#' @format A list containing HLA alignments in a dataframe format for each locus.
+#' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
+"all_HLAalignments"
 

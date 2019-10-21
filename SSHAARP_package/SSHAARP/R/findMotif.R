@@ -43,24 +43,16 @@ findMotif<-function(input_motif){
   #enters motifs information from check_results
   motifs<-check_results[[2]]
 
-  #enters AA_segments information from check_results
-  AA_segments<-check_results[[3]]
-
-  #since "DRB" is used as the search criteria for the alignment (IMGTHLA/ANHIG groups all DRB loci
-  #into one alignment, AA_segments consists of all DRB loci, not just DRB1)
-  #if the loci is DRB1, this conditional statement subsets AA_segments to only DRB1 loci,
-  #and if "NA" is present in the locus column for the alignment sequence coordinate row
-  if(loci=="DRB1"){
-    AA_segments<-subset(AA_segments, (loci==AA_segments$locus) | (is.na(AA_segments$locus)))
-  }
+  #enters HLAalignments information from check_results
+  HLAalignments<-check_results[[3]]
 
   for(x in 1:length(motifs)) {
-    AA_segments <- AA_segments[AA_segments[substr(motifs[x],1,nchar(motifs[x])-1)]==substr(motifs[x],nchar(motifs[x]),nchar(motifs[x])),]
-    if(nrow(AA_segments)==0)
+    HLAalignments <- HLAalignments[HLAalignments[substr(motifs[x],1,nchar(motifs[x])-1)]==substr(motifs[x],nchar(motifs[x]),nchar(motifs[x])),]
+    if(nrow(HLAalignments)==0)
     {
       return(data.frame("Motif"=input_motif, "Error message"="No alleles possess this motif"))
     }
   }
 
-  #if motifs are found, AA_segments[[loci[[i]]]] is returned
-  return(AA_segments)}
+  #if motifs are found, HLAalignments[[loci[[i]]]] is returned
+  return(HLAalignments)}

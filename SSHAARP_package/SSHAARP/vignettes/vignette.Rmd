@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livtran@chori.org"
-date: "September 29, 2019"
+date: "October 21, 2019"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -87,7 +87,7 @@ Example output of BLAASD() for HLA-A, where the selected row outputs are 2 and 8
 ```
 
 ### checkMotif()
-checkMotif() checks the user-input motif for formatting errors, and examines the amino acid positions to see if they are in the alignment. If a formatting error or non-existent amino acid position is found in the user-input motif, an error message is returned. Otherwise, a list object containing the locus, motif, and AA_segments is returned.
+checkMotif() checks the user-input motif for formatting errors, and examines the amino acid positions to see if they are in the alignment. If a formatting error or non-existent amino acid position is found in the user-input motif, an error message is returned. Otherwise, a list object containing the locus, motif, and HLAalignments is returned.
 
 ```
 Example output of checkMotif() for a motif with existent amino acid positions and no formatting errors:

@@ -36,17 +36,15 @@ checkMotif<-function(motif){
   loci <- split_1[1]
   motifs <- unlist(strsplit(split_1[2],"~",fixed=TRUE))
 
-  #if AA_segments does not exist (i.e not previously already downloaded and in the local
-  #environment) then generate AA_segments)
-  if(!exists("AA_segments")){
-    #obtains AA_segments df
-    AA_segments<-BLAASD(loci)
-  }
+  #if HLAalignments does not exist (i.e not previously already downloaded and in the local
+  #environment) then generate HLAalignments)
+    #obtains HLAalignments df
+    HLAalignments<-BLAASD(loci)
 
-  #if AA_segments is not a list because BLAASD() output is an error, return
-  #AA_segments, which contains the error
-  if(is.list(AA_segments)==FALSE){
-    return(AA_segments)
+  #if HLAalignments is not a list because BLAASD() output is an error, return
+  #HLAalignments, which contains the error
+  if(is.list(HLAalignments)==FALSE){
+    return(HLAalignments)
   }
 
   #examines motifs to make sure amino acid positions are in the correct order -- sorts numerically
@@ -54,12 +52,12 @@ checkMotif<-function(motif){
   motifs <- mixedsort(motifs)
 
   #examines if amino acid positions in the motif are present in the alignment - returns error message if one or more positions is not in the alignment
-  if(!all(substr(motifs,1,nchar(motifs)-1) %in% colnames(AA_segments[[loci]])[5:ncol(AA_segments[[loci]])])) {
+  if(!all(substr(motifs,1,nchar(motifs)-1) %in% colnames(HLAalignments[[loci]])[5:ncol(HLAalignments[[loci]])])) {
     return("One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of IPD-IMGT/HLA alignments.")
   }
 
   #return a list object with loci and motifs information
   #if no error message is returned
   else{
-    return(list(loci, motifs, AA_segments[[loci]]))}
+    return(list(loci, motifs, HLAalignments[[loci]]))}
 }
