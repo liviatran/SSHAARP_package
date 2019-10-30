@@ -1,7 +1,18 @@
+SSHAARP 0.8.1.9000 (10/29/2019)
+-----------------------------
+   * "all_HLAalignments" incorporated dataset changed to "IMGTprotalignments"
+   * TAP1 and TAP2 alignments now present in IMGTprotalignments
+   * Set filename parameter default to solberg_dataset for dataSubset() and PALM()
+   * Changed findMotif() "input_motif" parameter to "motif"
+   * Added package version documentation to vignette
+   * Rounding variables set to three digits in PALM() for decile intervals
+   * Made legend font size smaller for PALM() maps
+
+
 SSHAARP 0.8.0.9000 (10/21/2019)
 -----------------------------
    * AA_segments variable changed to HLAalignments
-   * Version 3.38.0 HLA protein alignments for all HLA loci now packaged as a dataset as "HLAalignments"
+   * Version 3.38.0 HLA protein alignments for all HLA loci now packaged as a dataset as "all_HLAalignments"
    * BLAASD() and findMotif() accomodations for HLA-DRB3/4/5
    * Locus checking capability incorporated into BLAASD()
 

@@ -2,7 +2,7 @@
 #'
 #'Produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset.
 #'
-#'@param filename The filename of the local copy of the Solberg dataset.
+#'@param filename The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'@param color A logical parameter that identifies if the heat maps should be made in color (TRUE) or gray scale (FALSE). The default option is TRUE.
 #'@param filterMigrant A logical parameter that determines if admixed populations (OTH) and migrant populations (i.e. any complexities with the 'mig') should be excluded from the dataset. The default option is TRUE.
@@ -28,10 +28,10 @@
 #'@references Solberg et.al "Balancing selection and heterogeneity across the classical human leukocyte antigen loci: A meta-analytic review of 497 population studies". Human Immunology (2008) 69, 443–464
 #'
 #'
-PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
+PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigrant=TRUE){
 
   #uses dataSubset to read and manipulate the Solberg dataset
-  solberg_DS<-dataSubset(filename, motif)
+  solberg_DS<-dataSubset(motif, filename)
 
   #if output of solberg_DS after dataSubset is not a dataframe, it is an error
   #return solberg_DS, which contains the error message
@@ -142,7 +142,7 @@ PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
   #to form deciles
   #uses readLines to obtain upperbound information from bash, and rounds it to the nearest 0.5
   #uses readLines to obtain decile needed
-  cpt_interval<-c(RoundTo(as.numeric(readLines("upperbound")), 0.05), RoundTo(as.numeric(readLines("upperbound")), 0.05)/10)
+  cpt_interval<-c(round(as.numeric(readLines("upperbound")), 3), round(as.numeric(readLines("upperbound")), 3)/10)
 
   #creates a vector called decile_interval, which gives decile increments based on cpt_interval information
   decile_interval<-seq(0, cpt_interval[1], cpt_interval[2])
@@ -165,8 +165,8 @@ PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
     gmt.system("makecpt -Cgray -Iz -T0/`awk '{print $1}' max_cpt`/`awk '{print $2}' max_cpt` > decile.cpt")
 
   }
-  #adds color scale to basemap based on cpt provided
-  gmt.system("psscale -D0.1i/1.1i/2i/0.3i -Cdecile.cpt -Np -L -O -K >> `cat motif`.ps")
+  #adds color scale to basemap based on cpt provided -- makes font on legend smaller
+  gmt.system("psscale -D0.1i/1.1i/2i/0.3i -Cdecile.cpt --FONT_ANNOT_PRIMARY=10p,Helvetica,black -Np -L -O -K >> `cat motif`.ps")
 
   #overlays more coastlines with pscoast
   gmt.system("pscoast -JM6i -R-180/180/-60/80 -A100000 -Gc -O -K >> `cat motif`.ps")
@@ -196,5 +196,7 @@ PALM<-function(filename, motif, color=TRUE, filterMigrant=TRUE){
   #removes gmt.history output file and other irrelevant files
   gmt.system("rm 'gmt.history' 'upperbound' 'decile.cpt' 'deciles' 'motif' 'motif.block' 'motif.grd' 'motif.xyz' `cat motif`.ps 'max_cpt'")
 
-
 }
+
+
+

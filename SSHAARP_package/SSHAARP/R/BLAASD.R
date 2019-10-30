@@ -4,7 +4,7 @@
 #'
 #'@param loci A vector of un-prefixed HLA locus names
 #'
-#'@return A list object of data frames for each specified locus. Each list element is a data frame of allele names and the corresponding peptide sequence for each amino acid position.
+#'@return A list object of data frames for each specified locus. Each list element is a data frame of allele names and the corresponding peptide sequence for each amino acid position. An error message is return if the loci input is not a locus for which petpide alignments are available in the ANHIG/IMGTHLA Github Repository.
 #'
 #'@importFrom stringr str_squish
 #'@importFrom utils head tail capture.output
@@ -23,7 +23,7 @@ BLAASD<-function(loci){
   #skip name checks for DRB1/3/4/5, as they are a part of the DRB alignment
     for(j in 1:length(loci)){
       if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
-      if(loci[j] %in% names(SSHAARP::all_HLAalignments)== FALSE){
+      if(loci[j] %in% names(SSHAARP::IMGTprotalignments)== FALSE){
         return(paste(loci[j], "is not a valid locus."))
       }}
 
@@ -209,6 +209,7 @@ BLAASD<-function(loci){
       #inputs HLAalignments alignment sequence into the corr_table with "InDel" still present
       corr_table[[loci[[i]]]][1,]<-names(HLAalignments[[loci[[i]]]][5:ncol(HLAalignments[[loci[[i]]]])])
 
+      #inDel inclusion if there are inDels present
       if(length(inDels[[loci[[i]]]])!=0){
         for(b in 1:length(inDels[[loci[[i]]]])){
           corr_table[[loci[[i]]]][2,][inDels[[loci[[i]]]][[b]]==corr_table[[loci[[i]]]][1,]]<-paste("InDel", b, sep="_")
@@ -236,4 +237,4 @@ BLAASD<-function(loci){
         HLAalignments[[loci[i]]][,k][which(HLAalignments[[loci[i]]][,k]=="-")] <- HLAalignments[[loci[i]]][,k][1]}
     }
     return(HLAalignments)
-  }
+}

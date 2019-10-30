@@ -2,7 +2,7 @@
 #'
 #'Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 #'
-#'@param filename The filename of the local copy of the Solberg dataset.
+#'@param filename The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
 #'@importFrom utils read.delim
@@ -16,7 +16,7 @@
 #'@return A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus.
 #'
 #'
-dataSubset<-function(filename, motif){
+dataSubset<-function(motif, filename=SSHAARP::solberg_dataset){
 
   if(is.data.frame(filename)) {
     solberg_DS <- filename

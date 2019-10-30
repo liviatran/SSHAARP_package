@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livtran@chori.org"
-date: "October 21, 2019"
+date: "October 29, 2019"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -11,6 +11,8 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+* Package Version: 0.8.1.900
 
 # Overview
 The Searching Shared HLA Amino Acid Residue Prevalence (SSHAARP) Package processes amino acid alignments produced by the IPD-IMGT/HLA Database to identify user-defined amino acid residue motifs shared across HLA alleles, and calculates the frequencies of those motifs based on HLA allele frequency data. SSHAARP uses Generic Mapping Tools (GMT) software and the GMT R Package to generate global frequency heat maps that illustrate the distribution of each user-defined map around the globe. SSHAARP analyzes the allele frequency data described in Solberg et al. 2008, a global set of 497 population samples from 185 published datasets, representing 66,800 individuals.
@@ -46,7 +48,7 @@ The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is th
     
   **locus** - HLA locus information of collected data.
     
-  **allele_v3** - IPD-IMGT/HLA Database version 3_*_* allele names.
+  **allele_v3** - IPD-IMGT/HLA Database version 3.\*.\* allele names.
     
   **allele.freq** - frequency of the corresponding HLA allele for a population.       
 
@@ -266,7 +268,7 @@ countSpaces() returns a vector of the number of spaces between each set of non-s
 
 PALM() produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset using the Generic Mapping Tools (GMT) R Package, which is an interface between R and the GMT Map-Making software. GMT software is required for this function and can be downloaded at https://www.soest.hawaii.edu/gmt/. The final output of PALM() is a heatmap saved under the filename as "'the input motif'.jpg" as a JPEG in the user's working directory. 
 
-Two default parameters are set for PALM(), color = TRUE, and filter_migrant = TRUE. When color is set to TRUE, PALM generates a color heatmap; when color is set to FALSE, a greyscale heatmap is generated. When filter_migrant is set to TRUE, populations from the OTH region and populations with complexity values that have the ‘mig’ suffix are excluded from the heatmap plot. When filter_migrant is set to FALSE, these populations are included in the heatmap plot.
+The filename parameter is defaulted to the Solberg dataset in SSHAARP. Two other default parameters are set for PALM(), where color = TRUE and filter_migrant = TRUE. When color is set to TRUE, PALM generates a color heatmap; when color is set to FALSE, a greyscale heatmap is generated. When filter_migrant is set to TRUE, populations from the OTH region and populations with complexity values that have the ‘mig’ suffix are excluded from the heatmap plot. When filter_migrant is set to FALSE, these populations are included in the heatmap plot.
 
 ```
 #color heatmap plot

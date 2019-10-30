@@ -4,12 +4,13 @@
 \alias{PALM}
 \title{Population Allele Locating Mapmaker}
 \usage{
-PALM(filename, motif, color = TRUE, filterMigrant = TRUE)
+PALM(motif, filename = SSHAARP::solberg_dataset, color = TRUE,
+  filterMigrant = TRUE)
 }
 \arguments{
-\item{filename}{The filename of the local copy of the Solberg dataset.}
-
 \item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
+
+\item{filename}{The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.}
 
 \item{color}{A logical parameter that identifies if the heat maps should be made in color (TRUE) or gray scale (FALSE). The default option is TRUE.}
 

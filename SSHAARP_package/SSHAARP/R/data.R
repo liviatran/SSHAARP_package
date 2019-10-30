@@ -14,9 +14,9 @@
 #'
 #' A list object containing protein alignments for all HLA loci. Alignments were downloaded from the ANHIG/IPD-IMGT Github respository.
 #' @docType data
-#' @name all_HLAalignments
-#' @usage data(all_HLAalignments)
+#' @name IMGTprotalignments
+#' @usage data(IMGTprotalignments)
 #' @format A list containing HLA alignments in a dataframe format for each locus.
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
-"all_HLAalignments"
+"IMGTprotalignments"
 

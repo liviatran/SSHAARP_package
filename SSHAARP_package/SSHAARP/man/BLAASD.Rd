@@ -10,7 +10,7 @@ BLAASD(loci)
 \item{loci}{A vector of un-prefixed HLA locus names}
 }
 \value{
-A list object of data frames for each specified locus. Each list element is a data frame of allele names and the corresponding peptide sequence for each amino acid position.
+A list object of data frames for each specified locus. Each list element is a data frame of allele names and the corresponding peptide sequence for each amino acid position. An error message is return if the loci input is not a locus for which petpide alignments are available in the ANHIG/IMGTHLA Github Repository.
 }
 \description{
 Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA GitHub repository to produce a dataframe of individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name.

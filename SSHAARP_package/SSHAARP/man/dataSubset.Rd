@@ -4,12 +4,12 @@
 \alias{dataSubset}
 \title{Solberg dataset manipulation}
 \usage{
-dataSubset(filename, motif)
+dataSubset(motif, filename = SSHAARP::solberg_dataset)
 }
 \arguments{
-\item{filename}{The filename of the local copy of the Solberg dataset.}
-
 \item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
+
+\item{filename}{The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.}
 }
 \value{
 A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus.

@@ -4,10 +4,10 @@
 \alias{findMotif}
 \title{Returns an alignment data frame of alleles that share a specific amino acid motif}
 \usage{
-findMotif(input_motif)
+findMotif(motif)
 }
 \arguments{
-\item{input_motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
+\item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
 }
 \value{
 An amino acid alignment dataframe of alleles that share the specified motif. If the motif is not found in any alleles, a data frame containing an error message is returned.
