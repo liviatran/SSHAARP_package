@@ -12,14 +12,14 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-* Package Version: 0.8.1.900
+* Package Version: 0.8.2.9000
 
 # Overview
 The Searching Shared HLA Amino Acid Residue Prevalence (SSHAARP) Package processes amino acid alignments produced by the IPD-IMGT/HLA Database to identify user-defined amino acid residue motifs shared across HLA alleles, and calculates the frequencies of those motifs based on HLA allele frequency data. SSHAARP uses Generic Mapping Tools (GMT) software and the GMT R Package to generate global frequency heat maps that illustrate the distribution of each user-defined map around the globe. SSHAARP analyzes the allele frequency data described in Solberg et al. 2008, a global set of 497 population samples from 185 published datasets, representing 66,800 individuals.
 
 Future plans for SSHAARP include producing heat maps based on allelic frequencies obtained from the Allele Frequency Net Database (AFND). 
 
-SSHAARP obtains HLA amino acid alignments from the IPD-IMGT/HLA GitHub repository at: https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments.
+SSHAARP obtains HLA amino acid alignments from the ANHIG/IMGTHLA GitHub repository at: https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments.
 
 The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is the 1-locus-alleles.dat file in the results.zip archive at http://pypop.org/popdata/. The Solberg dataset is also incorporated into SSHAARP as "solberg_dataset". Columns of the Solberg dataset that are pertinent to this package, along with an explanation of their contents, are as follows: 
   
@@ -54,9 +54,9 @@ The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is th
 
 ***
 
-SSHAARP’s functions interact an external datasource, a user-downloaded dataset, and one R package:
+SSHAARP’s functions interact with two data sources, protein alignments from the ANHIG/IMGTHLA Github Repository and the Solberg dataset, both of which are packaged into SSHAARP, and one R package:
 
-1. IPD-IMGT/HLA:
+1. ANHIG/IMGTHLA:
     
     **countSpaces()** counts the number of whitespaces in the ANHIG alignment files to discern where the alignment start is.
     
@@ -179,7 +179,7 @@ Example of a motif with an amino acid position that does not exist:
 
 > checkMotif("DRB1*26F~28E~300000Y")
 
-[1] "One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of IPD-IMGT/HLA alignments."
+[1] "One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of ANHIG/IMGTHLA alignments."
 ```
 
 ### findMotif()

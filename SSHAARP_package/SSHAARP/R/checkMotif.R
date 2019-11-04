@@ -63,7 +63,7 @@ checkMotif<-function(motif){
 
   #examines if amino acid positions in the motif are present in the alignment - returns error message if one or more positions is not in the alignment
   if(!all(substr(motifs,1,nchar(motifs)-1) %in% colnames(HLAalignments)[5:ncol(HLAalignments)])) {
-    return("One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of IPD-IMGT/HLA alignments.")
+    return("One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of ANHIG/IMGTHLA alignments.")
   }
 
   #return a list object with loci and motifs information

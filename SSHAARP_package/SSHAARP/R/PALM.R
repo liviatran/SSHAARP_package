@@ -142,7 +142,7 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   #to form deciles
   #uses readLines to obtain upperbound information from bash, and rounds it to the nearest 0.5
   #uses readLines to obtain decile needed
-  cpt_interval<-c(round(as.numeric(readLines("upperbound")), 3), round(as.numeric(readLines("upperbound")), 3)/10)
+  cpt_interval<-c(round(as.numeric(readLines("upperbound")), 3), round(as.numeric(readLines("upperbound"))/10,3))
 
   #creates a vector called decile_interval, which gives decile increments based on cpt_interval information
   decile_interval<-seq(0, cpt_interval[1], cpt_interval[2])
