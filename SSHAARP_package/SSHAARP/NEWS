@@ -1,3 +1,9 @@
+SSHAARP 0.8.3.9000 (11/5/2019)
+-----------------------------
+   * Changed pscoast() area parameter to include areas that were previously excluded from       color application based on heat map frequencies (Taiwan, Hokkaido).
+   * Updated map visuals in vignette to reflect more current maps produced by PALM().
+
+
 SSHAARP 0.8.2.9000 (11/4/2019)
 -----------------------------
    * Changes to vignette documentation.

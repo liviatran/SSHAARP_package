@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livtran@chori.org"
-date: "October 29, 2019"
+date: "November 5, 2019"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-* Package Version: 0.8.2.9000
+* Package Version: 0.8.3.9000
 
 # Overview
 The Searching Shared HLA Amino Acid Residue Prevalence (SSHAARP) Package processes amino acid alignments produced by the IPD-IMGT/HLA Database to identify user-defined amino acid residue motifs shared across HLA alleles, and calculates the frequencies of those motifs based on HLA allele frequency data. SSHAARP uses Generic Mapping Tools (GMT) software and the GMT R Package to generate global frequency heat maps that illustrate the distribution of each user-defined map around the globe. SSHAARP analyzes the allele frequency data described in Solberg et al. 2008, a global set of 497 population samples from 185 published datasets, representing 66,800 individuals.
@@ -272,7 +272,7 @@ The filename parameter is defaulted to the Solberg dataset in SSHAARP. Two other
 
 ```
 #color heatmap plot
->PALM(solberg_dataset, "DRB1*26F~28E~30Y" )
+>PALM("DRB1*26F~28E~30Y" )
 ```
 
 ```{r, out.width='100%', fig.align='center', fig.cap='...', , echo=FALSE}
@@ -281,7 +281,7 @@ knitr::include_graphics("basemap_color.jpg")
   
 ```
 #greyscale heatmap plot
->PALM(solberg_dataset, "DRB1*26F~28E~30Y", color=FALSE)
+>PALM("DRB1*26F~28E~30Y", color=FALSE)
 ```
 
 ```{r, out.width='100%', fig.align='center', fig.cap='...', echo=FALSE}

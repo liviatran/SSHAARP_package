@@ -20,10 +20,10 @@
 #'
 #'@examples
 #'#example to produce a color frequency heat map without migrant populations filtered out
-#'PALM(solberg_dataset, "DRB1*26F~28E~30Y", color=TRUE, filterMigrant=FALSE)
+#'PALM("DRB1*26F~28E~30Y", color=TRUE, filterMigrant=FALSE)
 #'
 #'#example to produce a greyscale heat map with migrant populations filtered out
-#'PALM(solberg_dataset, "DRB1*26F~28E~30Y", color=FALSE, filterMigrant=TRUE)
+#'PALM("DRB1*26F~28E~30Y", color=FALSE, filterMigrant=TRUE)
 #'
 #'@references Solberg et.al "Balancing selection and heterogeneity across the classical human leukocyte antigen loci: A meta-analytic review of 497 population studies". Human Immunology (2008) 69, 443–464
 #'
@@ -169,7 +169,7 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   gmt.system("psscale -D0.1i/1.1i/2i/0.3i -Cdecile.cpt --FONT_ANNOT_PRIMARY=10p,Helvetica,black -Np -L -O -K >> `cat motif`.ps")
 
   #overlays more coastlines with pscoast
-  gmt.system("pscoast -JM6i -R-180/180/-60/80 -A100000 -Gc -O -K >> `cat motif`.ps")
+  gmt.system("pscoast -JM6i -R-180/180/-60/80 -A30000 -Gc -O -K >> `cat motif`.ps")
 
   #clips/masks map areas with no data table coverage -- radius of influence increased to 900 km
   gmt.system("psmask motif.xyz -R-180/180/-60/80 -I3 -JM6i -S850k -O -K >> `cat motif`.ps")
@@ -181,13 +181,13 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   gmt.system("grdcontour motif.grd -JM6i -Cdecile.cpt -A- -R-180/180/-60/80 -O -K >> `cat motif`.ps")
 
   #plots longtitude/latitude coordinates onto basemap
-  gmt.system("psxy motif.xyz -R-180/180/-60/80 -JM6i -A -G255 -W0.5p -Sc.05 -O -K >> `cat motif`.ps")
+  gmt.system("psxy motif.block -R-180/180/-60/80 -JM6i -A -G255 -W0.5p -Sc.05 -O -K >> `cat motif`.ps")
 
   #calls psmask again to terminate clip path with -C parameter
   gmt.system("psmask motif.xyz -R-180/180/-60/80 -I3 -JM6i -S850k -C -O -K >> `cat motif`.ps")
 
   #calls pcoast again to re-establish coastlines and -Q parameter to quit clipping
-  gmt.system("pscoast -JM6i -R-180/180/-60/80 -A10000 -W0.5 -O -Q  >>  `cat motif`.ps")
+  gmt.system("pscoast -JM6i -R-180/180/-60/80 -A30000 -W0.5 -O -Q  >>  `cat motif`.ps")
 
   #converts ps map to jpg -- saves into local environment
   #requires Ghostscript in order to execute command

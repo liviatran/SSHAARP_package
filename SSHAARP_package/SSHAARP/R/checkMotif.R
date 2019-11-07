@@ -47,7 +47,7 @@ checkMotif<-function(motif){
     if(exists("IMGTprotalignments")){
       if(loci=="DRB1"){locus<-"DRB"}
       else{locus<-loci}
-      HLAalignments<-IMGTprotalignments[[locus]]
+      HLAalignments<-SSHAARP::IMGTprotalignments[[locus]]
     }
 
 

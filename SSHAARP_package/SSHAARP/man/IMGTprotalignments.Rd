@@ -9,7 +9,7 @@
 https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 }
 \usage{
-View(IMGTprotalignments)
+IMGTprotalignments
 }
 \description{
 A list object containing protein alignments for all protein coding genes in the IPD-IMGT/HLA Database release. Alignments were downloaded from the ANHIG/IMGTHLA Github respository.

@@ -31,10 +31,10 @@ The Solberg dataset is also prepackaged into SSHAARP as 'solberg_dataset'.
 }
 \examples{
 #example to produce a color frequency heat map without migrant populations filtered out
-PALM(solberg_dataset, "DRB1*26F~28E~30Y", color=TRUE, filterMigrant=FALSE)
+PALM("DRB1*26F~28E~30Y", color=TRUE, filterMigrant=FALSE)
 
 #example to produce a greyscale heat map with migrant populations filtered out
-PALM(solberg_dataset, "DRB1*26F~28E~30Y", color=FALSE, filterMigrant=TRUE)
+PALM("DRB1*26F~28E~30Y", color=FALSE, filterMigrant=TRUE)
 
 }
 \references{

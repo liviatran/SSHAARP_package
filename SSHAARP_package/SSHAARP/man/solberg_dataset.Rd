@@ -9,7 +9,7 @@
 results.zip file from http://pypop.org/popdata/
 }
 \usage{
-View(solberg_dataset)
+solberg_dataset
 }
 \description{
 A dataframe of the original Solberg dataset, which is a global dataset of 497 population samples from 185 published datasets, representing 66,800 individuals.
