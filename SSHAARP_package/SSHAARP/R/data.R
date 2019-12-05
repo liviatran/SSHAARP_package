@@ -16,7 +16,16 @@
 #' @docType data
 #' @name IMGTprotalignments
 #' @usage IMGTprotalignments
-#' @format A list containing HLA alignments in a dataframe format for each locus.
+#' @format A list containing protein alignments in a dataframe format for each locus.
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 "IMGTprotalignments"
 
+#' Exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release v 3.38.0
+#'
+#' A list object containing exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release. Exon boundaries were determined from nucleotide alignments, which were downloaded from the ANHIG/IMGTHLA Github respository.
+#' @docType data
+#' @name AA_atlas
+#' @usage AA_atlas
+#' @format A list containing exon boundaries in a dataframe format for each locus.
+#' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
+"AA_atlas"

@@ -1,6 +1,15 @@
+SSHAARP 0.9.0.9000 (12/4/2019)
+-----------------------------
+   * Removed countSpaces() function and incorporated into BLAASD() script
+   * Changed amino acid positioning from actual coordinate system to alignment coordinate system
+   * Added specCirc(), a function in BLAASD() to produce an accurate dataframe for DQB1 (see vignette under "BLAASD()" for more details)
+   * Changes to vignette documentation.
+
+
+
 SSHAARP 0.8.3.9000 (11/5/2019)
 -----------------------------
-   * Changed pscoast() area parameter to include areas that were previously excluded from       color application based on heat map frequencies (Taiwan, Hokkaido).
+   * Changed pscoast() area parameter to include areas that were previously excluded from       color application based on heat map frequencies (e.g. Taiwan, Hokkaido).
    * Updated map visuals in vignette to reflect more current maps produced by PALM().
 
 
