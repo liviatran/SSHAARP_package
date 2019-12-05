@@ -3,8 +3,8 @@ SSHAARP 0.9.0.9000 (12/4/2019)
    * Removed countSpaces() function and incorporated into BLAASD() script
    * Changed amino acid positioning from actual coordinate system to alignment coordinate system
    * Added specCirc(), a function in BLAASD() to produce an accurate dataframe for DQB1 (see vignette under "BLAASD()" for more details)
-   * Changes to vignette documentation.
-
+   * Changes to vignette documentation
+   * Exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database V 3.38.0 release are now incorporated into SSHAARP as "AA_atlas".
 
 
 SSHAARP 0.8.3.9000 (11/5/2019)
@@ -31,7 +31,7 @@ SSHAARP 0.8.1.9000 (10/29/2019)
 SSHAARP 0.8.0.9000 (10/21/2019)
 -----------------------------
    * AA_segments variable changed to HLAalignments
-   * V. 3.38.0 HLA protein alignments for all HLA loci now packaged as a dataset as "all_HLAalignments""
+   * V. 3.38.0 HLA protein alignments for all HLA loci now packaged as a dataset as "all_HLAalignments"
    * BLAASD() and findMotif() accomodations for HLA-DRB3/4/5
    * Locus checking capability incorporated into BLAASD()
 
