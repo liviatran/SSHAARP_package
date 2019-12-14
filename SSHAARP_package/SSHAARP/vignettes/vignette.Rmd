@@ -23,7 +23,7 @@ SSHAARP obtains HLA amino acid alignments from the ANHIG/IMGTHLA GitHub reposito
 
 The required Solberg dataset (See: doi: 10.1016/j.humimm.2008.05.001) file is the 1-locus-alleles.dat file in the results.zip archive at http://pypop.org/popdata/. The Solberg dataset is also incorporated into SSHAARP as "solberg_dataset". Columns of the Solberg dataset that are pertinent to this package, along with an explanation of their contents, are as follows: 
   
-  **popname** - contains the population name, followed by a year, indicating the year of publication of the literature the population information was derived from
+  **popname** - contains the population name, followed by a year, indicating the year of publication of the literature the population information was derived from.
 
   **contin** - contains three letter abbreviations of 10 major world regions:
   
