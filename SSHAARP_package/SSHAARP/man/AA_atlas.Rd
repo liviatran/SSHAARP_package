@@ -12,6 +12,9 @@ https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 AA_atlas
 }
 \description{
-A list object containing exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release. Exon boundaries were determined from nucleotide alignments, which were downloaded from the ANHIG/IMGTHLA Github respository.
+A list object containing exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release v 3.38.0. Exon boundaries were determined from nucleotide alignments, which were downloaded from the ANHIG/IMGTHLA Github respository.
+}
+\note{
+For internal SSHAARP use only.
 }
 \keyword{datasets}
