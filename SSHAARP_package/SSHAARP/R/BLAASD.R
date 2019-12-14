@@ -213,7 +213,7 @@ BLAASD<-function(loci){
     #inDel inclusion if there are inDels present
     if(length(inDels[[loci[[i]]]])!=0){
       for(b in 1:length(inDels[[loci[[i]]]])){
-        corr_table[[loci[[i]]]][2,][inDels[[loci[[i]]]][[b]]==corr_table[[loci[[i]]]][1,]]<-paste("InDel", b, sep="_")
+        corr_table[[loci[[i]]]][2,][inDels[[loci[[i]]]][[b]]==corr_table[[loci[[i]]]][1,]]<-paste("INDEL", b, sep="-")
       }
     }
 
