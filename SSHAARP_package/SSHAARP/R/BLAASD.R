@@ -221,11 +221,11 @@ BLAASD<-function(loci){
     #when determining length of corr_table in re-enumerating corr_table with InDels
     if(alignment_start[[loci[[i]]]]==1){
       #fixes enumerations following "InDel"
-      corr_table[[loci[[i]]]][2,][!grepl("InDel", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))))==0]
+      corr_table[[loci[[i]]]][2,][!grepl("INDEL", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("INDEL", corr_table[[loci[[i]]]][2,])]))))==0]
     }
 
     else{
-      corr_table[[loci[[i]]]][2,][!grepl("InDel", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))==0]
+      corr_table[[loci[[i]]]][2,][!grepl("INDEL", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("INDEL", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("INDEL", corr_table[[loci[[i]]]][2,])]))+alignment_start[[loci[[i]]]]))==0]
     }
 
     #renames columns in HLAalignments
@@ -288,7 +288,7 @@ countSpaces <- function(x){
       ## checkhere for e5 size
       if(length(exon_5) > 8) { #### SM
         ##finds last InDel in exon 5
-        lastInDel<-as.numeric(gsub("InDel_", "", colnames( alObj[grep("InDel", colnames( alObj))][length(alObj[grep("InDel", colnames( alObj))])])))
+        lastInDel<-as.numeric(gsub("InDel_", "", colnames( alObj[grep("INDEL", colnames( alObj))][length(alObj[grep("INDEL", colnames( alObj))])])))
 
         #compares exon 5 sequence to DQB1*05:03:01:01 to see account for any future InDels
         InDeldiff<-dupdiff(str_split(paste(exon_5, collapse=""), "")[[1]],c("P","Q","G","P","P","P","A","G"))
@@ -296,7 +296,7 @@ countSpaces <- function(x){
         #conditions if more than one InDel is present
         ##      if(length(InDeldiff==".")>1){
         for(j in 1:length(InDeldiff)){ #### SM shortened this as it was extremley redundant
-          names(exon_5)[grep(names(exon_5[exon_5 %in% "."])[j], names(exon_5))]<-paste("InDel", (lastInDel+1):(lastInDel+length(InDeldiff)), sep="_")[[j]]  ## shortened this too, redundant
+          names(exon_5)[grep(names(exon_5[exon_5 %in% "."])[j], names(exon_5))]<-paste("INDEL", (lastInDel+1):(lastInDel+length(InDeldiff)), sep="_")[[j]]  ## shortened this too, redundant
         }
         ##      } #### There is no point in separating 1 "." from multiple "."s, as j loops from 1 to N
         #### replacing original line 382
@@ -308,7 +308,6 @@ countSpaces <- function(x){
             colnames(exon_5)[j] <- as.character(lastPos) }
         }
 
-        ##      names(exon_5)[!grepl("InDel", names(exon_5))]<- ((as.numeric(colnames(exon_5[!grepl("InDel", colnames(exon_5))])[1:length(colnames(exon_5[!grepl("InDel", colnames(exon_5))]))])-length(InDeldiff))[[1]]):((as.numeric(colnames(exon_5[!grepl("InDel", colnames(exon_5))])[1:length(colnames(exon_5[!grepl("InDel", colnames(exon_5))]))])-length(InDeldiff))[[1]]+(length(as.numeric(colnames(exon_5[!grepl("InDel", colnames(exon_5))])[1:length(colnames(exon_5[!grepl("InDel", colnames(exon_5))]))]))-1))
 
         names(alObj)[(range[colnames( alObj) %in% AA_atlas$DQB1$Boundary[[4]]]+1):range[colnames( alObj) %in% AA_atlas$DQB1$Boundary[[5]]]]<-names(exon_5)
 
