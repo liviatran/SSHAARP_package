@@ -221,7 +221,7 @@ BLAASD<-function(loci){
     #when determining length of corr_table in re-enumerating corr_table with InDels
     if(alignment_start[[loci[[i]]]]==1){
       #fixes enumerations following "InDel"
-      corr_table[[loci[[i]]]][2,][!grepl("INDEL", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("InDel", corr_table[[loci[[i]]]][2,])]))))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("INDEL", corr_table[[loci[[i]]]][2,])]))))==0]
+      corr_table[[loci[[i]]]][2,][!grepl("INDEL", corr_table[[loci[[i]]]][2,])]<-(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("INDEL", corr_table[[loci[[i]]]][2,])]))))[!(alignment_start[[loci[[i]]]]:((length(corr_table[[loci[[i]]]][2,])-length(corr_table[[loci[[i]]]][2,][grepl("INDEL", corr_table[[loci[[i]]]][2,])]))))==0]
     }
 
     else{
