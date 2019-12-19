@@ -22,7 +22,7 @@
 
 #' Exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release v 3.38.0
 #'
-#' A list object containing exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release v 3.38.0. Exon boundaries were determined from nucleotide alignments, which were downloaded from the ANHIG/IMGTHLA Github respository.
+#' A list object containing exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release v 3.38.0. Exon boundaries were determined from the nucleotide alignment files, which were downloaded from the ANHIG/IMGTHLA Github respository.
 #' @docType data
 #' @name AA_atlas
 #' @usage AA_atlas
