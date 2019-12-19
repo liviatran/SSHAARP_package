@@ -177,7 +177,7 @@ Example of an incorrectly formatted motif, where two asterisks are used to separ
 ```
 Example of a motif with an amino acid position that does not exist:
 
-> checkMotif("DRB1*26F~28E~300000Y")
+> checkMotif("DRB1*26F~28E~30000Y")
 
 [1] "One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of ANHIG/IMGTHLA alignments."
 ```
