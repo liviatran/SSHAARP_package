@@ -238,8 +238,8 @@ BLAASD<-function(loci){
       HLAalignments[[loci[i]]][,k][which(HLAalignments[[loci[i]]][,k]=="-")] <- HLAalignments[[loci[i]]][,k][1]}
 
     if(loci[[i]]=="DQB1"){
-    HLAalignments[[loci[i]]] <- specCirc(HLAalignments[[loci[i]]],loci[i])
-}
+      HLAalignments[[loci[i]]] <- specCirc(HLAalignments[[loci[i]]],loci[i])
+    }
   }
   return(HLAalignments)
 }
@@ -263,60 +263,60 @@ countSpaces <- function(x){
 
 
 #This function was obtained from Stack Overflow, written by user thelatemail.
-  dupdiff <- function(x,y){
-    x[-match(
+dupdiff <- function(x,y){
+  x[-match(
     make.unique(as.character(y)),
     make.unique(as.character(x)),
     nomatch=0
   )]}
 
-  specCirc <- function(alObj, locus){
-    AA_atlas<-SSHAARP::AA_atlas
-    ## Special Custom Rules for Locus-Specific Circumstances
+specCirc <- function(alObj, locus){
+  AA_atlas<-SSHAARP::AA_atlas
+  ## Special Custom Rules for Locus-Specific Circumstances
 
-    if(locus=="DQB1"){
+  if(locus=="DQB1"){
 
-      #renames all columns from InDel 5 to rest of alignment to numerical positions
-      names(alObj)[(grep(AA_atlas$DQB1$Boundary[[4]] , colnames(alObj))+1):length( alObj)]<-(AA_atlas$DQB1$Boundary[[4]]+1):((as.numeric(colnames( alObj)[ncol( alObj)])+AA_atlas$DQB1$Boundary[[5]]-AA_atlas$DQB1$Boundary[[4]])+length(names( alObj)[(grep(AA_atlas$DQB1$Boundary[[4]] , colnames( alObj))+1):length( alObj)])-length((AA_atlas$DQB1$Boundary[[4]]+1):(as.numeric(colnames( alObj)[ncol( alObj)])+AA_atlas$DQB1$Boundary[[5]]-AA_atlas$DQB1$Boundary[[4]])))
+    #renames all columns from InDel 5 to rest of alignment to numerical positions
+    names(alObj)[(grep(AA_atlas$DQB1$Boundary[[4]] , colnames(alObj))+1):length( alObj)]<-(AA_atlas$DQB1$Boundary[[4]]+1):((as.numeric(colnames( alObj)[ncol( alObj)])+AA_atlas$DQB1$Boundary[[5]]-AA_atlas$DQB1$Boundary[[4]])+length(names( alObj)[(grep(AA_atlas$DQB1$Boundary[[4]] , colnames( alObj))+1):length( alObj)])-length((AA_atlas$DQB1$Boundary[[4]]+1):(as.numeric(colnames( alObj)[ncol( alObj)])+AA_atlas$DQB1$Boundary[[5]]-AA_atlas$DQB1$Boundary[[4]])))
 
-      range<-1:ncol(alObj)
+    range<-1:ncol(alObj)
 
-      #extracts exon 5  DQB1*05:03:01:01 in lieu of using reference sequence
-      exon_5<-cbind(alObj[,4, drop=F], alObj[,(range[colnames(alObj) %in% AA_atlas$DQB1$Boundary[[4]]]+1): range[colnames(alObj) %in% AA_atlas$DQB1$Boundary[[5]]]]) %>% filter(alObj$allele_name=="DQB1*05:03:01:01")
-      exon_5$allele_name<-NULL
+    #extracts exon 5  DQB1*05:03:01:01 in lieu of using reference sequence
+    exon_5<-cbind(alObj[,4, drop=F], alObj[,(range[colnames(alObj) %in% AA_atlas$DQB1$Boundary[[4]]]+1): range[colnames(alObj) %in% AA_atlas$DQB1$Boundary[[5]]]]) %>% filter(alObj$allele_name=="DQB1*05:03:01:01")
+    exon_5$allele_name<-NULL
 
-      ## checkhere for e5 size
-      if(length(exon_5) > 8) { #### SM
-        ##finds last InDel in exon 5
-        lastInDel<-as.numeric(gsub("InDel_", "", colnames( alObj[grep("INDEL", colnames( alObj))][length(alObj[grep("INDEL", colnames( alObj))])])))
+    ## checkhere for e5 size
+    if(length(exon_5) > 8) { #### SM
+      ##finds last InDel in exon 5
+      lastInDel<-as.numeric(gsub("InDel_", "", colnames( alObj[grep("INDEL", colnames( alObj))][length(alObj[grep("INDEL", colnames( alObj))])])))
 
-        #compares exon 5 sequence to DQB1*05:03:01:01 to see account for any future InDels
-        InDeldiff<-dupdiff(str_split(paste(exon_5, collapse=""), "")[[1]],c("P","Q","G","P","P","P","A","G"))
+      #compares exon 5 sequence to DQB1*05:03:01:01 to see account for any future InDels
+      InDeldiff<-dupdiff(str_split(paste(exon_5, collapse=""), "")[[1]],c("P","Q","G","P","P","P","A","G"))
 
-        #conditions if more than one InDel is present
-        ##      if(length(InDeldiff==".")>1){
-        for(j in 1:length(InDeldiff)){ #### SM shortened this as it was extremley redundant
-          names(exon_5)[grep(names(exon_5[exon_5 %in% "."])[j], names(exon_5))]<-paste("INDEL", (lastInDel+1):(lastInDel+length(InDeldiff)), sep="_")[[j]]  ## shortened this too, redundant
-        }
-        ##      } #### There is no point in separating 1 "." from multiple "."s, as j loops from 1 to N
-        #### replacing original line 382
-        lastPos <- AA_atlas$DQB1[4,]$Boundary[[1]]
-
-        for(j in 1:ncol(exon_5)) {
-          if(substr(colnames(exon_5)[j],1,1)!="I") {
-            lastPos <- lastPos+1
-            colnames(exon_5)[j] <- as.character(lastPos) }
-        }
-
-
-        names(alObj)[(range[colnames( alObj) %in% AA_atlas$DQB1$Boundary[[4]]]+1):range[colnames( alObj) %in% AA_atlas$DQB1$Boundary[[5]]]]<-names(exon_5)
-
-        for(j in (range[colnames(alObj) %in% as.character(lastPos)]+1):(length(range))) {
-          if(substr(colnames(alObj)[j],1,1)!="I") {
-            lastPos <- lastPos +1
-            colnames(alObj)[j] <- as.character(lastPos) }
-        }
+      #conditions if more than one InDel is present
+      ##      if(length(InDeldiff==".")>1){
+      for(j in 1:length(InDeldiff)){ #### SM shortened this as it was extremley redundant
+        names(exon_5)[grep(names(exon_5[exon_5 %in% "."])[j], names(exon_5))]<-paste("INDEL", (lastInDel+1):(lastInDel+length(InDeldiff)), sep="_")[[j]]  ## shortened this too, redundant
       }
-    } ## end of the check on line 364
-    return(alObj)
-  }
+      ##      } #### There is no point in separating 1 "." from multiple "."s, as j loops from 1 to N
+      #### replacing original line 382
+      lastPos <- AA_atlas$DQB1[4,]$Boundary[[1]]
+
+      for(j in 1:ncol(exon_5)) {
+        if(substr(colnames(exon_5)[j],1,1)!="I") {
+          lastPos <- lastPos+1
+          colnames(exon_5)[j] <- as.character(lastPos) }
+      }
+
+
+      names(alObj)[(range[colnames( alObj) %in% AA_atlas$DQB1$Boundary[[4]]]+1):range[colnames( alObj) %in% AA_atlas$DQB1$Boundary[[5]]]]<-names(exon_5)
+
+      for(j in (range[colnames(alObj) %in% as.character(lastPos)]+1):(length(range))) {
+        if(substr(colnames(alObj)[j],1,1)!="I") {
+          lastPos <- lastPos +1
+          colnames(alObj)[j] <- as.character(lastPos) }
+      }
+    }
+  } ## end of the check on line 364
+  return(alObj)
+}

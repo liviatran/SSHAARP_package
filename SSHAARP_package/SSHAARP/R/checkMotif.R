@@ -50,7 +50,6 @@ checkMotif<-function(motif){
       HLAalignments<-SSHAARP::IMGTprotalignments[[locus]]
     }
 
-
   #if HLAalignments is not a list because BLAASD() output is an error, return
   #HLAalignments, which contains the error
   if(is.list(HLAalignments)==FALSE){
