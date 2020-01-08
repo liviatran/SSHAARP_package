@@ -78,7 +78,7 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   for(i in 1:length(PAF)){
     PAF[[i]]<-sum(as.numeric(unique_AWM$allele.freq[which((names(PAF[i])==unique_AWM$popname))]))}
 
-   #melts PAF into a two columned df
+  #melts PAF into a two columned df
   PAF<-melt(PAF)
 
   #renames column names
@@ -117,22 +117,22 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   #-60 for lower bound lat
   #+80 for upper bound lat
   #I for every 3x3 mean value, as obtained from gmt.sh file
-  gmt.system("blockmean motif.xyz -R-180/180/-60/80 -I3 > motif.block")
+  gmt.system("gmt blockmean motif.xyz -R-180/180/-60/80 -I3 > motif.block")
 
   #grids table using surface
-  gmt.system("surface motif.block -R-180/180/-60/80 -Gmotif.grd -I0.5 -T.7 -Ll0")
+  gmt.system("gmt surface motif.block -R-180/180/-60/80 -Gmotif.grd -I0.5 -T.7 -Ll0")
 
   #creates basemap with correct motif
-  gmt.system("psbasemap -JM6i -R-180/180/-60/80 -B0:.`cat motif`: -K > `cat motif`.ps")
+  gmt.system("gmt psbasemap -JM6i -R-180/180/-60/80 -B0:.`cat motif`: -K > `cat motif`.ps")
 
   #uses white background to fill landmasses if color=T
   if(color==TRUE){
     #overlays relevant continents onto basemap
-    gmt.system("pscoast -JM6i -R-180/180/-60/80 -A30000 -B0 -G200 -W0.25p -O -K >> `cat motif`.ps")}
+    gmt.system("gmt pscoast -JM6i -R-180/180/-60/80 -A30000 -B0 -G200 -W0.25p -O -K >> `cat motif`.ps")}
 
   #uses a hashed background to fill landmasses if color=F
   if(color==FALSE){
-    gmt.system("pscoast -JM6i -R-180/180/-60/80 -A30000 -B0 -Gp61 -W0.25p -O -K >> `cat motif`.ps")
+    gmt.system("gmt pscoast -JM6i -R-180/180/-60/80 -A30000 -B0 -Gp61 -W0.25p -O -K >> `cat motif`.ps")
   }
 
   #gets upperbound for allele frequencies
@@ -157,41 +157,41 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   if(color==TRUE){
     #makes custom CPT with increments of max_frequency/10 for deciles
     #specifically calls on max_cpt for max frequency and decile increments
-    gmt.system("makecpt -Cseis -Iz -T0/`awk '{print $1}' max_cpt`/`awk '{print $2}' max_cpt` > decile.cpt")
+    gmt.system("gmt makecpt -Cseis -Iz -T0/`awk '{print $1}' max_cpt`/`awk '{print $2}' max_cpt` > decile.cpt")
   }
 
   #uses grayscale color palette if color=F
   if(color==FALSE){
-    gmt.system("makecpt -Cgray -Iz -T0/`awk '{print $1}' max_cpt`/`awk '{print $2}' max_cpt` > decile.cpt")
+    gmt.system("gmt makecpt -Cgray -Iz -T0/`awk '{print $1}' max_cpt`/`awk '{print $2}' max_cpt` > decile.cpt")
 
   }
   #adds color scale to basemap based on cpt provided -- makes font on legend smaller
-  gmt.system("psscale -D0.1i/1.1i/2i/0.3i -Cdecile.cpt --FONT_ANNOT_PRIMARY=10p,Helvetica,black -Np -L -O -K >> `cat motif`.ps")
+  gmt.system("gmt psscale -D0.1i/1.1i/2i/0.3i -Cdecile.cpt --FONT_ANNOT_PRIMARY=10p,Helvetica,black -Np -L -O -K >> `cat motif`.ps")
 
   #overlays more coastlines with pscoast
-  gmt.system("pscoast -JM6i -R-180/180/-60/80 -A30000 -Gc -O -K >> `cat motif`.ps")
+  gmt.system("gmt pscoast -JM6i -R-180/180/-60/80 -A30000 -Gc -O -K >> `cat motif`.ps")
 
   #clips/masks map areas with no data table coverage -- radius of influence increased to 900 km
-  gmt.system("psmask motif.xyz -R-180/180/-60/80 -I3 -JM6i -S850k -O -K >> `cat motif`.ps")
+  gmt.system("gmt psmask motif.xyz -R-180/180/-60/80 -I3 -JM6i -S850k -O -K >> `cat motif`.ps")
 
   #grids .grd file onto map
-  gmt.system("grdimage motif.grd -Cdecile.cpt  -JM6i -R-180/180/-60/80 -O -K >> `cat motif`.ps")
+  gmt.system("gmt grdimage motif.grd -Cdecile.cpt  -JM6i -R-180/180/-60/80 -O -K >> `cat motif`.ps")
 
   #makes a contour map using a .grd file
-  gmt.system("grdcontour motif.grd -JM6i -Cdecile.cpt -A- -R-180/180/-60/80 -O -K >> `cat motif`.ps")
+  gmt.system("gmt grdcontour motif.grd -JM6i -Cdecile.cpt -A- -R-180/180/-60/80 -O -K >> `cat motif`.ps")
 
   #plots longtitude/latitude coordinates onto basemap
-  gmt.system("psxy motif.block -R-180/180/-60/80 -JM6i -A -G255 -W0.5p -Sc.05 -O -K >> `cat motif`.ps")
+  gmt.system("gmt psxy motif.block -R-180/180/-60/80 -JM6i -A -G255 -W0.5p -Sc.05 -O -K >> `cat motif`.ps")
 
   #calls psmask again to terminate clip path with -C parameter
-  gmt.system("psmask motif.xyz -R-180/180/-60/80 -I3 -JM6i -S850k -C -O -K >> `cat motif`.ps")
+  gmt.system("gmt psmask motif.xyz -R-180/180/-60/80 -I3 -JM6i -S850k -C -O -K >> `cat motif`.ps")
 
   #calls pcoast again to re-establish coastlines and -Q parameter to quit clipping
-  gmt.system("pscoast -JM6i -R-180/180/-60/80 -A30000 -W0.5 -O -Q  >>  `cat motif`.ps")
+  gmt.system("gmt pscoast -JM6i -R-180/180/-60/80 -A30000 -W0.5 -O -Q  >>  `cat motif`.ps")
 
   #converts ps map to jpg -- saves into local environment
   #requires Ghostscript in order to execute command
-  gmt.system("psconvert `cat motif`.ps -A -Tj -P -Qg4 -E2000")
+  gmt.system("gmt psconvert `cat motif`.ps -A -Tj -P -Qg4 -E2000")
 
   #removes gmt.history output file and other irrelevant files
   gmt.system("rm 'gmt.history' 'upperbound' 'decile.cpt' 'deciles' 'motif' 'motif.block' 'motif.grd' 'motif.xyz' `cat motif`.ps 'max_cpt'")

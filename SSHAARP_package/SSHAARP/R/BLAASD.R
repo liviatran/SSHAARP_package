@@ -199,13 +199,21 @@ BLAASD<-function(loci){
     #binds all columns together to form desired ouput, as described above
     HLAalignments[[loci[i]]] <- cbind.data.frame(HLAalignments[[loci[i]]][,1:4],pepsplit[[loci[i]]], stringsAsFactors=FALSE)
 
+    #get reference sequence from DRB alignment
+    if(loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5"){
+      DRBref<-HLAalignments[[loci[[i]]]][1,]}
+
     #if the locus is DRB1/3/4/5, subset the specific locus from DRB alignment
     if(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5"){
       HLAalignments[[loci[i]]]<-HLAalignments[[loci[i]]][HLAalignments[[loci[[i]]]]$locus==loci[[i]],]}
 
+    #add reference sequence to DRB3/4/5, reset row names to numerical order
+    if(loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5"){
+      HLAalignments[[loci[[i]]]]<- rbind(DRBref, HLAalignments[[loci[[i]]]])
+      rownames(HLAalignments[[loci[[i]]]])<-NULL}
+
     #finds positions in HLAalignments that have ".", indicating an inDel
     inDels[[loci[[i]]]]<-colnames(HLAalignments[[loci[[i]]]][1, 5:ncol(HLAalignments[[loci[[i]]]])][HLAalignments[[loci[[i]]]][1, 5:ncol(HLAalignments[[loci[[i]]]])] %in% "."])
-
 
     #inputs HLAalignments alignment sequence into the corr_table with "InDel" still present
     corr_table[[loci[[i]]]][1,]<-names(HLAalignments[[loci[[i]]]][5:ncol(HLAalignments[[loci[[i]]]])])

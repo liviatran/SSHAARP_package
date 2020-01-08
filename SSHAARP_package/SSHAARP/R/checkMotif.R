@@ -45,8 +45,7 @@ checkMotif<-function(motif){
     #if IMGTprot alignments does exist, use the locus specific alignment
     #if locus is set as DRB1, use "DRB" as locus specific alignment
     if(exists("IMGTprotalignments")){
-      if(loci=="DRB1"){locus<-"DRB"}
-      else{locus<-loci}
+      locus<-loci
       HLAalignments<-SSHAARP::IMGTprotalignments[[locus]]
     }
 
