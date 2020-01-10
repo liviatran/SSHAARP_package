@@ -7,7 +7,7 @@
 #'@param color A logical parameter that identifies if the heat maps should be made in color (TRUE) or gray scale (FALSE). The default option is TRUE.
 #'@param filterMigrant A logical parameter that determines if admixed populations (OTH) and migrant populations (i.e. any complexities with the 'mig') should be excluded from the dataset. The default option is TRUE.
 #'
-#'@importFrom reshape2 melt
+#'@importFrom data.table rbindlist
 #'@importFrom gmt gmt.system r2gmt
 #'@importFrom DescTools RoundTo
 #'
@@ -58,8 +58,9 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
     return(data.frame("Motif"=motif, "Error message"="No alleles in the Solberg dataset possess this motif"))
   }
 
+  library(data.table)
   #melts dataframes in list into one big dataframe
-  unique_AWM<-melt(unique_AWM, id.vars=c("popname", "contin", "complex", "latit", "longit", "allele.freq", "locus_allele"))
+  unique_AWM<-rbindlist(unique_AWM)
 
   #reorders dataframe based on popname alphabetical order
   unique_AWM<-unique_AWM[order(unique_AWM$popname),]
@@ -79,10 +80,8 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
     PAF[[i]]<-sum(as.numeric(unique_AWM$allele.freq[which((names(PAF[i])==unique_AWM$popname))]))}
 
   #melts PAF into a two columned df
-  PAF<-melt(PAF)
-
-  #renames column names
-  colnames(PAF)<-c("allele_freq", "popname")
+  PAF<-data.frame(allele_freq = unlist(PAF),
+                  popname = rep(names(PAF), sapply(PAF, length)), row.names = NULL, stringsAsFactors = F)
 
   #merges PAF with solberg_DS data to a new variable, tbm_ds
   #which contains summed up allele frequencies, and relevant contin, complex, locus*allele, and coordinate information
@@ -197,6 +196,3 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   gmt.system("rm 'gmt.history' 'upperbound' 'decile.cpt' 'deciles' 'motif' 'motif.block' 'motif.grd' 'motif.xyz' `cat motif`.ps 'max_cpt'")
 
 }
-
-
-
