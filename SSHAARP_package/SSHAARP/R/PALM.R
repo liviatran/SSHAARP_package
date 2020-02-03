@@ -58,7 +58,6 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
     return(data.frame("Motif"=motif, "Error message"="No alleles in the Solberg dataset possess this motif"))
   }
 
-  library(data.table)
   #melts dataframes in list into one big dataframe
   unique_AWM<-rbindlist(unique_AWM)
 
