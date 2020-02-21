@@ -3,7 +3,7 @@
 \docType{data}
 \name{IMGTprotalignments}
 \alias{IMGTprotalignments}
-\title{Protein alignments for all protein coding genes in the IPD-IMGT/HLA Database release v 3.38.0.}
+\title{Protein alignments for all protein coding genes in the IPD-IMGT/HLA Database release v 3.39.0.}
 \format{A list containing protein alignments in a dataframe format for each locus.}
 \source{
 https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments

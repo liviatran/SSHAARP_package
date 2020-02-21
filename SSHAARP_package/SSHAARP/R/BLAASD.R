@@ -14,10 +14,10 @@
 #'
 #'@examples
 #'#BLAASD with one locus as input
-#'BLAASD("C")
+#'#BLAASD("C")
 #'
 #'#BLAASD with multiple loci as input
-#'BLAASD(c("A", "B", "C"))
+#'#BLAASD(c("A", "B", "C"))
 BLAASD<-function(loci){
 
   #checks if input locus is present in version 3.38.0 HLA loci

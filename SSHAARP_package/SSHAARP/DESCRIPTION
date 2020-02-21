@@ -1,17 +1,19 @@
 Package: SSHAARP
+Version: 1.0.0
+Date: 2020-02-19
 Title: Searching Shared HLA Amino Acid Residue Prevalence  
-Version: 0.9.4.9000
 Authors@R: 
     person("Livia", "Tran",
     role = c("aut", "cre"),
-           email = "livtran@chori.org")
-Description: SSHAARP processes amino acid alignments produced by the IPD-IMGT/HLA Database to identify user-defined amino acid residue motifs shared across HLA alleles, and calculates the frequencies of those motifs based on HLA allele frequency data. SSHAARP uses Generic Mapping Tools (GMT) software and the GMT R Package to generate global frequency heat maps that illustrate the distribution of each user-defined map around the globe. SSHAARP analyzes the allele frequency data described in Solberg et al. 2008, a global set of 497 population samples from 185 published datasets, representing 66,800 individuals total.
+           email = "livia.tran@ucsf.edu")
+Maintainer: Livia Tran <livia.tran@ucsf.edu>
 Depends: R (>= 2.10)
+Description: Processes amino acid alignments produced by the IPD-IMGT/HLA Database to identify user-defined amino acid residue motifs shared across HLA alleles, and calculates the frequencies of those motifs based on HLA allele frequency data. SSHAARP uses Generic Mapping Tools (GMT) software and the GMT R Package to generate global frequency heat maps that illustrate the distribution of each user-defined map around the globe. SSHAARP analyzes the allele frequency data described in Solberg et al. 2008, a global set of 497 population samples from 185 published datasets, representing 66,800 individuals total.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools, data.table, dplyr
+Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools, dplyr, sessioninfo
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
-SystemRequirements: GMT
-RoxygenNote: 6.1.1
+SystemRequirements: GMT (5 or 6), Ghostscript (>=9.6)
+RoxygenNote: 7.0.2

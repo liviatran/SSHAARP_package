@@ -20,11 +20,11 @@ For internal SSHAARP use only.
 }
 \examples{
 #Example where a motif is formatted correctly
-checkMotif("DRB1*26F~28E~30Y")
+#checkMotif("DRB1*26F~28E~30Y")
 
 #Example where format is incorrect
-checkMotif("DRB1**26F~28E~30Y")
+#checkMotif("DRB1**26F~28E~30Y")
 
 #Example where an amino acid position does not exist
-checkMotif("DRB1**26F~28E~300000Y")
+#checkMotif("DRB1**26F~28E~300000Y")
 }

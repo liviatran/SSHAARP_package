@@ -18,11 +18,11 @@ Consumes the alignment data frame produced by BLAASD() and returns an alignment 
 \examples{
 
 #example with actual motif
-findMotif("DRB1*26F~28E~30Y")
-findMotif("DRB1*26F~28E")
+#findMotif("DRB1*26F~28E~30Y")
+#findMotif("DRB1*26F~28E")
 
 #example with non-existent motif
-findMotif("DRB1*26F~28E~30Z")
+#findMotif("DRB1*26F~28E~30Z")
 
 #extracting names of alleles with user-defined motif
 findMotif("DRB1*26F~28E~30Y")[,4]

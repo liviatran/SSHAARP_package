@@ -1,3 +1,14 @@
+SSHAARP 1.0.0 (2/19/2019)
+-----------------------------
+   * Submission to CRAN
+
+SSHAARP 0.10.0.9000 (2/11/2019)
+-----------------------------
+   * Adapted PALM() to work on Windows and Linux operating systems
+   * Code additions to PALM() to detect whether GMT software is installed on the user's machine
+   * Changes to vignette documentation
+   * Updated IMGTprotalignments to IPD-IMGT/HLA Database V 3.39.0
+
 SSHAARP 0.9.4.9000 (2/3/2019)
 -----------------------------
    * Updated motif maps provided as examples in vignette

@@ -17,8 +17,8 @@ Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA
 }
 \examples{
 #BLAASD with one locus as input
-BLAASD("C")
+#BLAASD("C")
 
 #BLAASD with multiple loci as input
-BLAASD(c("A", "B", "C"))
+#BLAASD(c("A", "B", "C"))
 }

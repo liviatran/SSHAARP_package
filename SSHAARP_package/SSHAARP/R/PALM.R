@@ -20,10 +20,10 @@
 #'
 #'@examples
 #'#example to produce a color frequency heat map without migrant populations filtered out
-#'PALM("DRB1*26F~28E~30Y", color=TRUE, filterMigrant=FALSE)
+#'#PALM("DRB1*26F~28E~30Y", color=TRUE, filterMigrant=FALSE)
 #'
 #'#example to produce a greyscale heat map with migrant populations filtered out
-#'PALM("DRB1*26F~28E~30Y", color=FALSE, filterMigrant=TRUE)
+#'#PALM("DRB1*26F~28E~30Y", color=FALSE, filterMigrant=TRUE)
 #'
 #'@references Solberg et.al "Balancing selection and heterogeneity across the classical human leukocyte antigen loci: A meta-analytic review of 497 population studies". Human Immunology (2008) 69, 443–464
 #'
@@ -111,10 +111,22 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, color=TRUE, filterMigra
   #and use it as the title for the map
   write(motif, "motif")
 
+
+  #checks if user's machine has GMT software installed
+  #if not, an error message is returned and the function stops
+  gmtOut<-tryCatch({gmt.system("gmt blockmean motif.xyz -R-180/180/-60/80 -I3 > motif.block")}, error=function(cond){gmtOut<<-"Error"})
+
+  if(length(gmtOut)==1){
+    return("The GMT software is not installed at the level of your operating system. Please install GMT from http://gmt.soest.hawaii.edu/projects/gmt/wiki/Installing in order to use this function. Refer to the vignette for more information.")
+  }
+
   #finds blockmean of data
   #-60 for lower bound lat
   #+80 for upper bound lat
   #I for every 3x3 mean value, as obtained from gmt.sh file
+  gmt.system("gmt blockmean motif.xyz -R-180/180/-60/80 -I3 > motif.block")
+
+
   gmt.system("gmt blockmean motif.xyz -R-180/180/-60/80 -I3 > motif.block")
 
   #grids table using surface
