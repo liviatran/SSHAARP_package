@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livia.tran@uscf.edu"
-date: "February 19, 2019"
+date: "March 23, 2019"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -73,6 +73,8 @@ PALM() produces a frequency heatmap for a specified amino-acid motif, based on t
 
 The filename parameter is defaulted to the Solberg dataset in SSHAARP. Two other default parameters are set for PALM(), where color = TRUE and filter_migrant = TRUE. When color is set to TRUE, PALM generates a color heatmap; when color is set to FALSE, a greyscale heatmap is generated. When filter_migrant is set to TRUE, populations from the OTH region and populations with complexity values that have the ‘mig’ suffix are excluded from the heatmap plot. When filter_migrant is set to FALSE, these populations are included in the heatmap plot.
 
+Note: While the legend in the maps contains the highest frequency value, it may not be visible on the map because frequencies are averaged over certain geographical areas.
+
 ```
 #color heatmap plot
 >PALM("DRB1*26F~28E~30Y")
@@ -91,6 +93,10 @@ knitr::include_graphics("basemap_color.jpg")
 knitr::include_graphics("basemap_bw.jpg")
 ```
   
+```
+#if an amino acid motif is not found in the Solberg dataset, an error message is output
 
-
+>PALM("DRB1*-25R~13S~16H~26Y~47Y~86V")
+                          Motif                                        Error.message DRB1*-25R~13S~16H~26Y~47Y~86V No alleles in the Solberg dataset possess this motif
+```
 

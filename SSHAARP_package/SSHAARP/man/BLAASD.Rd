@@ -20,5 +20,5 @@ Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA
 #BLAASD("C")
 
 #BLAASD with multiple loci as input
-#BLAASD(c("A", "B", "C"))
+\donttest{BLAASD(c("A", "B", "C"))}
 }

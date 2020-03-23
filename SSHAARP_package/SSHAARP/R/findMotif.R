@@ -13,11 +13,11 @@
 #'@examples
 #'
 #'#example with actual motif
-#' #findMotif("DRB1*26F~28E~30Y")
-#' #findMotif("DRB1*26F~28E")
+#' \donttest{findMotif("DRB1*26F~28E~30Y")}
+#' \donttest{("DRB1*26F~28E")}
 #'
 #'#example with non-existent motif
-#'#findMotif("DRB1*26F~28E~30Z")
+#'\donttest{findMotif("DRB1*26F~28E~30Z")}
 #'
 #'#extracting names of alleles with user-defined motif
 #'findMotif("DRB1*26F~28E~30Y")[,4]

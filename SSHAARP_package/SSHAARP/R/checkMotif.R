@@ -18,17 +18,19 @@
 #'#checkMotif("DRB1*26F~28E~30Y")
 #'
 #'#Example where format is incorrect
-#'#checkMotif("DRB1**26F~28E~30Y")
+#'\donttest{checkMotif("DRB1**26F~28E~30Y")}
 #'
 #'#Example where an amino acid position does not exist
-#'#checkMotif("DRB1**26F~28E~300000Y")
+#'\donttest{checkMotif("DRB1**26F~28E~300000Y")}
 
 checkMotif<-function(motif){
 
   #if conditions to catch if a motif is formatted incorrectly
-  ifelse(is.na(str_extract(strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "~")[[1]], "[A-Z]"))==TRUE, return("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue."), "")
+  if(any(is.na(str_extract(strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "~")[[1]], "[A-Z]"))==TRUE)){
+    return(warning("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue."))}
+
   if((is.na(str_extract(strsplit(motif, "*", fixed=T)[[1]][2], "[A-Z]"))==TRUE) | ((str_count(strsplit(motif, "*", fixed=T)[[1]][2], "[A-Z]")>=2) & (grepl("~", strsplit(strsplit(motif, "*", fixed=T)[[1]][2], "*"))==FALSE)) |(length(strsplit(motif, "*", fixed=T)[[1]]) > 2) | (length(strsplit(motif, "*", fixed=T)[[1]])==1)){
-    return("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue.")
+    return(warning("Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue."))
   }
 
   #extract loci information
@@ -38,16 +40,20 @@ checkMotif<-function(motif){
 
   #if IMGTprotalignments does not exist (i.e not previously already downloaded and in the local
   #environment) then generate HLAalignments)
-    #obtains HLAalignments df
-    if(!exists("IMGTprotalignments")){
+  #obtains HLAalignments df
+  if(!exists("IMGTprotalignments")){
     HLAalignments<-BLAASD(loci)}
 
-    #if IMGTprot alignments does exist, use the locus specific alignment
-    #if locus is set as DRB1, use "DRB" as locus specific alignment
-    if(exists("IMGTprotalignments")){
-      locus<-loci
-      HLAalignments<-SSHAARP::IMGTprotalignments[[locus]]
+  #if IMGTprot alignments does exist, use the locus specific alignment
+  #if locus is set as DRB1, use "DRB" as locus specific alignment
+  if(exists("IMGTprotalignments")){
+    locus<-loci
+    if((locus %in% names(SSHAARP::IMGTprotalignments))==FALSE){
+      return(warning(paste(locus, "is not a valid locus.")))
     }
+    HLAalignments<-SSHAARP::IMGTprotalignments[[locus]]
+  }
+
 
   #if HLAalignments is not a list because BLAASD() output is an error, return
   #HLAalignments, which contains the error
@@ -61,7 +67,7 @@ checkMotif<-function(motif){
 
   #examines if amino acid positions in the motif are present in the alignment - returns error message if one or more positions is not in the alignment
   if(!all(substr(motifs,1,nchar(motifs)-1) %in% colnames(HLAalignments)[5:ncol(HLAalignments)])) {
-    return("One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of ANHIG/IMGTHLA alignments.")
+    return(warning("One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of ANHIG/IMGTHLA alignments."))
   }
 
   #return a list object with loci and motifs information
@@ -69,4 +75,3 @@ checkMotif<-function(motif){
   else{
     return(list(loci, motifs, HLAalignments))}
 }
-

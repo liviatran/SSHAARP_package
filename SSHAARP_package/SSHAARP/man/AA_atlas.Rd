@@ -15,6 +15,6 @@ AA_atlas
 A list object containing exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release v 3.39.0. Exon boundaries were determined from the nucleotide alignment files, which were downloaded from the ANHIG/IMGTHLA Github respository.
 }
 \note{
-For internause only.
+For internal use only.
 }
 \keyword{datasets}

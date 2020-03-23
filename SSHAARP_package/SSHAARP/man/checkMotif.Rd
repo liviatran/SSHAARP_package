@@ -23,8 +23,8 @@ For internal SSHAARP use only.
 #checkMotif("DRB1*26F~28E~30Y")
 
 #Example where format is incorrect
-#checkMotif("DRB1**26F~28E~30Y")
+\donttest{checkMotif("DRB1**26F~28E~30Y")}
 
 #Example where an amino acid position does not exist
-#checkMotif("DRB1**26F~28E~300000Y")
+\donttest{checkMotif("DRB1**26F~28E~300000Y")}
 }

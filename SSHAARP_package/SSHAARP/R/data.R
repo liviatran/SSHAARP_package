@@ -28,5 +28,5 @@
 #' @usage AA_atlas
 #' @format A list containing exon boundaries in a dataframe format for each locus.
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
-#' @note For internause only.
+#' @note For internal use only.
 "AA_atlas"

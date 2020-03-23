@@ -17,7 +17,7 @@
 #'#BLAASD("C")
 #'
 #'#BLAASD with multiple loci as input
-#'#BLAASD(c("A", "B", "C"))
+#'\donttest{BLAASD(c("A", "B", "C"))}
 BLAASD<-function(loci){
 
   #checks if input locus is present in version 3.38.0 HLA loci
@@ -25,7 +25,7 @@ BLAASD<-function(loci){
   for(j in 1:length(loci)){
     if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
     if(loci[j] %in% names(SSHAARP::IMGTprotalignments)== FALSE){
-      return(paste(loci[j], "is not a valid locus."))
+      return(warning(paste(loci[j], "is not a valid locus.")))
     }}
 
   #creates empty variables for future for loops
