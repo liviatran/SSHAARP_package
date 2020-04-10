@@ -2,11 +2,12 @@
 % Please edit documentation in R/PALM.R
 \name{PALM}
 \alias{PALM}
-\title{Population Allele Locating Mapmaker}
+\title{Population Allele Locating Mapmaker v1 07APR2020}
 \usage{
 PALM(
   motif,
   filename = SSHAARP::solberg_dataset,
+  direct = getwd(),
   color = TRUE,
   filterMigrant = TRUE
 )
@@ -16,12 +17,14 @@ PALM(
 
 \item{filename}{The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.}
 
+\item{direct}{The directory into which the map produced is written. The default directory is the user's working directory.}
+
 \item{color}{A logical parameter that identifies if the heat maps should be made in color (TRUE) or gray scale (FALSE). The default option is TRUE.}
 
 \item{filterMigrant}{A logical parameter that determines if admixed populations (OTH) and migrant populations (i.e. any complexities with the 'mig') should be excluded from the dataset. The default option is TRUE.}
 }
 \value{
-If the user enters a motif that is not found in the Solberg dataset, or that does not exist, a dataframe with the motif and an error message are returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. Otherwise, there is no return value, but the produced heatmap is written to the user's working directory as a .jpg file, where the filename is "'motif'.jpg".
+A message with the motif and where it was ouput is returned. If the user enters a motif that is not found in the Solberg dataset, or that does not exist, an Error.message date frame containing the motif is returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. Otherwise, there is no return value, but the produced heatmap is written to the user's working directory as a .jpg file, where the filename is "'motif'.jpg".
 }
 \description{
 Produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset.
@@ -37,10 +40,9 @@ While the map legend identifies the highest frequency value, values in this rang
 }
 \examples{
 #example to produce a color frequency heat map where migrant populations are filtered out
-\donttest{PALM("DRB1*26F~28E~30Y", color=T, filterMigrant=TRUE)}
-
+PALM("DRB1*26F~28E~30Y",filename = solberg_dataset[85:100,], filterMigrant=TRUE)
 #example to produce a greyscale heat map where migrant populations are not filtered out
-\donttest{PALM("DRB1*26F~28E~30Y", color=FALSE, filterMigrant=FALSE)}
+PALM("DRB1*26F~28E~30Y", filename = solberg_dataset[85:100,], color=FALSE, filterMigrant=FALSE)
 
 }
 \references{

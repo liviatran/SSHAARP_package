@@ -1,4 +1,4 @@
-#'Syntactic and semantic validation of HLA amino acid motifs
+#'Syntactic and semantic validation of HLA amino acid motifs v1 28MAR2020
 #'
 #'Checks input motif for errors in format and amino acid positions not present in the locus alignment.
 #'
@@ -15,7 +15,7 @@
 #'
 #'@examples
 #'#Example where a motif is formatted correctly
-#'#checkMotif("DRB1*26F~28E~30Y")
+#'\donttest{checkMotif("DRB1*26F~28E~30Y")}
 #'
 #'#Example where format is incorrect
 #'\donttest{checkMotif("DRB1**26F~28E~30Y")}

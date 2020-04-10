@@ -2,7 +2,7 @@
 % Please edit documentation in R/findMotif.R
 \name{findMotif}
 \alias{findMotif}
-\title{Returns an alignment data frame of alleles that share a specific amino acid motif}
+\title{Returns an alignment data frame of alleles that share a specific amino acid motif v1 28MAR2020}
 \usage{
 findMotif(motif)
 }

@@ -1,4 +1,4 @@
-#'Returns an alignment data frame of alleles that share a specific amino acid motif
+#'Returns an alignment data frame of alleles that share a specific amino acid motif v1 28MAR2020
 #'
 #'Consumes the alignment data frame produced by BLAASD() and returns an alignment data frame of alleles that share a specific amino acid motif.
 #'

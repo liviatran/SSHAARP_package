@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livia.tran@uscf.edu"
-date: "March 23, 2019"
+date: "April 7, 2020"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -69,11 +69,15 @@ If a motif is not found, a dataframe with the motif in one column and an error m
 
 ### PALM() 
 
-PALM() produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset using the Generic Mapping Tools (GMT) R Package, which is an interface between R and the GMT Map-Making software. GMT software is required for this function and can be downloaded at https://www.soest.hawaii.edu/gmt/. The final output of PALM() is a heatmap saved under the filename as "'the input motif'.jpg" as a JPEG in the user's working directory. Ghostscript, an interpreter for Postscript (.ps files), is needed to convert the .ps file produced by GMT into a .jpg file. Users should have the >= 9.26 version of Ghostscript downloaded; earlier versions of Ghostscript result in a problem with layering during the conversion from .ps to .jpg. For verification on whether maps are being generated correctly, users may check the motif `DRB1*26F~28E~30Y` against the examples in the vignette.
+PALM() generates a frequency heatmap for an HLA amino-acid motif, based on the allele frequency data in the Solberg dataset, using the gmt R package and the Generic Mapping Tools (GMT) map-making software. GMT software is required for this function and can be downloaded at https://www.soest.hawaii.edu/gmt/.
 
-The filename parameter is defaulted to the Solberg dataset in SSHAARP. Two other default parameters are set for PALM(), where color = TRUE and filter_migrant = TRUE. When color is set to TRUE, PALM generates a color heatmap; when color is set to FALSE, a greyscale heatmap is generated. When filter_migrant is set to TRUE, populations from the OTH region and populations with complexity values that have the ‘mig’ suffix are excluded from the heatmap plot. When filter_migrant is set to FALSE, these populations are included in the heatmap plot.
+JPEG heatmap files named “‘motif’.jpg”, where ‘motif’ is the value of the motif parameter, are written to a directory identified by the direct parameter, with the working directory set as the default. The file names of maps generated on Microsoft Windows systems have a different delimiter between the locus name and the amino acid positions; instead of an asterisk (*), a dash (-) is used to accomodate for Windows naming conventions (e.g. `DRB1-26F~28E~30Y`).
 
-Note: While the legend in the maps contains the highest frequency value, it may not be visible on the map because frequencies are averaged over certain geographical areas.
+The filename parameter defaults to the solberg_dataset list object. The color and filter_migrant parameters default to TRUE. When color = TRUE, PALM generates a color heatmap; when color = FALSE, a greyscale heatmap is generated. When filter_migrant = TRUE, populations from the OTH region and populations with complexity values suffixed with ‘mig’ are excluded from the heatmap plot. When filter_migrant = FALSE, these populations are included in the heatmap plot.
+
+The Ghostscript software suite (>= version 9.26) is required to generate the heatmap file. Versions of Ghostscript < 9.26 introduce a layering error during heatmap generation. To determine if maps are being generated correctly, compare heatmaps of the `DRB1*26F~28E~30Y` motif (with filter_migrant = TRUE) against the examples in this vignette.
+
+Note: While the map legend identifies the highest frequency value, values in this range may not be represented on the map due to frequency averaging over neighboring populations.
 
 ```
 #color heatmap plot

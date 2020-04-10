@@ -2,7 +2,7 @@
 % Please edit documentation in R/checkMotif.R
 \name{checkMotif}
 \alias{checkMotif}
-\title{Syntactic and semantic validation of HLA amino acid motifs}
+\title{Syntactic and semantic validation of HLA amino acid motifs v1 28MAR2020}
 \usage{
 checkMotif(motif)
 }
@@ -20,7 +20,7 @@ For internal SSHAARP use only.
 }
 \examples{
 #Example where a motif is formatted correctly
-#checkMotif("DRB1*26F~28E~30Y")
+\donttest{checkMotif("DRB1*26F~28E~30Y")}
 
 #Example where format is incorrect
 \donttest{checkMotif("DRB1**26F~28E~30Y")}

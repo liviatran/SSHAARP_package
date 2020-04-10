@@ -4,7 +4,9 @@
 \name{AA_atlas}
 \alias{AA_atlas}
 \title{Exon boundaries for all exons in protein coding genes in the IPD-IMGT/HLA Database release v 3.39.0}
-\format{A list containing exon boundaries in a dataframe format for each locus.}
+\format{
+A list containing exon boundaries in a dataframe format for each locus.
+}
 \source{
 https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 }

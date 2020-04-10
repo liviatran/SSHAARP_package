@@ -1,4 +1,4 @@
-#'Solberg dataset manipulation
+#'Solberg dataset manipulation v1 28MAR2020
 #'
 #'Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 #'

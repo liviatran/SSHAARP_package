@@ -2,7 +2,7 @@
 % Please edit documentation in R/BLAASD.R
 \name{BLAASD}
 \alias{BLAASD}
-\title{BLAASD - Build Loci Amino Acid Specific Dataframe}
+\title{BLAASD - Build Loci Amino Acid Specific Dataframe v1 28MAR2020}
 \usage{
 BLAASD(loci)
 }
@@ -17,7 +17,7 @@ Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA
 }
 \examples{
 #BLAASD with one locus as input
-#BLAASD("C")
+\donttest{BLAASD("C")}
 
 #BLAASD with multiple loci as input
 \donttest{BLAASD(c("A", "B", "C"))}

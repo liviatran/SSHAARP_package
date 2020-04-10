@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataSubset.R
 \name{dataSubset}
 \alias{dataSubset}
-\title{Solberg dataset manipulation}
+\title{Solberg dataset manipulation v1 28MAR2020}
 \usage{
 dataSubset(motif, filename = SSHAARP::solberg_dataset)
 }

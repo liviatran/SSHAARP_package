@@ -1,43 +1,53 @@
-SSHAARP 1.0.0 (3/23/2019)
+SSHAARP 1.0.0 (4/7/2020)
+-----------------------------
+   * Used on.exit() to ensure the working directory is reset in PALM()
+   * Incorporated Windows specific arguments for PALM() moving written output to user specified directory
+   * Vignette changes
+
+SSHAARP 1.0.0 (3/25/2020)
+-----------------------------
+   * Added parameter to PALM() to allow the user to specify which directory the map should be written to. Default directory is the user's working directory
+
+SSHAARP 1.0.0 (3/23/2020)
 -----------------------------
    * Description changes
    * Adjusted PALM() to have temporary files stored in a temporary directory; final image is output in the user's initial working directory
 
 
-SSHAARP 1.0.0 (3/12/2019)
+SSHAARP 1.0.0 (3/12/2020)
 -----------------------------
    * Vignette changes
    * Additional documentation to PALM()
    * Changed some error messages in checkMotif() to warning messages
 
 
-SSHAARP 1.0.0 (3/9/2019)
+SSHAARP 1.0.0 (3/9/2020)
 -----------------------------
    * Fixed rounding issues in PALM()
    * CRAN submission fixes
    * Ouputs a message if max allele frequency is too small to generate an accurate map
 
-SSHAARP 1.0.0 (2/19/2019)
+SSHAARP 1.0.0 (2/19/2020)
 -----------------------------
    * Submission to CRAN
 
-SSHAARP 0.10.0.9000 (2/11/2019)
+SSHAARP 0.10.0.9000 (2/11/2020)
 -----------------------------
    * Adapted PALM() to work on Windows and Linux operating systems
    * Code additions to PALM() to detect whether GMT software is installed on the user's machine
    * Changes to vignette documentation
    * Updated IMGTprotalignments to IPD-IMGT/HLA Database V 3.39.0
 
-SSHAARP 0.9.4.9000 (2/3/2019)
+SSHAARP 0.9.4.9000 (2/3/2020)
 -----------------------------
    * Updated motif maps provided as examples in vignette
 
-SSHAARP 0.9.3.9000 (1/9/2019)
+SSHAARP 0.9.3.9000 (1/9/2020)
 -----------------------------
    * Revisions to PALM() to remove reshape2 package functions due to deprecation
    * Replaced previous reshape2 functionalities with the data.table package and custom code
 
-SSHAARP 0.9.2.9000 (1/7/2019)
+SSHAARP 0.9.2.9000 (1/7/2020)
 -----------------------------
    * Split DRB into DRB1, DRB3, DRB4, and DRB5 in IMGTprotalignments
    * Fixed lack of reference sequence for DRB3/4/5 in IMGTprotalignments
