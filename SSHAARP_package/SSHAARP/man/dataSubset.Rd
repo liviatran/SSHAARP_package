@@ -2,7 +2,7 @@
 % Please edit documentation in R/dataSubset.R
 \name{dataSubset}
 \alias{dataSubset}
-\title{Solberg dataset manipulation v1 28MAR2020}
+\title{Solberg dataset manipulation}
 \usage{
 dataSubset(motif, filename = SSHAARP::solberg_dataset)
 }
@@ -12,7 +12,7 @@ dataSubset(motif, filename = SSHAARP::solberg_dataset)
 \item{filename}{The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.}
 }
 \value{
-A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus.
+A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus. If a motif has formatting errors, a warning message is returned.
 }
 \description{
 Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).

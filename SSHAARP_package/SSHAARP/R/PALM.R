@@ -1,4 +1,5 @@
-#'Population Allele Locating Mapmaker v1 07APR2020
+## Population Allele Locating Mapmaker v1 16APR2020
+#'Population Allele Locating Mapmaker
 #'
 #'Produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset.
 #'
@@ -22,7 +23,7 @@
 #'@note While the map legend identifies the highest frequency value, values in this range may not be represented on the map due to frequency averaging over neighboring populations.
 #'@export
 #'
-#'@return A message with the motif and where it was ouput is returned. If the user enters a motif that is not found in the Solberg dataset, or that does not exist, an Error.message date frame containing the motif is returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. Otherwise, there is no return value, but the produced heatmap is written to the user's working directory as a .jpg file, where the filename is "'motif'.jpg".
+#'@return A message with the motif and where it was ouput is returned. If the user enters a motif that is not found in the Solberg dataset, or that does not exist, a warning message is returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. Otherwise, there is no return value, but the produced heatmap is written to the user's specified directory (default is user's working directory) as a .jpg file, where the filename is "'motif'.jpg".
 #'
 #'@examples
 #'#example to produce a color frequency heat map where migrant populations are filtered out
@@ -40,18 +41,18 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, direct=getwd(), color=T
 
   #checks if the directory user entered is valid
   if(dir.exists(direct)==FALSE){
-    return("The directory you specified does not exist. Please enter a valid directory to write your map to.")
+    return(warning("The directory you specified does not exist. Please enter a valid directory to write your map to."))
   }
 
   OS<-strsplit(sessionInfo()$running, " ")[[1]][[1]]
 
   #uses dataSubset to read and manipulate the Solberg dataset
-  solberg_DS<-dataSubset(motif, filename)
+  solberg_DS<-suppressWarnings(dataSubset(motif, filename))
 
   #if output of solberg_DS after dataSubset is not a dataframe, it is an error
   #return solberg_DS, which contains the error message
   if(is.data.frame(solberg_DS)==FALSE){
-    return(solberg_DS)
+    return(warning(solberg_DS))
   }
 
   #filters out migrant populations if filter_migrant==TRUE
@@ -65,12 +66,19 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, direct=getwd(), color=T
   if(filterMigrant==FALSE){
     solberg_DS<-solberg_DS}
 
+  fMresults<-suppressWarnings(findMotif(motif))
+
+  if(is.vector(fMresults)==TRUE){
+    return(warning(paste(motif, "No alleles possess this motif", sep =" : ")))
+  }
+
+  else{
   #makes an empty list named unique_AWM, where the name of each element is after a unique AWM,
   #which is acquired by using the motif_finder function
-  unique_AWM<-sapply(unique(findMotif(motif)$trimmed_allele), function(x) NULL)
+  unique_AWM<-sapply(unique(fMresults$trimmed_allele), function(x) NULL)}
 
   if(length(unique_AWM)==0){
-    return(data.frame("Motif"=motif, "Error message"="No alleles possess this motif"))
+    return(warning(paste(motif, "No alleles possess this motif", sep =" : ")))
   }
 
   #finds unique_AWMs in Solberg dataset and extracts the allele frequency and locus_allele column
@@ -81,7 +89,7 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, direct=getwd(), color=T
   unique_AWM<-unique_AWM[sapply(unique_AWM, nrow)>0]
 
   if(length(unique_AWM)==0){
-    return(data.frame("Motif"=motif, "Error message"="No alleles in the Solberg dataset possess this motif"))
+    return(warning(paste(motif, "No alleles possess this motif", sep =" : ")))
   }
 
   #melts dataframes in list into one big dataframe

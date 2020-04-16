@@ -3,7 +3,7 @@
 \docType{data}
 \name{solberg_dataset}
 \alias{solberg_dataset}
-\title{Solberg Dataset v1 28MAR2020}
+\title{Solberg Dataset}
 \format{
 A dataframe with 20163 rows and 13 columns.
 }

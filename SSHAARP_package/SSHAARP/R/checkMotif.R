@@ -1,10 +1,11 @@
-#'Syntactic and semantic validation of HLA amino acid motifs v1 28MAR2020
+###Syntactic and semantic validation of HLA amino acid motifs v1 16APR20
+#'Syntactic and semantic validation of HLA amino acid motifs
 #'
 #'Checks input motif for errors in format and amino acid positions not present in the locus alignment.
 #'
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
-#'@return An error message if the input motif is formatted incorrectly, or contains an amino acid position not present in the alignment. Otherwise, a list object with extracted locus information, a correctly formatted motif, and locus specific amino acid dataframe are returned.
+#'@return A warning message if the input motif is formatted incorrectly, or contains an amino acid position not present in the alignment. Otherwise, a list object with extracted locus information, a correctly formatted motif, and locus specific amino acid dataframe are returned.
 #'
 #'@importFrom stringr str_count
 #'@importFrom gtools mixedsort

@@ -1,4 +1,5 @@
-#' Solberg Dataset v1 28MAR2020
+## Solberg Dataset v1 16APR20
+#' Solberg Dataset
 #'
 #' A dataframe of the original Solberg dataset, which is a global dataset of 497 population samples from 185 published datasets, representing 66,800 individuals.
 #' For more information on the Solberg dataset, please see the vignette.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/BLAASD.R
 \name{BLAASD}
 \alias{BLAASD}
-\title{BLAASD - Build Loci Amino Acid Specific Dataframe v1 28MAR2020}
+\title{BLAASD - Build Loci Amino Acid Specific Dataframe}
 \usage{
 BLAASD(loci)
 }

@@ -1,4 +1,5 @@
-#'Solberg dataset manipulation v1 28MAR2020
+##Solberg dataset manipulation v1 16APR20
+#'Solberg dataset manipulation
 #'
 #'Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 #'
@@ -13,7 +14,7 @@
 #'@note The Solberg dataset is also prepackaged into SSHAARP as 'solberg_dataset'.
 #'@export
 #'
-#'@return A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus.
+#'@return A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus. If a motif has formatting errors, a warning message is returned.
 #'
 #'
 dataSubset<-function(motif, filename=SSHAARP::solberg_dataset){
@@ -23,11 +24,11 @@ dataSubset<-function(motif, filename=SSHAARP::solberg_dataset){
   } else {solberg_DS <- as.data.frame(read.delim(filename), stringsAsFactors=F)}
 
   #checks input motif for formatting errors
-  check_results<-checkMotif(motif)
+  check_results<-suppressWarnings(checkMotif(motif))
 
   #if length of check_results is an error, return the error
   if(length(check_results)<2){
-    return(check_results)
+    return(warning(check_results))
   }
 
   #makes a new column with locus and trimmed allele pasted together named locus_allele

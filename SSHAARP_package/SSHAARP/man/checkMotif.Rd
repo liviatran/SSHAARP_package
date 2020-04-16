@@ -2,7 +2,7 @@
 % Please edit documentation in R/checkMotif.R
 \name{checkMotif}
 \alias{checkMotif}
-\title{Syntactic and semantic validation of HLA amino acid motifs v1 28MAR2020}
+\title{Syntactic and semantic validation of HLA amino acid motifs}
 \usage{
 checkMotif(motif)
 }
@@ -10,7 +10,7 @@ checkMotif(motif)
 \item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
 }
 \value{
-An error message if the input motif is formatted incorrectly, or contains an amino acid position not present in the alignment. Otherwise, a list object with extracted locus information, a correctly formatted motif, and locus specific amino acid dataframe are returned.
+A warning message if the input motif is formatted incorrectly, or contains an amino acid position not present in the alignment. Otherwise, a list object with extracted locus information, a correctly formatted motif, and locus specific amino acid dataframe are returned.
 }
 \description{
 Checks input motif for errors in format and amino acid positions not present in the locus alignment.

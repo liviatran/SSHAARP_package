@@ -1,4 +1,5 @@
-#'BLAASD - Build Loci Amino Acid Specific Dataframe v1 28MAR2020
+##BLAASD - Build Loci Amino Acid Specific Dataframe v1 16APR20
+#'BLAASD - Build Loci Amino Acid Specific Dataframe
 #'
 #'Extracts alignment sequence information for a given locus from the ANHIG/IMGTHLA GitHub repository to produce a dataframe of individual amino acid data for each amino acid position for all alleles, for a user-defined HLA locus or loci. The first 4 columns are locus, allele, trimmed allele, and allele_name.
 #'
@@ -43,11 +44,6 @@ BLAASD<-function(loci){
     #finding where the alignment sequence starts
     #tryCatch() to ensure loci are input correctly
     alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/alignments/",paste(ifelse(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5","DRB",loci[[i]]),"_prot.txt",sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
-
-    #if an error or warning is returned into alignment, return error message
-    if(length(alignment[[loci[i]]])==1){
-      return(alignment[[loci[[i]]]])
-    }
 
     #alters alignment file by cutting out non-pertinent information in beginning
     #and endind of alignment file

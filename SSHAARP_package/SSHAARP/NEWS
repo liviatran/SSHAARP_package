@@ -1,3 +1,8 @@
+SSHAARP 1.0.0 (4/16/2020)
+-----------------------------
+   * All messages output to console can now be suppressed
+   * Vignette changes
+
 SSHAARP 1.0.0 (4/7/2020)
 -----------------------------
    * Used on.exit() to ensure the working directory is reset in PALM()

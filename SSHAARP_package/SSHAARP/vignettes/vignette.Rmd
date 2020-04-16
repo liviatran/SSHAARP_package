@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livia.tran@uscf.edu"
-date: "April 7, 2020"
+date: "April 16, 2020"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -59,13 +59,30 @@ findMotif() parses the provided amino-acid motif, which should be written as `lo
 10  F  N  G  T  E  R  V  R  L       .  L  E  R  C  I
 ```
 
-If a motif is not found, a dataframe with the motif in one column and an error message in another column is output:
+If a motif is not found, a warning message is output:
 ```
 >findMotif("DRB1*26F~28E~30Z")
 
-             Motif               Error.message
-1 DRB1*26F~28E~30Z No alleles match this motif
+DRB1*26F~28E~30Z : No alleles possess this motif
 ```
+
+If a motif has formatting errors, a warning message is output:
+```
+>findMotif("DRB1**27F)
+
+Warning message:
+In findMotif("DRB1**27F") :
+  Your motif is formatted incorrectly. Please use the Locus*##$~##$~##$ format, where ## identifies a peptide position, and $ identifies an amino acid residue.
+```
+
+If a motif contains an amino acid position not present in the 3.39.0 ANHIG/IMGTHLA alignments, a warning message is output:
+```
+> findMotif("DRB1*27999F")
+Warning message:
+In findMotif("DRB1*27999F") :
+  One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of ANHIG/IMGTHLA alignments.
+```
+
 
 ### PALM() 
 
@@ -98,9 +115,11 @@ knitr::include_graphics("basemap_bw.jpg")
 ```
   
 ```
-#if an amino acid motif is not found in the Solberg dataset, an error message is output
+#if an amino acid motif is not found in the Solberg dataset, a warning is output
 
 >PALM("DRB1*-25R~13S~16H~26Y~47Y~86V")
-                          Motif                                        Error.message DRB1*-25R~13S~16H~26Y~47Y~86V No alleles in the Solberg dataset possess this motif
+DRB1*-25R~13S~16H~26Y~47Y~86V : No alleles possess this motif
 ```
+
+
 

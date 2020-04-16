@@ -1,10 +1,11 @@
-#'Returns an alignment data frame of alleles that share a specific amino acid motif v1 28MAR2020
+##Returns an alignment data frame of alleles that share a specific amino acid motif v1 16APR20
+#'Returns an alignment data frame of alleles that share a specific amino acid motif
 #'
 #'Consumes the alignment data frame produced by BLAASD() and returns an alignment data frame of alleles that share a specific amino acid motif.
 #'
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
-#'@return An amino acid alignment dataframe of alleles that share the specified motif. If the motif is not found in any alleles, a data frame containing an error message is returned.
+#'@return An amino acid alignment dataframe of alleles that share the specified motif. If the motif is not found in any alleles, or the motif has formatting errors, a warning message is returned.
 #'
 #'@importFrom BIGDAWG GetField
 #'
@@ -22,19 +23,15 @@
 #'#extracting names of alleles with user-defined motif
 #'findMotif("DRB1*26F~28E~30Y")[,4]
 
-#library(gtools)
-#library(BIGDAWG)
-#library(stringr)
-
 findMotif<-function(motif){
 
   #check if input motif is formatted correctly or if amino acid position
   #is present in the alignment
-  check_results<-checkMotif(motif)
+  check_results<-suppressWarnings(checkMotif(motif))
 
   #if length of check_results is an error, return the error
   if(length(check_results)<2){
-    return(check_results)
+    return(warning(check_results))
   }
 
   #enters loci information from check_results
@@ -50,7 +47,7 @@ findMotif<-function(motif){
     HLAalignments <- HLAalignments[HLAalignments[substr(motifs[x],1,nchar(motifs[x])-1)]==substr(motifs[x],nchar(motifs[x]),nchar(motifs[x])),]
     if(nrow(HLAalignments)==0)
     {
-      return(data.frame("Motif"=motif, "Error message"="No alleles possess this motif"))
+      return(warning(paste(motif, "No alleles possess this motif", sep=": ")))
     }
   }
 
