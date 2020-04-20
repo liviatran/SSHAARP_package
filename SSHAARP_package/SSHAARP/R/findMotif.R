@@ -45,9 +45,10 @@ findMotif<-function(motif){
 
   for(x in 1:length(motifs)) {
     HLAalignments <- HLAalignments[HLAalignments[substr(motifs[x],1,nchar(motifs[x])-1)]==substr(motifs[x],nchar(motifs[x]),nchar(motifs[x])),]
+
     if(nrow(HLAalignments)==0)
     {
-      return(warning(paste(motif, "No alleles possess this motif", sep=": ")))
+      return(warning(paste(motif, "No alleles possess this motif", sep=" : ")))
     }
   }
 

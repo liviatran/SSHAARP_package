@@ -5,7 +5,7 @@
 #'
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
 #'
-#'@return A warning message if the input motif is formatted incorrectly, or contains an amino acid position not present in the alignment. Otherwise, a list object with extracted locus information, a correctly formatted motif, and locus specific amino acid dataframe are returned.
+#'@return A warning message if the input motif is formatted incorrectly, or contains an amino acid position not present in the alignment. Otherwise, a list object with extracted locus information, a correctly formatted motif, and locus specific amino acid dataframe are returned. Note checkMotif() does not check amino acid variants in a specified motif; that is done by findMotif().
 #'
 #'@importFrom stringr str_count
 #'@importFrom gtools mixedsort

@@ -24,7 +24,7 @@ PALM(
 \item{filterMigrant}{A logical parameter that determines if admixed populations (OTH) and migrant populations (i.e. any complexities with the 'mig') should be excluded from the dataset. The default option is TRUE.}
 }
 \value{
-A message with the motif and where it was ouput is returned. If the user enters a motif that is not found in the Solberg dataset, or that does not exist, a warning message is returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. Otherwise, there is no return value, but the produced heatmap is written to the user's specified directory (default is user's working directory) as a .jpg file, where the filename is "'motif'.jpg".
+The specified motif and the directory into which the heatmap was written are returned in an invisible character vector. If the user enters a motif that is not found in the Solberg dataset, or that does not exist, a warning message is returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. The produced heatmap is written to the user's specified directory (default is user's working directory) as a .jpg file, where the filename is "'motif'.jpg".
 }
 \description{
 Produces a frequency heatmap for a specified amino-acid motif, based on the allele frequency data in the Solberg dataset.

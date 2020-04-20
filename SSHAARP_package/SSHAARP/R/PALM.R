@@ -23,7 +23,7 @@
 #'@note While the map legend identifies the highest frequency value, values in this range may not be represented on the map due to frequency averaging over neighboring populations.
 #'@export
 #'
-#'@return A message with the motif and where it was ouput is returned. If the user enters a motif that is not found in the Solberg dataset, or that does not exist, a warning message is returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. Otherwise, there is no return value, but the produced heatmap is written to the user's specified directory (default is user's working directory) as a .jpg file, where the filename is "'motif'.jpg".
+#'@return The specified motif and the directory into which the heatmap was written are returned in an invisible character vector. If the user enters a motif that is not found in the Solberg dataset, or that does not exist, a warning message is returned. If an incorrectly formatted motif is entered, or the user does not have the GMT software installed on their operating system, a vector with a warning message is returned. The produced heatmap is written to the user's specified directory (default is user's working directory) as a .jpg file, where the filename is "'motif'.jpg".
 #'
 #'@examples
 #'#example to produce a color frequency heat map where migrant populations are filtered out
@@ -69,13 +69,13 @@ PALM<-function(motif, filename=SSHAARP::solberg_dataset, direct=getwd(), color=T
   fMresults<-suppressWarnings(findMotif(motif))
 
   if(is.vector(fMresults)==TRUE){
-    return(warning(paste(motif, "No alleles possess this motif", sep =" : ")))
+    return(warning(fMresults))
   }
 
   else{
-  #makes an empty list named unique_AWM, where the name of each element is after a unique AWM,
-  #which is acquired by using the motif_finder function
-  unique_AWM<-sapply(unique(fMresults$trimmed_allele), function(x) NULL)}
+    #makes an empty list named unique_AWM, where the name of each element is after a unique AWM,
+    #which is acquired by using the motif_finder function
+    unique_AWM<-sapply(unique(fMresults$trimmed_allele), function(x) NULL)}
 
   if(length(unique_AWM)==0){
     return(warning(paste(motif, "No alleles possess this motif", sep =" : ")))
