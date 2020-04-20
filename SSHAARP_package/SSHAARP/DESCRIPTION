@@ -1,6 +1,6 @@
 Package: SSHAARP
 Version: 1.0.0
-Date: 2020-04-16
+Date: 2020-04-20
 Title: Searching Shared HLA Amino Acid Residue Prevalence  
 Authors@R: 
     c(person("Livia", "Tran",
