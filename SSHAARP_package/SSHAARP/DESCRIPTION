@@ -1,7 +1,7 @@
 Package: SSHAARP
-Version: 1.0.0
-Date: 2020-04-20
-Title: Searching Shared HLA Amino Acid Residue Prevalence  
+Version: 1.0.1
+Date: 2020-10-08
+Title: Searching Shared HLA Amino Acid Residue Prevalence
 Authors@R: 
     c(person("Livia", "Tran",
     role = c("aut", "cre"),
@@ -17,8 +17,17 @@ Description: Processes amino acid alignments produced by the 'IPD-IMGT/HLA (Immu
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools, dplyr, sessioninfo, filesstrings
+Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools, dplyr,
+        sessioninfo, filesstrings
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 SystemRequirements: GMT (5 or 6), Ghostscript (>=9.6)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
+NeedsCompilation: no
+Packaged: 2020-10-08 20:36:02 UTC; tran.livia
+Author: Livia Tran [aut, cre],
+  Steven Mack [aut],
+  Josh Bredeweg [ctb],
+  Dale Steinhardt [ctb]
+Repository: CRAN
+Date/Publication: 2020-10-09 10:40:02 UTC

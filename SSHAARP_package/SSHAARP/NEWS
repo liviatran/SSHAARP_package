@@ -1,3 +1,7 @@
+SSHAARP 1.0.1 (10/08/2020)
+-----------------------------
+   * Resubmitted for unarchiving from CRAN
+
 SSHAARP 1.0.0 (4/16/2020)
 -----------------------------
    * All messages output to console can now be suppressed
