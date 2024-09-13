@@ -1,10 +1,10 @@
-##Solberg dataset manipulation v1 16APR20
-#'Solberg dataset manipulation
+##Dataset manipulation for motifs and alleles v 2.0.0 3JAN2022
+#'Dataset manipulation for motifs and alleles
 #'
-#'Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
+#'Returns a modified version of the user selected dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 #'
-#'@param filename The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.
-#'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
+#'@param variant An allele or an amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.
+#'@param filename The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the Solberg dataset.
 #'
 #'@importFrom utils read.delim
 #'@importFrom stringr str_extract
@@ -12,49 +12,57 @@
 #'@note For internal SSHAARP use only.
 #'@note The Solberg dataset is the tab-delimited ‘1-locus-alleles.dat’ text file in the results.zip archive at http://pypop.org/popdata/.
 #'@note The Solberg dataset is also prepackaged into SSHAARP as 'solberg_dataset'.
+#'
 #'@export
 #'
-#'@return A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus. If a motif has formatting errors, a warning message is returned.
-#'
-#'
-dataSubset<-function(motif, filename=SSHAARP::solberg_dataset){
+#'@return A data frame containing a reformatted version of the user selected dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus. Otherwise, a vector containing FALSE and an error message is returned.
 
-  if(is.data.frame(filename)) {
-    solberg_DS <- filename
-  } else {solberg_DS <- as.data.frame(read.delim(filename), stringsAsFactors=F)}
+dataSubset<-function(variant, filename){
 
-  #checks input motif for formatting errors
-  check_results<-suppressWarnings(checkMotif(motif))
+  dataset<-readFilename(filename)
 
-  #if length of check_results is an error, return the error
-  if(length(check_results)<2){
-    return(warning(check_results))
+  locusANHIG<-checkLocusANHIG(variant)
+
+  if(any(grepl(FALSE, locusANHIG[[1]]))==TRUE){
+    return(c(FALSE, locusANHIG[[2]]))
+  }
+
+  locusDS<-checkLocusDataset(variant, filename)
+
+  if(grepl(FALSE, locusDS[[1]])==TRUE){
+    return(c(FALSE, locusDS[[2]]))
+  }
+
+  #if locus is foundin ANHIG and in the dataset, extract locus information
+  if(grepl(TRUE, locusANHIG[[1]]) & grepl(TRUE, locusDS[[1]])){
+    locus<-getVariantInfo(variant)[[1]]
   }
 
   #makes a new column with locus and trimmed allele pasted together named locus_allele
-  solberg_DS$locus_allele<-paste(solberg_DS$locus, solberg_DS$allele_v3, sep="*")
+  dataset$locus_allele<-paste(dataset$locus, dataset$allele_v3, sep="*")
 
   #orders solberg-DS by population
-  solberg_DS<-solberg_DS[order(solberg_DS$popname),]
+  dataset<-dataset[order(dataset$popname),]
 
-  solberg_DS[,]<-sapply(solberg_DS[, ], as.character)
+  dataset[,]<-sapply(dataset[,], as.character)
 
-  #subsets the Solberg_DS to only the locus of interest
-  solberg_DS<-subset(solberg_DS, solberg_DS$locus==check_results[[1]])
+  #subsets the dataset to only the locus of interest
+  dataset<-dataset[dataset$locus == locus,]
 
-  if(any((grepl("S", solberg_DS$latit))==TRUE)){
-    solberg_DS$latit[which((grepl("S", solberg_DS$latit))==TRUE)]<-as.numeric(paste("-", str_extract(solberg_DS$latit[which((grepl("S", solberg_DS$latit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}
+  if(any((grepl("S", dataset$latit))==TRUE)){
+    dataset$latit[which((grepl("S", dataset$latit))==TRUE)]<-as.numeric(paste("-", str_extract(dataset$latit[which((grepl("S", dataset$latit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}
 
-  if(any((grepl("N", solberg_DS$latit))==TRUE)){
-    solberg_DS$latit[which((grepl("N", solberg_DS$latit))==TRUE)]<-as.numeric(str_extract(solberg_DS$latit[which((grepl("N", solberg_DS$latit))==TRUE)],"\\-*\\d+\\.*\\d*"))
+  if(any((grepl("N", dataset$latit))==TRUE)){
+    dataset$latit[which((grepl("N", dataset$latit))==TRUE)]<-as.numeric(str_extract(dataset$latit[which((grepl("N", dataset$latit))==TRUE)],"\\-*\\d+\\.*\\d*"))
   }
 
   #longitude conversions
-  if(any((grepl("W", solberg_DS$longit))==TRUE)){
-    solberg_DS$longit[which((grepl("W", solberg_DS$longit))==TRUE)]<-as.numeric(paste("-", str_extract(solberg_DS$longit[which((grepl("W", solberg_DS$longit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}
+  if(any((grepl("W", dataset$longit))==TRUE)){
+    dataset$longit[which((grepl("W", dataset$longit))==TRUE)]<-as.numeric(paste("-", str_extract(dataset$longit[which((grepl("W", dataset$longit))==TRUE)],"\\-*\\d+\\.*\\d*"), sep=""))}
 
-  if(any((grepl("E", solberg_DS$longit))==TRUE)){
-    solberg_DS$longit[which((grepl("E", solberg_DS$longit))==TRUE)]<-as.numeric(str_extract(solberg_DS$longit[which((grepl("E", solberg_DS$longit))==TRUE)],"\\-*\\d+\\.*\\d*"))
+  if(any((grepl("E", dataset$longit))==TRUE)){
+    dataset$longit[which((grepl("E", dataset$longit))==TRUE)]<-as.numeric(str_extract(dataset$longit[which((grepl("E", dataset$longit))==TRUE)],"\\-*\\d+\\.*\\d*"))
   }
 
-  return(solberg_DS)}
+  return(dataset)
+}

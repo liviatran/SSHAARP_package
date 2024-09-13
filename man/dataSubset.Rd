@@ -2,20 +2,20 @@
 % Please edit documentation in R/dataSubset.R
 \name{dataSubset}
 \alias{dataSubset}
-\title{Solberg dataset manipulation}
+\title{Dataset manipulation for motifs and alleles}
 \usage{
-dataSubset(motif, filename = SSHAARP::solberg_dataset)
+dataSubset(variant, filename)
 }
 \arguments{
-\item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
+\item{variant}{An allele or an amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
 
-\item{filename}{The filename of the local copy of the Solberg dataset - the defaulted filename is the solberg_dataset in the SSHAARP package.}
+\item{filename}{The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the Solberg dataset.}
 }
 \value{
-A data frame containing a reformatted version of the Solberg dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus. If a motif has formatting errors, a warning message is returned.
+A data frame containing a reformatted version of the user selected dataset, with rows ordered by population name, Cartesian coordinates in the latit and longit columns, and limited to populations with data for the specified locus. Otherwise, a vector containing FALSE and an error message is returned.
 }
 \description{
-Returns a modified version of the Solberg dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
+Returns a modified version of the user selected dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
 }
 \note{
 For internal SSHAARP use only.

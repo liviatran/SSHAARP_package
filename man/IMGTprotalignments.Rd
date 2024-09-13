@@ -3,17 +3,21 @@
 \docType{data}
 \name{IMGTprotalignments}
 \alias{IMGTprotalignments}
-\title{Protein alignments for all protein coding genes in the IPD-IMGT/HLA Database release v 3.39.0.}
+\title{Protein alignments for all protein coding genes in the IPD-IMGT/HLA Database release v 3.57.0}
 \format{
 A list containing protein alignments in a dataframe format for each locus.
 }
 \source{
 https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
+
+Robinson, J, Barker, DJ, Georgiou, X, Cooper, MA, Flicek, P, Marsh, SGE
+        The IPD-IMGT/HLA Database
+        Nucleic Acids Research (2020) 43:D948-D955
 }
 \usage{
 IMGTprotalignments
 }
 \description{
-A list object containing protein alignments for all protein coding genes in the IPD-IMGT/HLA Database release. Alignments were downloaded from the ANHIG/IMGTHLA Github respository.
+A list object containing protein alignments for all protein coding genes in the IPD-IMGT/HLA Database release. Alignments were downloaded from the ANHIG/IMGTHLA Github repository.
 }
 \keyword{datasets}

@@ -4,26 +4,28 @@
 \alias{findMotif}
 \title{Returns an alignment data frame of alleles that share a specific amino acid motif}
 \usage{
-findMotif(motif)
+findMotif(motif, filename)
 }
 \arguments{
 \item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids.}
+
+\item{filename}{The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the Solberg dataset.}
 }
 \value{
-An amino acid alignment dataframe of alleles that share the specified motif. If the motif is not found in any alleles, or the motif has formatting errors, a warning message is returned.
+An amino acid alignment dataframe of alleles that share the specified motif. Otherwise, a vector containing FALSE and an error message is returned.
 }
 \description{
-Consumes the alignment data frame produced by BLAASD() and returns an alignment data frame of alleles that share a specific amino acid motif.
+Returns an alignment data frame of alleles that share a specific amino acid motif.
 }
 \examples{
 
-#example with actual motif
-\donttest{findMotif("DRB1*26F~28E~30Y")}
-\donttest{("DRB1*26F~28E")}
+#example with existing motif
+\dontrun{findMotif("DRB1*26F~28E~30Y", filename=solberg_dataset)}
+\dontrun{findMotif("DRB1*26F~28E", filename=solberg_dataset)}
 
 #example with non-existent motif
-\donttest{findMotif("DRB1*26F~28E~30Z")}
+\dontrun{findMotif("DRB1*26F~28E~30Z", filename=solberg_dataset)}
 
 #extracting names of alleles with user-defined motif
-findMotif("DRB1*26F~28E~30Y")[,4]
+findMotif("DRB1*26F~28E~30Y", filename=solberg_dataset)[,4]
 }
