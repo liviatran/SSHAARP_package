@@ -1,3 +1,11 @@
+SSHAARP 1.0.1 (09/12/2024)
+-----------------------------
+  * Adjusted checkMotifSyntax() code to accommodate findMotif() for inDel positions
+  * Revised isNamePresent(), getVariantInfo(), checkLocusANHIG(), checkLocusDataset(), checkMotifSyntax(), checkAlleleSyntax(),             verifyAlleleANHIG(), dataSubset(), checkPosition(), findMotif(), PALM()
+  * Added verifyAlleleANHIGHaplo(), dataSubsetHaplo(), and readFilename()
+  *Revised documentation for all functions
+  *Updated solberg_dataset and IMGTprotalignments data objects
+
 SSHAARP 1.0.1 (10/08/2020)
 -----------------------------
    * Resubmitted for unarchiving from CRAN
