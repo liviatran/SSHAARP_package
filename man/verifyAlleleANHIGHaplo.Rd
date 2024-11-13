@@ -4,12 +4,14 @@
 \alias{verifyAlleleANHIGHaplo}
 \title{Verifies the alleles in entered haplotype are present in IMGTprotalignments}
 \usage{
-verifyAlleleANHIGHaplo(haplotype, filename)
+verifyAlleleANHIGHaplo(haplotype, filename, alignments)
 }
 \arguments{
 \item{haplotype}{A haplotype where allele names are written in the IPD-IMGT/HLA Database format, and have 1-4 fields. Alleles in haplotypes may be delimited by "-" or "~".}
 
 \item{filename}{The full file path of the user specified dataset if the user wishes to use their own file, or pre-bundled mock haplotype dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the mock haplotype dataset bundled with the package.}
+
+\item{alignments}{A list object of sub-lists of data frames of protein alignments for the HLA and HLA-region genes supported in the ANHIG/IMGTHLA GitHub Repository. Alignments will always be the most recent version IPD-IMGT/HLA Database version.}
 }
 \value{
 TRUE if all alleles in a haplotype are present in the IMGTprotalignment object. Otherwise, a vector containing FALSE and an error message is returned.

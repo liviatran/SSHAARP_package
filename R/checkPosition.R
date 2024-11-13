@@ -1,12 +1,14 @@
-#checkPosition v 2.0.0 3JAN2022
+#checkPosition v 2.0.2 2024OCT28
 #'Checks if amino acid positions in motif exist
 #'
 #'Checks if amino acid positions in the entered motif exist in IMGTprotalignments.
 #'
 #'@param motif An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids. This function ONLY checks if the entered amino acid positions exist in IMGTprotalignments.
 #'@param filename The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the Solberg dataset.
+#'@param alignments A list object of sub-lists of data frames of protein alignments for the HLA and HLA-region genes supported in the ANHIG/IMGTHLA GitHub Repository. Alignments will always be the most recent version IPD-IMGT/HLA Database version.
 #'
 #'@importFrom gtools mixedsort
+#'@importFrom utils data
 #'
 #'@note For internal SSHAARP use only.
 #'
@@ -16,12 +18,12 @@
 #'
 #'@examples
 #'#Example with existent amino acid positions
-#'checkPosition("DRB1*26F~28E", filename=SSHAARP::solberg_dataset)
+#'\dontrun{checkPosition("DRB1*26F~28E", filename=SSHAARP::solberg_dataset)}
 #'
 #'#Example with nonexistent amino acid positions
-#'checkPosition("DRB1*199999F", filename=SSHAARP::solberg_dataset)
+#'\dontrun{checkPosition("DRB1*199999F", filename=SSHAARP::solberg_dataset)}
 
-checkPosition<-function(motif, filename){
+checkPosition<-function(motif, filename, alignments){
 
   motifCheck<-checkMotifSyntax(motif, filename)
 
@@ -36,12 +38,10 @@ checkPosition<-function(motif, filename){
   #if they are not
   motifs <- mixedsort(motifs)
 
-  HLAalignments<-SSHAARP::IMGTprotalignments[[locus]]
-
   #examines if amino acid positions in the motif are present in the alignment
-  if(!all(substr(motifs,1,nchar(motifs)-1) %in% colnames(HLAalignments)[5:ncol(HLAalignments)])) {
+  if(!all(substr(motifs,1,nchar(motifs)-1) %in% colnames(alignments)[5:ncol(alignments)])) {
     return(c(FALSE, "One or more of your amino acid positions is not present in the alignment. Please make sure amino acid positions of interest are present in the current release of ANHIG/IMGTHLA alignments."))
   }
 
-    return(TRUE)
+  return(TRUE)
 }

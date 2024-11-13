@@ -1,4 +1,4 @@
-###checkLocusANHIG v2.0.0 15DEC2021
+###checkLocusANHIG v2.0.1 2024OCT7
 #'Check locus validity
 #'
 #'Checks if the locus in the entered variant is a protein-coding gene annotated by the IPD-IMGT/HLA Database
@@ -23,8 +23,7 @@
 checkLocusANHIG<-function(variant){
 
   locus <-getVariantInfo(variant)[[1]]
-
-  if(any((locus %in% names(SSHAARP::IMGTprotalignments))==FALSE)){
+  if(any((locus %in% c('A', 'B', 'C', 'DMA', 'DMB', 'DOA', 'DOB', 'DPA1', 'DPB1', 'DQA1', 'DQA2', 'DQB1', 'DRA', 'DRB1', 'DRB3', 'DRB4', 'DRB5', 'E', 'F', 'G', 'HFE', 'MICA', 'MICB', 'TAP1', 'TAP2'))==FALSE)){
       return(c(FALSE, paste(locus, "is not a valid locus.")))
   }
 

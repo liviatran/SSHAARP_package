@@ -1,10 +1,11 @@
-#verifyAlleleANHIGHaplo v 2.0.0 3JAN2022
+#verifyAlleleANHIGHaplo v 2.0.2 12NOV2024
 #'Verifies the alleles in entered haplotype are present in IMGTprotalignments
 #'
 #'Verifies the alleles in entered haplotype are present in IMGTprotalignments.
 #'
 #'@param haplotype A haplotype where allele names are written in the IPD-IMGT/HLA Database format, and have 1-4 fields. Alleles in haplotypes may be delimited by "-" or "~".
 #'@param filename The full file path of the user specified dataset if the user wishes to use their own file, or pre-bundled mock haplotype dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the mock haplotype dataset bundled with the package.
+#'@param alignments A list object of sub-lists of data frames of protein alignments for the HLA and HLA-region genes supported in the ANHIG/IMGTHLA GitHub Repository. Alignments will always be the most recent version IPD-IMGT/HLA Database version.
 #'
 #'@importFrom BIGDAWG GetField
 #'@importFrom purrr flatten
@@ -22,7 +23,7 @@
 #'#Example of a haplotype where an allele is not present in the IMGTprotalignment object
 #'\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:9999", filename=mock_haplotype_dataset)}
 
-verifyAlleleANHIGHaplo<-function(haplotype, filename){
+verifyAlleleANHIGHaplo<-function(haplotype, filename, alignments){
 
   alleles <- strsplit(haplotype, "-|~")[[1]]
 
@@ -32,7 +33,7 @@ verifyAlleleANHIGHaplo<-function(haplotype, filename){
   #allele
   for(i in 1:length(alleles)){
     #set variant type to haplotype for checkLocusDataset function
-    verifyAlleleCheck[[i]]<-list(verifyAlleleANHIG(alleles[[i]], filename))
+    verifyAlleleCheck[[i]]<-list(verifyAlleleANHIG(alleles[[i]], filename, alignments))
   }
 
   #if there are any FALSEs in verifyAlleleCheck, return error message

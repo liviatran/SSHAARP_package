@@ -4,12 +4,14 @@
 \alias{checkPosition}
 \title{Checks if amino acid positions in motif exist}
 \usage{
-checkPosition(motif, filename)
+checkPosition(motif, filename, alignments)
 }
 \arguments{
 \item{motif}{An amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids. This function ONLY checks if the entered amino acid positions exist in IMGTprotalignments.}
 
 \item{filename}{The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the Solberg dataset.}
+
+\item{alignments}{A list object of sub-lists of data frames of protein alignments for the HLA and HLA-region genes supported in the ANHIG/IMGTHLA GitHub Repository. Alignments will always be the most recent version IPD-IMGT/HLA Database version.}
 }
 \value{
 TRUE if all of the amino acid positions in a motif exist. Otherwise, a vector with FALSE and an error message is returned.
@@ -22,8 +24,8 @@ For internal SSHAARP use only.
 }
 \examples{
 #Example with existent amino acid positions
-checkPosition("DRB1*26F~28E", filename=SSHAARP::solberg_dataset)
+\dontrun{checkPosition("DRB1*26F~28E", filename=SSHAARP::solberg_dataset)}
 
 #Example with nonexistent amino acid positions
-checkPosition("DRB1*199999F", filename=SSHAARP::solberg_dataset)
+\dontrun{checkPosition("DRB1*199999F", filename=SSHAARP::solberg_dataset)}
 }

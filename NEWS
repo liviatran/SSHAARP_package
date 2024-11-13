@@ -1,3 +1,14 @@
+SSHAARP 2.0.2 (11/12/2024)
+-----------------------------
+  * cleaned up references to the HLAalignment object
+
+SSHAARP 2.0.1 (10/24/2024)
+-----------------------------
+  * vignette changes
+  * changed default resolution and documentation in PALM
+  * removed the IMGTprotalignments.rda object and replaced with one call to
+  buildAlignments in PALM
+
 SSHAARP 2.0.0 (09/12/2024)
 -----------------------------
   * Adjusted checkMotifSyntax() code to accommodate findMotif() for inDel positions
