@@ -24,8 +24,8 @@ For internal SSHAARP use only.
 }
 \examples{
 #Example of a haplotype where all alleles are present in the IMGTprotalignment object
-\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:01", filename=mock_haplotype_dataset)}
+\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:01", filename=SSHAARP::mock_haplotype_dataset)}
 
 #Example of a haplotype where an allele is not present in the IMGTprotalignment object
-\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:9999", filename=mock_haplotype_dataset)}
+\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:9999", filename=SSHAARP::mock_haplotype_dataset)}
 }

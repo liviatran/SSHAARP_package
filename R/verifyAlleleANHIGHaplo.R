@@ -1,4 +1,4 @@
-#verifyAlleleANHIGHaplo v 2.0.2 12NOV2024
+#verifyAlleleANHIGHaplo v 2.0.3 20NOV2024
 #'Verifies the alleles in entered haplotype are present in IMGTprotalignments
 #'
 #'Verifies the alleles in entered haplotype are present in IMGTprotalignments.
@@ -18,10 +18,10 @@
 #'
 #'@examples
 #'#Example of a haplotype where all alleles are present in the IMGTprotalignment object
-#'\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:01", filename=mock_haplotype_dataset)}
+#'\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:01", filename=SSHAARP::mock_haplotype_dataset)}
 #'
 #'#Example of a haplotype where an allele is not present in the IMGTprotalignment object
-#'\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:9999", filename=mock_haplotype_dataset)}
+#'\dontrun{verifyAlleleANHIGHaplo("DRB1*01:01~A*01:9999", filename=SSHAARP::mock_haplotype_dataset)}
 
 verifyAlleleANHIGHaplo<-function(haplotype, filename, alignments){
 

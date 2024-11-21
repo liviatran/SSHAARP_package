@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livia.tran@uscf.edu"
-date: "November 12, 2024"
+date: "November 20, 2024"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-* Package Version: 2.0.2
+* Package Version: 2.0.3
 
 ## Overview
 
@@ -122,12 +122,19 @@ Warning message:
 In PALM("TAP1*01:01", variantType = "allele", filename=SSHAARP::solberg_dataset) :
   TAP1 is a valid locus, but is not in the Solberg dataset
 
-#if an amino acid motif is not found in the Solberg dataset, a warning is output:
+#if an amino acid motif does not exist, a warning is output:
+>PALM('A*-24F', variantType = "motif", filename=SSHAARP::solberg_dataset)
+
+Warning message:
+In PALM("A*-24F", variantType = "motif", filename = SSHAARP::solberg_dataset) :
+  A*-24F: No alleles possess this motif
+  
+#if an amino acid motif exists but is not found in the Solberg dataset, a warning is output:
 >PALM("DRB1*-25R~13S~16H~26Y~47Y~86V", variantType="motif", filename=SSHAARP::solberg_dataset)
 
 Warning message:
 In PALM("DRB1*-25R~13S~16H~26Y~47Y~86V", variantType="motif", filename=SSHAARP::solberg_dataset) :
-  DRB1*-25R~13S~16H~26Y~47Y~86V : No alleles possess this motif
+  DRB1*-25R~13S~16H~26Y~47Y~86V: No alleles possess this motif
   
 #if an allele is not found in IMGTprotalignments, a warning is output:
 > PALM("DRB1*01999:01", variantType="allele",filename=SSHAARP::solberg_dataset)
@@ -141,6 +148,6 @@ In PALM("DRB1*01999:01", variantType = "allele", filename=SSHAARP::solberg_datas
 
 Warning message:
 In PALM("A*01:37", variantType = "allele", filename=SSHAARP::solberg_dataset) :
-  The allele entered is a valid allele, but is not present in the Solberg dataset.
+  The A*01:37 allele entered is a valid allele and exists in the IMGT protein alignments, but is not present in the Solberg dataset.
   
 ```

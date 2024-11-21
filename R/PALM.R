@@ -1,4 +1,4 @@
-## Population Allele Locating Mapmaker v 2.0.2 12NOV2024
+## Population Allele Locating Mapmaker v 2.0.3 20NOV2024
 #'Population Allele Locating Mapmaker
 #'
 #'Produces a frequency heatmap for a specified allele, amino-acid motif, or haplotype based on the allele frequency data in the Solberg dataset.
@@ -42,7 +42,7 @@
 #'\dontrun{PALM("DRB1*01:01", variantType="allele", mask = TRUE, color=FALSE, filterMigrant=FALSE, filename = SSHAARP::solberg_dataset)}
 #'
 #'#Example to produce a color allele frequency heat map with mapScale T, and where the allele has more than 2 fields
-#'\dontrun{PALM("DRB1*01:01:01", variantType="allele", filterMigrant=FALSE, mapScale=TRUE, filename = solberg_dataset)}
+#'\dontrun{PALM("DRB1*01:01:01", variantType="allele", filterMigrant=FALSE, mapScale=TRUE, filename = SSHAARP::solberg_dataset)}
 #'
 #'#Example to produce a color haplotype frequency heat map with all default parameters with the mock haplotype dataset
 #'\dontrun{PALM("DRB1*01:01~A*01:01", variantType = "haplotype", filename = SSHAARP::mock_haplotype_dataset)}
@@ -58,6 +58,11 @@ PALM<-function(variant, variantType, filename, mask=FALSE, color=TRUE, filterMig
   #checks if the directory user entered is valid
   if(dir.exists(direct)==FALSE){
     return(warning("The directory you specified does not exist. Please enter a valid destination directory for maps."))
+  }
+
+  fileCheck<-readFilename(filename, variant)
+  if(!is.data.frame(fileCheck)){
+    return(fileCheck)
   }
 
   OS<-strsplit(sessionInfo()$running, " ")[[1]][[1]]
@@ -156,7 +161,7 @@ PALM<-function(variant, variantType, filename, mask=FALSE, color=TRUE, filterMig
     unique_AWM<-unique_AWM[sapply(unique_AWM, nrow)>0]
 
     if(length(unique_AWM)==0){
-      return(warning(paste(variant, "No alleles in the user input dataset possess this motif", sep =" : ")))
+      return(warning(paste(variant, "No alleles in the user input dataset possess this motif", sep =": ")))
     }
 
     #melts dataframes in list into one big dataframe

@@ -68,7 +68,7 @@ While the map legend identifies the highest frequency value, values in this rang
 \dontrun{PALM("DRB1*01:01", variantType="allele", mask = TRUE, color=FALSE, filterMigrant=FALSE, filename = SSHAARP::solberg_dataset)}
 
 #Example to produce a color allele frequency heat map with mapScale T, and where the allele has more than 2 fields
-\dontrun{PALM("DRB1*01:01:01", variantType="allele", filterMigrant=FALSE, mapScale=TRUE, filename = solberg_dataset)}
+\dontrun{PALM("DRB1*01:01:01", variantType="allele", filterMigrant=FALSE, mapScale=TRUE, filename = SSHAARP::solberg_dataset)}
 
 #Example to produce a color haplotype frequency heat map with all default parameters with the mock haplotype dataset
 \dontrun{PALM("DRB1*01:01~A*01:01", variantType = "haplotype", filename = SSHAARP::mock_haplotype_dataset)}

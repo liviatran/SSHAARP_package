@@ -1,4 +1,4 @@
-#checkHaplotypeSyntax v2.0.0 15DEC21
+#checkHaplotypeSyntax v2.0.3 20NOV2024
 #'Check haplotype syntax
 #'
 #'Checks if alleles in a haplotype have correct syntax and an appropriate number of fields.
@@ -16,13 +16,11 @@
 #'
 #'@examples
 #'#Example where all alleles in entered haplotype have an appropriate number of fields and correct syntax
-#'\dontrun{checkHaplotypeSyntax("A*01:01~DRB1:01:01", filename=mock_haplotype_dataset)}
+#'\dontrun{checkHaplotypeSyntax("A*01:01~DRB1:01:01", filename=SSHAARP::mock_haplotype_dataset)}
 #'
 #'#Example where an allele in entered haplotype does not have an appropriate number of fields
-#'\dontrun{checkHaplotypeSyntax("A*01:01:01:01:01~DRB1*01:01", filename=mock_haplotype_dataset)}
+#'\dontrun{checkHaplotypeSyntax("A*01:01:01:01:01~DRB1*01:01", filename=SSHAARP::mock_haplotype_dataset)}
 #'
-#'#Example where syntax in an allele in entered haplotype is incorrect in a user provided dataset named "your_haplotype_dataset"
-#'\dontrun{checkHaplotypeSyntax("A*01:0~DRB1*01:01", filename="your_haplotype_dataset")}
 
 checkHaplotypeSyntax <- function(haplotype, filename){
 

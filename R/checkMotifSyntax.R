@@ -1,4 +1,4 @@
-#checkMotifSyntax v 2.0.0 15DEC2021
+#checkMotifSyntax v 2.0.3 20NOV2024
 #'Check motif syntax
 #'
 #'Checks if motif syntax is valid.
@@ -19,13 +19,10 @@
 #'@examples
 #'
 #'#Example with correct motif syntax where user specified dataset is the Solberg dataset
-#'checkMotifSyntax("DRB1*26F~28E~30Y", filename=solberg_dataset)
+#'checkMotifSyntax("DRB1*26F~28E~30Y", filename=SSHAARP::solberg_dataset)
 #'
 #'#Example with incorrect motif syntax where user specified dataset is the Solberg dataset
-#'checkMotifSyntax("DRB1****26F~28E", filename=solberg_dataset)
-#'
-#'#Example with correct motif syntax where user specified dataset is named "myfilename.dat"
-#'\dontrun{checkMotifSyntax("DRB1*26F~28E", filename="myfilename.dat")}
+#'checkMotifSyntax("DRB1****26F~28E", filename=SSHAARP::solberg_dataset)
 
 checkMotifSyntax<-function(motif, filename){
 

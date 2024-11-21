@@ -26,7 +26,4 @@ checkAlleleSyntax("A*01:01:01", filename=SSHAARP::solberg_dataset)
 
 #Example where allele has incorrect number of fields where user specified dataset is the Solberg dataset
 checkAlleleSyntax("A*01:01:01:01:01", filename=SSHAARP::solberg_dataset)
-
-#Example where allele has incorrect syntax where user specified dataset is named "myfilename.dat"
-\dontrun{checkAlleleSyntax("A*01:01:0:::", filename="myfilename.dat")}
 }

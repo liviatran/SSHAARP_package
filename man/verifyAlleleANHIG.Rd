@@ -24,8 +24,8 @@ For internal SSHAARP use only.
 }
 \examples{
 #Example of an allele that exists in the IMGTprotalignment object
-\dontrun{verifyAlleleANHIG("B*07:02:01:01", filename="your_haplotype_dataset")}
+\dontrun{verifyAlleleANHIG("B*07:02:01:01", filename=SSHAARP::solberg_dataset)}
 
 #Example of an allele that does not exist in the IMGTprotalignment object
-\dontrun{verifyAlleleANHIG("B*01:01:01", filename=solberg_dataset)}
+\dontrun{verifyAlleleANHIG("B*01:01:01", filename=SSHAARP::solberg_dataset)}
 }

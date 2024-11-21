@@ -1,4 +1,4 @@
-##Dataset manipulation for motifs and alleles v 2.0.0 3JAN2022
+##Dataset manipulation for motifs and alleles v 2.0.3 20NOV2024
 #'Dataset manipulation for motifs and alleles
 #'
 #'Returns a modified version of the user selected dataset that includes a column of locus*allele names, is sorted by by population name, and is reduced to the specified locus. Cardinal coordinates are converted to their Cartesian equivalents (i.e. 50S is converted to -50).
@@ -19,7 +19,7 @@
 
 dataSubset<-function(variant, filename){
 
-  dataset<-readFilename(filename)
+  dataset<-readFilename(filename, variant)
 
   locusANHIG<-checkLocusANHIG(variant)
 

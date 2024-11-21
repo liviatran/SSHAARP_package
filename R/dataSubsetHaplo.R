@@ -1,4 +1,4 @@
-##Dataset manipulation for haplotypes v 2.0.2 12NOV2024
+##Dataset manipulation for haplotypes v 2.0.3 20NOV2024
 #'Dataset manipulation for haplotypes
 #'
 #'Returns the user input dataset that contains the selected haplotype.
@@ -22,9 +22,7 @@ dataSubsetHaplo<-function(haplotype, filename, AFND, alignments){
 
   #if dataset is AFND dataset, divide frequency by 100
   if(AFND == TRUE){
-
     dataset$frequency<- dataset$frequency/100
-
   }
 
   alleleANHIGcheck<-verifyAlleleANHIGHaplo(haplotype, filename, alignments)

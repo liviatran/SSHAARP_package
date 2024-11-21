@@ -23,11 +23,8 @@ For internal SSHAARP use only.
 \examples{
 
 #Example with correct motif syntax where user specified dataset is the Solberg dataset
-checkMotifSyntax("DRB1*26F~28E~30Y", filename=solberg_dataset)
+checkMotifSyntax("DRB1*26F~28E~30Y", filename=SSHAARP::solberg_dataset)
 
 #Example with incorrect motif syntax where user specified dataset is the Solberg dataset
-checkMotifSyntax("DRB1****26F~28E", filename=solberg_dataset)
-
-#Example with correct motif syntax where user specified dataset is named "myfilename.dat"
-\dontrun{checkMotifSyntax("DRB1*26F~28E", filename="myfilename.dat")}
+checkMotifSyntax("DRB1****26F~28E", filename=SSHAARP::solberg_dataset)
 }

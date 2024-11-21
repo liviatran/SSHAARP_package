@@ -1,4 +1,4 @@
-#verifyAlleleANHIG v 2.0.2 2024OCT28
+#verifyAlleleANHIG v 2.0.3 2024NOV20
 #'Verifies the allele entered is present in the IMGT protein alignments
 #'
 #'Verifies the allele entered is present in IMGT protein alignments
@@ -19,10 +19,10 @@
 #'
 #'@examples
 #'#Example of an allele that exists in the IMGTprotalignment object
-#'\dontrun{verifyAlleleANHIG("B*07:02:01:01", filename="your_haplotype_dataset")}
+#'\dontrun{verifyAlleleANHIG("B*07:02:01:01", filename=SSHAARP::solberg_dataset)}
 #'
 #'#Example of an allele that does not exist in the IMGTprotalignment object
-#'\dontrun{verifyAlleleANHIG("B*01:01:01", filename=solberg_dataset)}
+#'\dontrun{verifyAlleleANHIG("B*01:01:01", filename=SSHAARP::solberg_dataset)}
 
 verifyAlleleANHIG<-function(allele, filename, alignments){
 

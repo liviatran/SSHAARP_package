@@ -1,9 +1,9 @@
-###checkLocusDataset v2.0.0 15DEC2021
+###checkLocusDataset v2.0.3 20NOV2024
 #'Check locus validity and if the locus is present in the user specified dataset
 #'
 #'Checks if the locus in the entered variant is a protein-coding gene annotated by the IPD-IMGT/HLA Database, and if it is in the user specified dataset.
 #'
-#'@param variant An amino acid motif or allele with an HLA locus name followed by an asterisk. This function ONLY evaluates if the locus in the entered variant is a protein-coding gene, AND if the locus is present in the user specified dataset.
+#'@param variant An allele or an amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids. Haplotypes must contain alleles that follow the aforementioned format, and may be delimited by "~" or "-".
 #'@param filename The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset or mock haplotype dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the datasets bundled with the package. Allele and motif datasets should follow the Solberg dataset format, and haplotype datasets should follow the SSHAARP haplotype mock data format.
 #'
 #'@importFrom tools file_ext
@@ -16,12 +16,9 @@
 #'
 #'@examples
 #'#Example of an allele with a locus that is a protein-coding gene annotated by the IPD-IMGT/HLA Database, but is not in the Solberg dataset
-#'checkLocusDataset("DMA*01:01:01:01", filename=solberg_dataset)
+#'checkLocusDataset("DMA*01:01:01:01", filename=SSHAARP::solberg_dataset)
 #'#[1] "FALSE"
 #'#[2] "DMA is a valid locus, but is not in the user selected dataset"
-#'
-#'#Example of an motif with a locus that is a protein-coding gene annotated by the IPD-IMGT/HLA Database, but is not in the user specified filename named "myfilename.dat"
-#'\dontrun{checkLocusDataset("DPB1*26F", filename="myfilename.dat")}
 
 checkLocusDataset<-function(variant, filename){
 
@@ -33,7 +30,7 @@ checkLocusDataset<-function(variant, filename){
     return(c(FALSE, locusANHIGcheck[[2]]))
   }
 
-  dataset<-readFilename(filename)
+  dataset<-readFilename(filename, variant)
 
   #if column name "haplotype" is not present in the column name of datasets,
   #then look at the locus column to evaluate whether the locus of the entered

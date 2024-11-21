@@ -1,4 +1,4 @@
-#checkAlleleSyntax v2.0.0 15DEC21
+#checkAlleleSyntax v2.0.3 18NOV2024
 #'Check allele syntax
 #'
 #'Checks if allele syntax is valid.
@@ -18,9 +18,6 @@
 #'
 #'#Example where allele has incorrect number of fields where user specified dataset is the Solberg dataset
 #'checkAlleleSyntax("A*01:01:01:01:01", filename=SSHAARP::solberg_dataset)
-#'
-#'#Example where allele has incorrect syntax where user specified dataset is named "myfilename.dat"
-#'\dontrun{checkAlleleSyntax("A*01:01:0:::", filename="myfilename.dat")}
 
 checkAlleleSyntax<-function(allele, filename){
 

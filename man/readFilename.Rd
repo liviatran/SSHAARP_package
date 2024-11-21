@@ -4,16 +4,18 @@
 \alias{readFilename}
 \title{Designates dataset by either reading in file the user has provided, or using the Solberg dataset or mock haplotype dataset}
 \usage{
-readFilename(filename)
+readFilename(filename, variant)
 }
 \arguments{
 \item{filename}{The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset or mock haplotype dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the datasets bundled with the package. Allele and motif datasets should follow the Solberg dataset format, and haplotype datasets should follow the SSHAARP haplotype mock data format.}
+
+\item{variant}{An allele or an amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids. Haplotypes must contain alleles that follow the aforementioned format, and may be delimited by "~" or "-".}
 }
 \value{
 A dataframe of the user specified dataset.
 }
 \description{
-Returns the user specified dataset, either by reading in the file the user has provided, or by using the Solberg dataset or mock haplotype dataset.
+Returns the user specified dataset, either by reading in the file the user has provided, or by using the Solberg dataset or mock haplotype dataset. If the user provides a dataset and the filename is not found, an error will be returned. If the user provided dataset does not have the same number of columns or the same column names as the reference datasets, an error message will be returned.
 }
 \note{
 For internal SSHAARP use only.

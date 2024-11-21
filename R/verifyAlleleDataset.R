@@ -1,4 +1,4 @@
-#verifyAlleleDataset v 2.0.2 12NOV2024
+#verifyAlleleDataset v 2.0.3 20NOV2024
 #'Verifies the allele entered is present in specified dataset
 #'
 #'Verifies the allele entered is present in the specified dataset.
@@ -17,10 +17,10 @@
 #'
 #'@examples
 #'#Example of a valid allele that is present in IMGT protein alignments, but not present in the Solberg dataset with more than two fields.
-#'\dontrun{verifyAlleleDataset("A*01:37:01", filename=solberg_dataset)}
+#'\dontrun{verifyAlleleDataset("A*01:37:01", filename=SSHAARP::solberg_dataset)}
 #'
 #'#Example of a valid allele that is present in IMGT protein alignments, but not present in the Solberg dataset with two fields.
-#'\dontrun{verifyAlleleDataset("A*01:36", filename=solberg_dataset)}
+#'\dontrun{verifyAlleleDataset("A*01:36", filename=SSHAARP::solberg_dataset)}
 
 verifyAlleleDataset<-function(allele, filename, alignments){
 

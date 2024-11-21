@@ -7,7 +7,7 @@
 checkLocusDataset(variant, filename)
 }
 \arguments{
-\item{variant}{An amino acid motif or allele with an HLA locus name followed by an asterisk. This function ONLY evaluates if the locus in the entered variant is a protein-coding gene, AND if the locus is present in the user specified dataset.}
+\item{variant}{An allele or an amino acid motif in the following format: Locus*##$~##$~##$, where ## identifies a peptide position, and $ identifies an amino acid residue. Motifs can include any number of amino acids. Haplotypes must contain alleles that follow the aforementioned format, and may be delimited by "~" or "-".}
 
 \item{filename}{The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset or mock haplotype dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the datasets bundled with the package. Allele and motif datasets should follow the Solberg dataset format, and haplotype datasets should follow the SSHAARP haplotype mock data format.}
 }
@@ -22,10 +22,7 @@ For internal SSHAARP use only.
 }
 \examples{
 #Example of an allele with a locus that is a protein-coding gene annotated by the IPD-IMGT/HLA Database, but is not in the Solberg dataset
-checkLocusDataset("DMA*01:01:01:01", filename=solberg_dataset)
+checkLocusDataset("DMA*01:01:01:01", filename=SSHAARP::solberg_dataset)
 #[1] "FALSE"
 #[2] "DMA is a valid locus, but is not in the user selected dataset"
-
-#Example of an motif with a locus that is a protein-coding gene annotated by the IPD-IMGT/HLA Database, but is not in the user specified filename named "myfilename.dat"
-\dontrun{checkLocusDataset("DPB1*26F", filename="myfilename.dat")}
 }

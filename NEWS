@@ -1,3 +1,9 @@
+SSHAARP 2.0.3 (11/20/2024)
+-----------------------------
+  * vignette changes
+  * added checks to readFilename to check if user provided dataset structure is the same as bundled datasets
+  * documentation + example revisions
+
 SSHAARP 2.0.2 (11/12/2024)
 -----------------------------
   * cleaned up references to the HLAalignment object
