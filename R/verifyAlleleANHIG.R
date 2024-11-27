@@ -1,4 +1,4 @@
-#verifyAlleleANHIG v 2.0.3 2024NOV20
+#verifyAlleleANHIG v 2.0.4 25NOV2024
 #'Verifies the allele entered is present in the IMGT protein alignments
 #'
 #'Verifies the allele entered is present in IMGT protein alignments
@@ -16,16 +16,8 @@
 #'@export
 #'
 #'@return TRUE if allele is present in the IMGTprotalignment object. Otherwise, a vector containing FALSE and an error message is returned.
-#'
-#'@examples
-#'#Example of an allele that exists in the IMGTprotalignment object
-#'\dontrun{verifyAlleleANHIG("B*07:02:01:01", filename=SSHAARP::solberg_dataset)}
-#'
-#'#Example of an allele that does not exist in the IMGTprotalignment object
-#'\dontrun{verifyAlleleANHIG("B*01:01:01", filename=SSHAARP::solberg_dataset)}
 
 verifyAlleleANHIG<-function(allele, filename, alignments){
-
 
   locus<-getVariantInfo(allele)[[1]]
 

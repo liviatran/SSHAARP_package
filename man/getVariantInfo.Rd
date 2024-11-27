@@ -18,10 +18,3 @@ Extracts locus and allele or motif information from variant.
 \note{
 For internal SSHAARP use only.
 }
-\examples{
-#Example of locus and motif extraction from a motif
-getVariantInfo("DRB1*26F~28E")
-
-#Example of locus and allele extraction from an allele
-getVariantInfo("A*01:01")
-}

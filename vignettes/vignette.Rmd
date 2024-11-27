@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livia.tran@uscf.edu"
-date: "November 20, 2024"
+date: "November 26, 2024"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-* Package Version: 2.0.3
+* Package Version: 2.0.4
 
 ## Overview
 

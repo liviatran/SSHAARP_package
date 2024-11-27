@@ -1,4 +1,4 @@
-### Locus and allele or motif extraction v2.0.0 3JAN2022
+### Locus and allele or motif extraction v2.0.4 26NOV2024
 #'Locus and allele or motif extraction for motifs, allele, or haplotype mapping
 #'
 #'Extracts locus and allele or motif information from variant.
@@ -10,13 +10,6 @@
 #'@export
 #'
 #'@return A list object with loci and allele or motif information.
-#'
-#'@examples
-#'#Example of locus and motif extraction from a motif
-#'getVariantInfo("DRB1*26F~28E")
-#'
-#'#Example of locus and allele extraction from an allele
-#'getVariantInfo("A*01:01")
 
 getVariantInfo<-function(variant){
 

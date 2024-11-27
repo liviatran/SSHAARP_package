@@ -1,4 +1,4 @@
-#checkPosition v 2.0.2 2024OCT28
+#checkPosition v 2.0.4 25NOV2024
 #'Checks if amino acid positions in motif exist
 #'
 #'Checks if amino acid positions in the entered motif exist in IMGTprotalignments.
@@ -15,13 +15,6 @@
 #'@export
 #'
 #'@return TRUE if all of the amino acid positions in a motif exist. Otherwise, a vector with FALSE and an error message is returned.
-#'
-#'@examples
-#'#Example with existent amino acid positions
-#'\dontrun{checkPosition("DRB1*26F~28E", filename=SSHAARP::solberg_dataset)}
-#'
-#'#Example with nonexistent amino acid positions
-#'\dontrun{checkPosition("DRB1*199999F", filename=SSHAARP::solberg_dataset)}
 
 checkPosition<-function(motif, filename, alignments){
 

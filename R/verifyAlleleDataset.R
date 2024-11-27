@@ -1,4 +1,4 @@
-#verifyAlleleDataset v 2.0.3 20NOV2024
+#verifyAlleleDataset v 2.0.4 25NOV2024
 #'Verifies the allele entered is present in specified dataset
 #'
 #'Verifies the allele entered is present in the specified dataset.
@@ -7,6 +7,8 @@
 #'@param filename The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the Solberg dataset.
 #'@param alignments A list object of sub-lists of data frames of protein alignments for the HLA and HLA-region genes supported in the ANHIG/IMGTHLA GitHub Repository. Alignments will always be the most recent version IPD-IMGT/HLA Database version.
 #'
+#'@note For internal SSHAARP use only.
+#'
 #'@importFrom BIGDAWG GetField
 #'@importFrom dplyr %>%
 #'@note For internal SSHAARP use only.
@@ -14,13 +16,6 @@
 #'@export
 #'
 #'@return TRUE if the allele is present in the specified data set, and the filtered allele dataset. If a user enters an allele with more than two fields and has selected the Solberg dataset as the data source, a message informing the user that the allele has been truncated is appended to the output. If an allele entered is valid, but is not present in the user provided dataset, a warning message is returned.
-#'
-#'@examples
-#'#Example of a valid allele that is present in IMGT protein alignments, but not present in the Solberg dataset with more than two fields.
-#'\dontrun{verifyAlleleDataset("A*01:37:01", filename=SSHAARP::solberg_dataset)}
-#'
-#'#Example of a valid allele that is present in IMGT protein alignments, but not present in the Solberg dataset with two fields.
-#'\dontrun{verifyAlleleDataset("A*01:36", filename=SSHAARP::solberg_dataset)}
 
 verifyAlleleDataset<-function(allele, filename, alignments){
 

@@ -1,4 +1,4 @@
-#isNamePresent v2.0.0 3JAN2022
+#isNamePresent v2.0.4 26NOV2024
 #'Checks if name portion of entered variant is present
 #'
 #'Checks if the name portion of the entered variant is present. Names consist of information following the locus and asterisk of the entered variant.
@@ -13,13 +13,6 @@
 #'@export
 #'
 #'@return TRUE if name is present. Otherwise, a vector with FALSE and an error message is returned.
-#'
-#'@examples
-#'#Example where name of allele is present
-#'isNamePresent("DRB1*01:01", "allele")
-#'
-#'#Example where name of allele is not present
-#'isNamePresent("DRB1*", "motif")
 
 isNamePresent<-function(variant, variantType){
 

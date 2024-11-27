@@ -20,10 +20,3 @@ Checks if allele syntax is valid.
 \note{
 For internal SSHAARP use only.
 }
-\examples{
-#Example where allele has correct number of fields where user specified dataset is the Solberg dataset
-checkAlleleSyntax("A*01:01:01", filename=SSHAARP::solberg_dataset)
-
-#Example where allele has incorrect number of fields where user specified dataset is the Solberg dataset
-checkAlleleSyntax("A*01:01:01:01:01", filename=SSHAARP::solberg_dataset)
-}

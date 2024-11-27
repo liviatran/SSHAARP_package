@@ -20,10 +20,3 @@ Checks if the name portion of the entered variant is present. Names consist of i
 \note{
 For internal SSHAARP use only.
 }
-\examples{
-#Example where name of allele is present
-isNamePresent("DRB1*01:01", "allele")
-
-#Example where name of allele is not present
-isNamePresent("DRB1*", "motif")
-}

@@ -20,9 +20,3 @@ Checks if the locus in the entered variant is a protein-coding gene annotated by
 \note{
 For internal SSHAARP use only.
 }
-\examples{
-#Example of an allele with a locus that is a protein-coding gene annotated by the IPD-IMGT/HLA Database, but is not in the Solberg dataset
-checkLocusDataset("DMA*01:01:01:01", filename=SSHAARP::solberg_dataset)
-#[1] "FALSE"
-#[2] "DMA is a valid locus, but is not in the user selected dataset"
-}

@@ -1,4 +1,4 @@
-##Dataset manipulation for haplotypes v 2.0.3 20NOV2024
+##Dataset manipulation for haplotypes v 2.0.4 25NOV2024
 #'Dataset manipulation for haplotypes
 #'
 #'Returns the user input dataset that contains the selected haplotype.

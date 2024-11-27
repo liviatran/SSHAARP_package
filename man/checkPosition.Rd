@@ -22,10 +22,3 @@ Checks if amino acid positions in the entered motif exist in IMGTprotalignments.
 \note{
 For internal SSHAARP use only.
 }
-\examples{
-#Example with existent amino acid positions
-\dontrun{checkPosition("DRB1*26F~28E", filename=SSHAARP::solberg_dataset)}
-
-#Example with nonexistent amino acid positions
-\dontrun{checkPosition("DRB1*199999F", filename=SSHAARP::solberg_dataset)}
-}

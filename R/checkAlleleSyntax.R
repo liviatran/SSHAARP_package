@@ -11,13 +11,6 @@
 #'@export
 #'
 #'@return TRUE if allele syntax is correct. Otherwise,a vector containing FALSE and an error message is returned.
-#'
-#'@examples
-#'#Example where allele has correct number of fields where user specified dataset is the Solberg dataset
-#'checkAlleleSyntax("A*01:01:01", filename=SSHAARP::solberg_dataset)
-#'
-#'#Example where allele has incorrect number of fields where user specified dataset is the Solberg dataset
-#'checkAlleleSyntax("A*01:01:01:01:01", filename=SSHAARP::solberg_dataset)
 
 checkAlleleSyntax<-function(allele, filename){
 

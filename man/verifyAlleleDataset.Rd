@@ -21,11 +21,6 @@ Verifies the allele entered is present in the specified dataset.
 }
 \note{
 For internal SSHAARP use only.
-}
-\examples{
-#Example of a valid allele that is present in IMGT protein alignments, but not present in the Solberg dataset with more than two fields.
-\dontrun{verifyAlleleDataset("A*01:37:01", filename=SSHAARP::solberg_dataset)}
 
-#Example of a valid allele that is present in IMGT protein alignments, but not present in the Solberg dataset with two fields.
-\dontrun{verifyAlleleDataset("A*01:36", filename=SSHAARP::solberg_dataset)}
+For internal SSHAARP use only.
 }

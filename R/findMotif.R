@@ -1,4 +1,4 @@
-##findMotif v2.0.0 3JAN2022
+##findMotif v 2.0.4 25NOV2024
 #'Returns an alignment data frame of alleles that share a specific amino acid motif
 #'
 #'Returns an alignment data frame of alleles that share a specific amino acid motif.
@@ -10,18 +10,6 @@
 #'@return An amino acid alignment dataframe of alleles that share the specified motif. Otherwise, a vector containing FALSE and an error message is returned.
 #'
 #'@export
-#'
-#'@examples
-#'
-#'#example with existing motif
-#' \dontrun{findMotif("DRB1*26F~28E~30Y", filename=solberg_dataset)}
-#' \dontrun{findMotif("DRB1*26F~28E", filename=solberg_dataset)}
-#'
-#'#example with non-existent motif
-#'\dontrun{findMotif("DRB1*26F~28E~30Z", filename=solberg_dataset)}
-#'
-#'#extracting names of alleles with user-defined motif
-#'\dontrun{findMotif("DRB1*26F~28E~30Y", filename=solberg_dataset)}
 
 findMotif<-function(motif, filename, alignments){
 

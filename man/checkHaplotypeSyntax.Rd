@@ -20,11 +20,3 @@ Checks if alleles in a haplotype have correct syntax and an appropriate number o
 \note{
 For internal SSHAARP use only.
 }
-\examples{
-#Example where all alleles in entered haplotype have an appropriate number of fields and correct syntax
-\dontrun{checkHaplotypeSyntax("A*01:01~DRB1:01:01", filename=SSHAARP::mock_haplotype_dataset)}
-
-#Example where an allele in entered haplotype does not have an appropriate number of fields
-\dontrun{checkHaplotypeSyntax("A*01:01:01:01:01~DRB1*01:01", filename=SSHAARP::mock_haplotype_dataset)}
-
-}

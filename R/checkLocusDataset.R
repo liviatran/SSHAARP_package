@@ -1,4 +1,4 @@
-###checkLocusDataset v2.0.3 20NOV2024
+###checkLocusDataset v2.0.4 26NOV2024
 #'Check locus validity and if the locus is present in the user specified dataset
 #'
 #'Checks if the locus in the entered variant is a protein-coding gene annotated by the IPD-IMGT/HLA Database, and if it is in the user specified dataset.
@@ -13,12 +13,6 @@
 #'@export
 #'
 #'@return TRUE if locus is a protein-coding gene and is in the specified dataset. Otherwise, a vector with FALSE and an error message is returned.
-#'
-#'@examples
-#'#Example of an allele with a locus that is a protein-coding gene annotated by the IPD-IMGT/HLA Database, but is not in the Solberg dataset
-#'checkLocusDataset("DMA*01:01:01:01", filename=SSHAARP::solberg_dataset)
-#'#[1] "FALSE"
-#'#[2] "DMA is a valid locus, but is not in the user selected dataset"
 
 checkLocusDataset<-function(variant, filename){
 
