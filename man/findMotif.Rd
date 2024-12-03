@@ -19,3 +19,6 @@ An amino acid alignment dataframe of alleles that share the specified motif. Oth
 \description{
 Returns an alignment data frame of alleles that share a specific amino acid motif.
 }
+\note{
+For internal SSHAARP use only.
+}

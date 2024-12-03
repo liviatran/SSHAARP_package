@@ -21,6 +21,4 @@ Verifies the allele entered is present in the specified dataset.
 }
 \note{
 For internal SSHAARP use only.
-
-For internal SSHAARP use only.
 }
