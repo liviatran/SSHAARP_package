@@ -1,7 +1,7 @@
 ---
 title: "SSHAARP: Searching Shared HLA Amino Acid Residue Prevalence"
 author: "Livia Tran - livia.tran@uscf.edu"
-date: "December 2, 2024"
+date: "December 10, 2024"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SSHAARP Vignette}
@@ -12,7 +12,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-* Package Version: 2.0.4
+* Package Version: 2.0.5
 
 ## Overview
 
@@ -61,35 +61,17 @@ The Ghostscript software suite (>= version 9.26) is required to generate the hea
 Note: While the map legend identifies the highest frequency value, values in this range may not be represented on the map due to frequency averaging over neighboring populations.
 
 ```
-#color motif heatmap plot with masking ON
->PALM("DRB1*26F~28E~30Y", variantType="motif", filename=SSHAARP::solberg_dataset)
+#color motif heatmap plot with masking OFF
+>PALM("DRB1*26F~28E~30Y", variantType="motif", filename=SSHAARP::solberg_dataset, resolution = 480)
 ```
 
 ```{r, out.width='100%', fig.align='center', fig.cap='...', , echo=FALSE}
 knitr::include_graphics("basemap_color.jpg")
 ```
-  
-```
-#greyscale motif heatmap plot with masking ON
->PALM("DRB1*26F~28E~30Y", mask = T, color=FALSE, variantType="motif", filename=SSHAARP::solberg_dataset)
-```
-
-```{r, out.width='100%', fig.align='center', fig.cap='...', echo=FALSE}
-knitr::include_graphics("basemap_bw.jpg")
-```
-
-```
-#color allele heatmap plot with masking OFF
-> PALM("DRB1*01:01", variantType="allele", filename=SSHAARP::solberg_dataset)
-```
-
-```{r, out.width='100%', fig.align='center', fig.cap='...', echo=FALSE}
-knitr::include_graphics("allele_color.jpg")
-```
 
 ```
 #greyscale allele heatmap plot with masking OFF
-> PALM("DRB1*01:01", variantType="allele", color=F, filename=SSHAARP::solberg_dataset)
+> PALM("DRB1*01:01", variantType="allele", color=F, mask = T, filename=SSHAARP::solberg_dataset, resolution = 480)
 ```
 
 ```{r, out.width='100%', fig.align='center', fig.cap='...', echo=FALSE}
@@ -98,20 +80,11 @@ knitr::include_graphics("allele_bw.jpg")
 
 ```
 #color haplotype heatmap plot with masking OFF with bundled mock haplotype dataset
-PALM("A*01:01~DRB1*01:01", variantType="haplotype", filename=SSHAARP::mock_haplotype_dataset, color = TRUE)
+PALM("A*01:01~DRB1*01:01", variantType="haplotype", filename=SSHAARP::mock_haplotype_dataset, color = TRUE, resolution = 480)
 ```
 
 ```{r, out.width='100%', fig.align='center', fig.cap='...', echo=FALSE}
 knitr::include_graphics("haplo_color.jpg")
-```
-
-```
-#greyscale haplotype heatmap plot with masking OFF with bundled mock haplotype dataset
-PALM("A*01:01~DRB1*01:01", variantType="haplotype", filename=SSHAARP::mock_haplotype_dataset, color = FALSE)
-```
-
-```{r, out.width='100%', fig.align='center', fig.cap='...', echo=FALSE}
-knitr::include_graphics("haplo_bw.jpg")
 ```
 
 ```

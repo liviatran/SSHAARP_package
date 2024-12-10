@@ -61,17 +61,31 @@ A mock haplotype dataset modeled after the AFND network's haplotype dataset stru
 While the map legend identifies the highest frequency value, values in this range may not be represented on the map due to frequency averaging over neighboring populations.
 }
 \examples{
-#Example to produce a motif color frequency heat map where migrant populations are filtered out, mask is off
-\dontrun{PALM("DRB1*26F~28E~30Y", variantType="motif", mask = FALSE, filterMigrant=TRUE, filename = SSHAARP::solberg_dataset)}
+#Example to produce a motif color map where migrant populations are filtered out, mask is off
+\dontrun{PALM("DRB1*26F~28E~30Y",
+variantType="motif",
+mask = FALSE,
+filterMigrant=TRUE,
+filename = SSHAARP::solberg_dataset)}
 
-#Example to produce an allele greyscale heat map where migrant populations are not filtered, mask is on
-\dontrun{PALM("DRB1*01:01", variantType="allele", mask = TRUE, color=FALSE, filterMigrant=FALSE, filename = SSHAARP::solberg_dataset)}
+#Example to produce an allele greyscale map where migrant populations are not filtered, mask is on
+\dontrun{PALM("DRB1*01:01",
+variantType="allele",
+mask = TRUE, color=FALSE,
+filterMigrant=FALSE,
+filename = SSHAARP::solberg_dataset)}
 
-#Example to produce a color allele frequency heat map with mapScale T, and where the allele has more than 2 fields
-\dontrun{PALM("DRB1*01:01:01", variantType="allele", filterMigrant=FALSE, mapScale=TRUE, filename = SSHAARP::solberg_dataset)}
+#Example to produce a color allele map with mapScale T and the allele has more than 2 fields
+\dontrun{PALM("DRB1*01:01:01",
+variantType="allele",
+filterMigrant=FALSE,
+mapScale=TRUE,
+filename = SSHAARP::solberg_dataset)}
 
-#Example to produce a color haplotype frequency heat map with all default parameters with the mock haplotype dataset
-\dontrun{PALM("DRB1*01:01~A*01:01", variantType = "haplotype", filename = SSHAARP::mock_haplotype_dataset)}
+#Example to produce a color haplotype map with default parameters with the mock haplotype dataset
+\dontrun{PALM("DRB1*01:01~A*01:01",
+variantType = "haplotype",
+filename = SSHAARP::mock_haplotype_dataset)}
 
 }
 \references{
