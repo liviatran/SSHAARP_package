@@ -1,6 +1,6 @@
 Package: SSHAARP
-Version: 2.0.5
-Date: 2024-12-10
+Version: 2.0.6
+Date: 2025-06-09
 Title: Searching Shared HLA Amino Acid Residue Prevalence
 Authors@R: 
     c(person("Livia", "Tran",
@@ -17,7 +17,7 @@ Description: Processes amino acid alignments produced by the 'IPD-IMGT/HLA (Immu
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-Imports: data.table, stringr, gtools, BIGDAWG, gmt, DescTools, dplyr,
+Imports: data.table, stringr, gtools, gmt, DescTools, dplyr,
         utils, filesstrings, purrr, stringi, HLAtools
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

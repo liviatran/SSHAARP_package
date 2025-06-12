@@ -1,3 +1,12 @@
+SSHAARP 2.0.6 (6/9/2025)
+-----------------------------
+  * Replaced usage of BIGDAWG::GetField() with HLAtools::getField() in verifyAlleleDataset()
+  and PALM(). The 'append' parameter in HLAtools::getField is set to TRUE, so that when two-field
+  or longer allele names with expression-variant suffixes are provided, the suffix will be
+  appended to the returned allele name
+  * Changed DQB1*02:03 to DQB1*02:180 (renamed in November 2020) and C*03:12 to C*03:307 (renamed in October 2015) in the Solberg dataset
+  * Added the null (N) expression variant to the A*26:11, B*51:27, B*13:07, B*51:44, and DPB1*61:01 alleles in the Solberg dataset
+
 SSHAARP 2.0.5 (12/10/2024)
 -----------------------------
   * Fixed width error in PALM documentation

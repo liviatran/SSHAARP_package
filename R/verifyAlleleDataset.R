@@ -1,4 +1,4 @@
-#verifyAlleleDataset v 2.0.4 25NOV2024
+#verifyAlleleDataset v 2.0.6 08JUN2025
 #'Verifies the allele entered is present in specified dataset
 #'
 #'Verifies the allele entered is present in the specified dataset.
@@ -7,7 +7,7 @@
 #'@param filename The full file path of the user specified dataset if the user wishes to use their own file, or the pre-bundled Solberg dataset. User provided datasets must be a .dat, .txt, or.csv file, and must conform to the structure and format of the Solberg dataset.
 #'@param alignments A list object of sub-lists of data frames of protein alignments for the HLA and HLA-region genes supported in the ANHIG/IMGTHLA GitHub Repository. Alignments will always be the most recent version IPD-IMGT/HLA Database version.
 #'
-#'@importFrom BIGDAWG GetField
+#'@importFrom HLAtools getField
 #'@importFrom dplyr %>%
 #'@note For internal SSHAARP use only.
 #'
@@ -49,7 +49,7 @@ verifyAlleleDataset<-function(allele, filename, alignments){
     #if allele entered has more than two fields, truncate
     if(length(strsplit(strsplit(allele, "*", fixed=T)[[1]][2], ":")[[1]]) > 2){
       endMess<-paste("The specified allele name for", allele, "was truncated to two fields, since the Solberg dataset, which only includes two field alleles, was selected as a data source.")
-      allele<-GetField(allele, Res=2)
+      allele<-getField(allele, 2, TRUE)
   }
 
   filteredAllele<-datasetAlleles[datasetAlleles$locus_allele %in% allele,]
