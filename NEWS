@@ -1,3 +1,7 @@
+SSHAARP 2.0.7 (6/11/2025)
+-----------------------------
+  * Added validateVariantType() to PALM() to check if the value entered for the `variantType` parameter is valid
+
 SSHAARP 2.0.6 (6/9/2025)
 -----------------------------
   * Replaced usage of BIGDAWG::GetField() with HLAtools::getField() in verifyAlleleDataset()

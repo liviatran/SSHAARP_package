@@ -1,4 +1,4 @@
-## Population Allele Locating Mapmaker v 2.0.3 20NOV2024
+## Population Allele Locating Mapmaker v 2.0.7 2025JUNE11
 #'Population Allele Locating Mapmaker
 #'
 #'Produces a frequency heatmap for a specified allele, amino-acid motif, or haplotype based on the allele frequency data in the Solberg dataset.
@@ -66,6 +66,12 @@
 #'
 
 PALM<-function(variant, variantType, filename, mask=FALSE, color=TRUE, filterMigrant = TRUE, mapScale = TRUE, direct= getwd(), AFND=TRUE, generateLowFreq = TRUE, resolution = 500){
+
+  vTBool<-validateVariantType(variantType)
+
+  if(!vTBool){
+    return(warning("The entered value for the 'variantType' parameter is not valid. Please enter a valid value."))
+  }
 
   wd <- getwd()
   on.exit(setwd(wd))
