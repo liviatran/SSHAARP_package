@@ -1,3 +1,7 @@
+SSHAARP 2.0.8 (6/12/2025)
+-----------------------------
+  * Changed 'allele_v2' from '0501/0502' to '0501' and 'allele_v3' from '05:01/05:09' to '05:01' for HLA-C for the Lebanese_2006 population in the Solberg dataset
+
 SSHAARP 2.0.7 (6/11/2025)
 -----------------------------
   * Added validateVariantType() to PALM() to check if the value entered for the `variantType` parameter is valid
